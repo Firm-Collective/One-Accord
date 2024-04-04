@@ -10,5 +10,12 @@ export default async function PrivatePage() {
     redirect('/');
   }
 
-  return <p>Hello {data.user.email}</p>;
+  return (
+    <div className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
+      <h1
+        className='text-2xl font-bold leading-9 tracking-tight text-gray-900'
+      >Welcome back, {data.user.email}</h1>
+      <button >Sign out</button>
+    </div>
+  );
 }
