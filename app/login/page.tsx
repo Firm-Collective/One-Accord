@@ -1,9 +1,14 @@
 'use client'
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from 'react-query';
+import Image from 'next/image';
+import Button from '@/components/button';
+import Input from '@/components/input';
+import axios from 'axios';
 
-type Inputs = {
+type FormValues = {
   email: string;
   password: string;
 };
@@ -18,66 +23,62 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>({
+  } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = handleSubmit((data) => {
-    try {
-      schema.parse(data);
-      // Call your login function here if validation passes
-      console.log('Form data:', data);
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  const loginMutation = useMutation({
+    mutationFn: (loginData: FormValues) => {
+      return axios.post('/api/auth/login', loginData)
+    },
+  })
+
+ const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
+  console.log('data', data);
+    loginMutation.mutate(data);
+ }
+
+
+
 
   return (
-    <div className='bg-white flex min-h-screen flex-col items-center p-24'>
-      <form onSubmit={onSubmit} className='space-y-6'>
-        <div>
-          <label htmlFor='email' className='block text-sm font-medium leading-6 text-gray-900'>
-            Email address
-          </label>
-          <div className='mt-2'>
-            <input
-              id='email'
-              type='email'
-              autoComplete='email'
-              required
-              {...register('email')}
-              className='block w-full focus:outline-none rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-[#FC6881] sm:text-sm sm:leading-6'
-            />
-          </div>
+    <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
+      <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+          <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
+          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+            Sign in to your account
+          </h2>
         </div>
+        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+          <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <div className='mt-2'>
+                <Input label='Email address' name='email' register={{ ...register('email') }} />
+              </div>
+              {errors.email && <p className='text-red-500 text-sm'>{errors.email.message}</p>}
+            </div>
 
-        {errors.email && <span className='text-red-500'>Invalid email format</span>}
-
-        <div>
-          <label htmlFor='password' className='block text-sm font-medium leading-6 text-gray-900'>
-            Password
-          </label>
-          <div className='mt-2'>
-            <input
-              id='password'
-              type='password'
-              autoComplete='current-password'
-              required
-              {...register('password')}
-              className='block focus:outline-none w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-[#FC6881] focus:ring-inset sm:text-sm sm:leading-6'
-            />
-          </div>
+            <div>
+              <div className='flex items-center justify-between'></div>
+              <div className='mt-2'>
+                {/* <Input label='Password' type='password' {...register('password')} /> */}
+                <Input label='Password' name='password' type='password' register={{ ...register('password') }} />
+                {errors.password && <p className='text-red-500 text-sm'>{errors.password.message}</p>}
+              </div>
+            </div>
+            {loginMutation.isError && <p className='text-red-500 text-sm'>An error occurred during login.</p>}
+            <div>
+              <Button
+                variant='primary'
+                text={loginMutation.isLoading ? 'Signing in...' : 'Sign in'}
+                disabled={loginMutation.isLoading}
+                type='submit'
+              />
+            </div>
+          </form>
         </div>
-
-        {errors.password && <span className='text-red-500'>Password must be at least 8 characters long</span>}
-
-        <button
-          type='submit'
-          className='flex w-full hover:scale-105 justify-center rounded-md bg-[#FC6881] px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
-        >
-          Sign in
-        </button>
-      </form>
-    </div>
+      </div>
+    </main>
   );
 }

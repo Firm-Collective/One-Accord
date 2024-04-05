@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { customColors } from "./utils/colors";
 
 const config: Config = {
   content: [
@@ -8,6 +9,7 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: customColors,
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":

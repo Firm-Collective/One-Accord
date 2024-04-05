@@ -6,21 +6,14 @@
  */
 
 
-export const colors = {
-  oneAccordRed: "bg-red-300",
-  oneAccordBlue: "bg-blue-300",
-  oneAccordGreen: "bg-green-300",
-  // Add more colors as needed
-};
+export const customColors = {
+  oneAccord: {
+  primary: "#FC6881",
+  blue: "blue-300",
+  green: "green-300",
+  }
+}
 
 
 
-/**
- * The exported type allows us to use the colors in a type-safe way.
- * for example, we can use the colors in a function like this:
- *  function getOneAccordColor(color: OneAccordColors) {
- *   return colors[color];
- * }
- */
 
-export type OneAccordColors = keyof typeof colors;
