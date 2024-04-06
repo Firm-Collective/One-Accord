@@ -2,6 +2,13 @@ import { type NextRequest } from 'next/server'
 import { updateSession } from './utils/supabase/middleware'
 
 export async function middleware(request: NextRequest) {
+  console.log('middleware ran!')
+  const currentUser = request.cookies.get('sb-xwaaedxcebzucapumzsm-auth-token')?.value
+ 
+  if (!currentUser && !request.nextUrl.pathname.startsWith('/login')) {
+    return Response.redirect(new URL('/login', request.url))
+  }
+
   return await updateSession(request)
 }
 

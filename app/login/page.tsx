@@ -29,14 +29,23 @@ export default function LoginPage() {
 
   const loginMutation = useMutation({
     mutationFn: (loginData: FormValues) => {
-      return axios.post('/api/auth/login', loginData)
+      return axios.post('/api/auth/login', loginData);
     },
-  })
+    onSuccess: () => {
+      // Handle successful login, such as redirecting to another page
+      console.log('Login successful');
+    },
+    onError: (error: any) => {
+      // Handle login error
+      console.error('Login error:', error);
+    },
+  });
 
  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
   console.log('data', data);
     loginMutation.mutate(data);
  }
+
 
 
 
