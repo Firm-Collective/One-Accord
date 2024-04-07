@@ -8,8 +8,6 @@ export async function updateSession(request: NextRequest) {
     },
   })
 
-  console.log('middleware ran! -- Update Session')
-
   const supabase = createServerClient(
     process.env.SUPABASE_URL!,
     process.env.SUPABASE_ANON_KEY!,
@@ -57,10 +55,6 @@ export async function updateSession(request: NextRequest) {
   )
 
   await supabase.auth.getUser()
-
-const user = await supabase.auth.getUser()
-
-console.log('user', user)
 
   return response
 }

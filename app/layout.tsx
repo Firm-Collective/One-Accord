@@ -21,10 +21,8 @@ export default function RootLayout({
     <html lang='en'>
       <body className={inter.className}>
         <ReactQueryProvider>
-          <ToastContainer
-           
-          />
-          {children}
+            <ToastContainer />
+            {children}
         </ReactQueryProvider>
       </body>
     </html>

@@ -10,6 +10,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import Alert from './alert';
 import { useRouter } from 'next/navigation';
+import { log } from 'console';
 
 type FormValues = {
   email: string;
@@ -22,7 +23,7 @@ const schema = z.object({
 });
 
 export default function AuthenticationForm() {
-  const [isLoginForm, setIsLoginForm] = useState(true);
+  const [isLoginForm, setIsLoginForm] = useState(false);
   const router = useRouter();
 
   const {
@@ -38,12 +39,13 @@ export default function AuthenticationForm() {
       return axios.post('/api/auth/login', loginData);
     },
     onSuccess: () => {
-      <Alert type='success' message='Login successful' />;
+        console.log('success');
         router.push('/dashboard');
 
     },
-    onError: () => {
-      <Alert type='error' message='An error occurred during login.' />;
+    onError: (error) => {
+        
+        console.log('error', error);
     },
   });
 
@@ -52,13 +54,14 @@ export default function AuthenticationForm() {
       return axios.post('/api/auth/signup', signInData);
     },
     onSuccess: () => {
-        <Alert type='success' message='Sign in successful' />;
         setIsLoginForm(true);
     },
-    onError: () => {
-        <Alert type='error' message='An error occurred during sign up.' />;
+    onError: (error) => {
+        console.log('error', error);
     },
   });
+
+   
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
     if (isLoginForm) {
@@ -115,6 +118,8 @@ export default function AuthenticationForm() {
             </div>
           </form>
         </div>
+        { loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
+        { signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
       </div>
     </main>
   );
