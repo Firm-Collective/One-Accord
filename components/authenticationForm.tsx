@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,6 +7,9 @@ import Image from 'next/image';
 import Button from '@/components/button';
 import Input from '@/components/input';
 import axios from 'axios';
+import { useState } from 'react';
+import Alert from './alert';
+import { useRouter } from 'next/navigation';
 
 type FormValues = {
   email: string;
@@ -18,7 +21,10 @@ const schema = z.object({
   password: z.string().min(8),
 });
 
-export default function LoginPage() {
+export default function AuthenticationForm() {
+  const [isLoginForm, setIsLoginForm] = useState(true);
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -32,23 +38,35 @@ export default function LoginPage() {
       return axios.post('/api/auth/login', loginData);
     },
     onSuccess: () => {
-      // Handle successful login, such as redirecting to another page
-      console.log('Login successful');
+      <Alert type='success' message='Login successful' />;
+        router.push('/dashboard');
+
     },
-    onError: (error: any) => {
-      // Handle login error
-      console.error('Login error:', error);
+    onError: () => {
+      <Alert type='error' message='An error occurred during login.' />;
     },
   });
 
- const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
-  console.log('data', data);
-    loginMutation.mutate(data);
- }
+  const signInMutation = useMutation({
+    mutationFn: (signInData: FormValues) => {
+      return axios.post('/api/auth/signup', signInData);
+    },
+    onSuccess: () => {
+        <Alert type='success' message='Sign in successful' />;
+        setIsLoginForm(true);
+    },
+    onError: () => {
+        <Alert type='error' message='An error occurred during sign up.' />;
+    },
+  });
 
-
-
-
+  const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
+    if (isLoginForm) {
+      loginMutation.mutate(data);
+    } else {
+      signInMutation.mutate(data);
+    }
+  }
 
   return (
     <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
@@ -56,7 +74,7 @@ export default function LoginPage() {
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
           <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-            Sign in to your account
+            {isLoginForm ? 'Sign in to your account' : 'Create an account'}
           </h2>
         </div>
         <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
@@ -71,7 +89,6 @@ export default function LoginPage() {
             <div>
               <div className='flex items-center justify-between'></div>
               <div className='mt-2'>
-                {/* <Input label='Password' type='password' {...register('password')} /> */}
                 <Input label='Password' name='password' type='password' register={{ ...register('password') }} />
                 {errors.password && <p className='text-red-500 text-sm'>{errors.password.message}</p>}
               </div>
@@ -84,6 +101,17 @@ export default function LoginPage() {
                 disabled={loginMutation.isLoading}
                 type='submit'
               />
+            </div>
+            <div className='flex items-center justify-between'>
+              <button
+                type='button'
+                onClick={() => {
+                  setIsLoginForm((prev) => !prev);
+                }}
+                className='text-sm text-gray-600 hover:text-gray-900'
+              >
+                {isLoginForm ? 'Create an account' : 'Sign in to your account'}
+              </button>
             </div>
           </form>
         </div>

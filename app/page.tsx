@@ -1,4 +1,5 @@
 
+import AuthenticationForm from '@/components/authenticationForm';
 import Button from '@/components/button';
 import { getUser } from '@/utils/supabase/auth';
 import Link from 'next/link';
@@ -25,9 +26,7 @@ export default async function Home() {
           </div>
         ) : (
           <div>
-            <Link href={'/login'} className='bg-emerald-700 p-2'>
-              Login
-            </Link>
+            <AuthenticationForm />
           </div>
         )}
       </div>
