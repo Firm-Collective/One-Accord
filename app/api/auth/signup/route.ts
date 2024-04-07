@@ -17,10 +17,13 @@ export async function POST(request: Request) {
     }
 
     // Create a corresponding user record in the database
-    const newUser = await supabase.from('User').insert({
-      id: data?.user?.id,
-      email: userData.email,
-    });
+    const newUser = await supabase.from('User').upsert([
+      {
+        id: data?.user?.id,
+        email: userData.email,
+      },
+    
+    ])
 
     console.log('User signed up and added to database:', newUser);
 
