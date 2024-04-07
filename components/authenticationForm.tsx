@@ -12,6 +12,13 @@ import Alert from './alert';
 import { useRouter } from 'next/navigation';
 import { log } from 'console';
 
+// TODO: 
+// 1. Can we consolidate this schema and FormValues into a single type?
+// 2. Remove the console.log statements
+// 3. Rethink how this form toggles between login and sign up. What we currently have is not intented to 
+// be the final version.
+
+
 type FormValues = {
   email: string;
   password: string;
@@ -44,7 +51,7 @@ export default function AuthenticationForm() {
 
     },
     onError: (error) => {
-        
+
         console.log('error', error);
     },
   });

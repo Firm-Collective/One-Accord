@@ -3,6 +3,15 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 
 
+// TODO: 
+// 1. I know it may seem like an anti-pattern to call supabase in the api route, but my thought
+//    process is to decouple supabase from the client using the api route and prisma. This way
+//    we can always switch to another database without changing the client code.
+
+
+
+
+
 
 const postSchema = z.object({
   title: z.string().min(5).max(50),
@@ -39,7 +48,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, post });
   } catch (error) {
-    // Handle Zod validation errors
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: 'Validation failed', details: error.errors });
     }
