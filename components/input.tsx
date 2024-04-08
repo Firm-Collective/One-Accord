@@ -5,7 +5,7 @@ import { register } from 'module';
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
-  register : any;
+  register: any;
 }
 
 const Input: React.FC<InputProps> = ({ label, name, register, className, ...props }) => {

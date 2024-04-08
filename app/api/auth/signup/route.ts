@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
-import { User } from "../../../../utils/types";
+import { NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
+import { User } from '../../../../utils/types';
 
 // Sign up a user to Supabase and create a user record in the database
 export async function POST(request: Request) {
@@ -22,8 +22,7 @@ export async function POST(request: Request) {
         id: data?.user?.id,
         email: userData.email,
       },
-    
-    ])
+    ]);
 
     console.log('User signed up and added to database:', newUser);
 

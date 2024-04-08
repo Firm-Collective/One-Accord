@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant: 'primary' | 'secondary';
-  text: string; 
+  text: string;
 }
 
 const Button: React.FC<ButtonProps> = ({ variant, text, className, ...props }) => {

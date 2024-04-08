@@ -5,15 +5,10 @@
  * that this becomes a monorepo and other applications are added.
  */
 
-
 export const customColors = {
   oneAccord: {
-  primary: "#FC6881",
-  blue: "blue-300",
-  green: "green-300",
-  }
-}
-
-
-
-
+    primary: '#FC6881',
+    blue: 'blue-300',
+    green: 'green-300',
+  },
+};

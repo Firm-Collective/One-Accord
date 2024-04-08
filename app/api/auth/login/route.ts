@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
+import { NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
 
 // login user to supabase
 export async function POST(request: Request) {
   const supabase = createClient();
   const data = await request.json();
- console.log('api called', data);
+  console.log('api called', data);
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {

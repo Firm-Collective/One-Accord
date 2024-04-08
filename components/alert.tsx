@@ -3,9 +3,9 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 interface AlertProps {
-    type: 'success' | 'error';
-    message: string;
-    }
+  type: 'success' | 'error';
+  message: string;
+}
 
 const Alert = ({ type, message }: AlertProps) => {
   const notify = () => {
@@ -24,7 +24,7 @@ const Alert = ({ type, message }: AlertProps) => {
 
   notify();
 
-  return null; 
+  return null;
 };
 
 export default Alert;

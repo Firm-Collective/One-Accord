@@ -12,12 +12,11 @@ import Alert from './alert';
 import { useRouter } from 'next/navigation';
 import { log } from 'console';
 
-// TODO: 
+// TODO:
 // 1. Can we consolidate this schema and FormValues into a single type?
 // 2. Remove the console.log statements
-// 3. Rethink how this form toggles between login and sign up. What we currently have is not intented to 
+// 3. Rethink how this form toggles between login and sign up. What we currently have is not intented to
 // be the final version.
-
 
 type FormValues = {
   email: string;
@@ -46,13 +45,11 @@ export default function AuthenticationForm() {
       return axios.post('/api/auth/login', loginData);
     },
     onSuccess: () => {
-        console.log('success');
-        router.push('/dashboard');
-
+      console.log('success');
+      router.push('/dashboard');
     },
     onError: (error) => {
-
-        console.log('error', error);
+      console.log('error', error);
     },
   });
 
@@ -61,14 +58,12 @@ export default function AuthenticationForm() {
       return axios.post('/api/auth/signup', signInData);
     },
     onSuccess: () => {
-        setIsLoginForm(true);
+      setIsLoginForm(true);
     },
     onError: (error) => {
-        console.log('error', error);
+      console.log('error', error);
     },
   });
-
-   
 
   const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
     if (isLoginForm) {
@@ -76,7 +71,7 @@ export default function AuthenticationForm() {
     } else {
       signInMutation.mutate(data);
     }
-  }
+  };
 
   return (
     <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
@@ -125,8 +120,8 @@ export default function AuthenticationForm() {
             </div>
           </form>
         </div>
-        { loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
-        { signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
+        {loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
+        {signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
       </div>
     </main>
   );
