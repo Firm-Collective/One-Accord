@@ -11,15 +11,6 @@ Please make sure you've checked the following items before submitting your pull 
 
 Please provide the acceptance criteria for this feature and include a link to the corresponding work item or issue.
 
-
-
-
 ## Feature Demonstration
 
 Please provide a video demonstrating the functionality of the feature being implemented.
-
-
-
-
-
-
