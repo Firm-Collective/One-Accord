@@ -8,35 +8,33 @@ We are beginning with a GitHub Flow-based strategy, using a `main` branch and `u
 
 ### Next.js
 
-Next.js is a React framework for building server-side rendered and statically generated applications.
+[Next.js](https://nextjs.org) is a React framework for building server-side rendered and statically generated applications.
 
 ### Prisma
 
-Prisma is a modern database toolkit that makes working with databases easy, efficient, and scalable by providing type-safe database access and declarative migrations.
+[Prisma](https://www.prisma.io) is a modern database toolkit that makes working with databases easy, efficient, and scalable by providing type-safe database access and declarative migrations.
 
 ### Supabase
 
-Supabase is an open-source Firebase alternative. It provides a suite of tools to build and scale applications without managing infrastructure.
+[Supabase](https://supabase.com) is an open-source Firebase alternative. It provides a suite of tools to build and scale applications without managing infrastructure.
 
 ### React Hook Form
 
-React Hook Form is a lightweight library for managing form state in React applications using React hooks.
+[React Hook Form](https://react-hook-form.com) is a lightweight library for managing form state in React applications using React hooks.
 
 ### React Query
 
-React Query is a data fetching library for React that provides tools for fetching, caching, synchronizing, and updating server state in your application.
+[React Query](https://www.npmjs.com/package/react-query) is a data fetching library for React that provides tools for fetching, caching, synchronizing, and updating server state in your application.
 
 ### Zod
 
-Zod is a TypeScript-first schema declaration and validation library. It allows you to define and validate data schemas with TypeScript types.
+[Zod](https://zod.dev) is a TypeScript-first schema declaration and validation library. It allows you to define and validate data schemas with TypeScript types.
 
 ### Axios
 
-Axios is a promise-based HTTP client for the browser and Node.js. It provides an easy-to-use API for making HTTP requests.
+[Axios](https://axios-http.com) is a promise-based HTTP client for the browser and Node.js. It provides an easy-to-use API for making HTTP requests.
 
 ### Tailwind CSS
 
-Tailwind CSS is a utility-first CSS framework for rapidly building custom user interfaces. It provides a set of pre-defined utility classes that you can use to style your components.
+[Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for rapidly building custom user interfaces. It provides a set of pre-defined utility classes that you can use to style your components.
 
-
-### This is Katie testing this out! First PR!
