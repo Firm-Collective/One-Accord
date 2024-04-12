@@ -6,6 +6,7 @@ Please make sure you've checked the following items before submitting your pull 
 - [ ] Does your app build successfully on your local machine (`npm run build`)?
 - [ ] Have you formatted your code according to project standards (`npm run format`)?
 - [ ] Have you removed all `console.log` statements?
+- [ ] Linked to the GitHub [GitHub issue #123](https://github.com/your-repo/your-project/issues/123)
 
 ## Additional Checklist
 
