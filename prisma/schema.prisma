@@ -17,6 +17,7 @@ datasource db {
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
+  ipCountry String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   posts     Post[]
