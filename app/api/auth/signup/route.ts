@@ -24,7 +24,6 @@ export async function POST(request: Request) {
       },
     ]);
 
-    console.log('User signed up and added to database:', newUser);
 
     return NextResponse.json({ success: true, data });
   } catch (error) {
