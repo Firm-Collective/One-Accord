@@ -11,7 +11,7 @@ const BackButton: React.FC<ImageButtonProps> = ({ onClick }) => {
 
   return (
     <button onClick={onClick}>
-        <Image src='/public/back-arrow-navigation.svg' alt='back' width={48} height={48}/>
+        <Image src='/back-arrow-navigation.svg' alt='back' width={15} height={15}/>
     </button>
   );
 };
