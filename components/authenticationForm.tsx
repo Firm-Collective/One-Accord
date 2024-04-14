@@ -86,7 +86,7 @@ export default function AuthenticationForm() {
           <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div className='mt-2'>
-                <Input label='Email address' name='email' register={{ ...register('email') }} />
+                <Input label='Email Address' name='email' register={{ ...register('email') }} />
               </div>
               {errors.email && <p className='text-red-500 text-sm'>{errors.email.message}</p>}
             </div>
