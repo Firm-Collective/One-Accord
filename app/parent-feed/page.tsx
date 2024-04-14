@@ -1,22 +1,15 @@
-
-import React from 'react'; // React core library
-import { useQuery } from 'react-query'; // For data fetching and caching
-import { useToast } from 'react-toastify'; // For displaying toast notifications
-import RootLayout from '../layout';
-
-
+import React from 'react';
+import LocationMap from '..//../components/LiveFeed/LocationMap'; // Import the LocationMap component
+import StatusBar from '..//../components/LiveFeed/StatusBar'; // Import the StatusBar component
+import LiveFeed from '..//../components/LiveFeed/LiveFeed'; // Import the LiveFeed component
 
 const ParentFeedComponent: React.FC = () => {
   return (
-    <div className="feed-container">
-      {/* Placeholder for feed items */}
-      <div className="feed-item">
-        <p>Feed Item 1</p>
-      </div>
-      <div className="feed-item">
-        <p>Feed Item 2</p>
-      </div>
-      {/* Add more feed items as needed */}
+    <div className="flex flex-col h-full border-b-2">
+      <LocationMap className="h-40" />
+      <StatusBar className="h-20" />
+      <LiveFeed className="h-40" />
+      
     </div>
   );
 };
