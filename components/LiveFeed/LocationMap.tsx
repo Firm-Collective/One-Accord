@@ -8,7 +8,7 @@ interface LocationMapProps {
 const LocationMap: React.FC<LocationMapProps> = ({ className }) => {
   return (
     <div className={`location-map-container ${className}`}>
-      {<h1>Location Comp</h1>}
+      {<h1 className="border border-gray-400 p-2">Location Comp</h1>}
     </div>
   );
 };

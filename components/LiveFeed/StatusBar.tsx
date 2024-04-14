@@ -8,7 +8,7 @@ interface StatusBarProps {
 const StatusBar: React.FC<StatusBarProps> = ({ className }) => {
   return (
     <div className={`status-bar-container ${className}`}>
-      {<h1>Status bar</h1>}
+      {<h1 className="border border-gray-400 p-2">Status bar</h1>}
     </div>
   );
 };
