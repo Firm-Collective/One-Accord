@@ -9,14 +9,23 @@ const LiveFeed: React.FC<LiveFeedProps> = ({ className }) => {
     <div className={`live-feed-container ${className}`}>
      
       <div className="feed-items">
-        {/* Placeholder for feed items */}
+        
         <div className="feed-item">
           <p className="w-full">Feed Item 1</p>
         </div>
         <div className="feed-item">
           <p className="w-full">Feed Item 2</p>
         </div>
-        {/* Add more feed items as needed */}
+        <div className="feed-item">
+          <p className="w-full">Feed Item 3</p>
+        </div>
+        <div className="feed-item">
+          <p className="w-full">Feed Item 4</p>
+        </div>
+        <div className="feed-item">
+          <p className="w-full">Feed Item 5</p>
+        </div>
+        
       </div>
       <form className="feed-form">
         <textarea className="w-full h-9 border border-gray-400 p-2" placeholder="Enter your message"></textarea>
