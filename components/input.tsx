@@ -2,9 +2,6 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import { register } from 'module';
 
-// 1. I need to fire a function that will validate the input using regex onBlur
-
-
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string;
   name: string;
@@ -20,12 +17,12 @@ const Input: React.FC<InputProps> = ({ label, name, register, validation, type, 
   const errorStyles = 'ring-red-500 text-red-500';
   const successStyles = 'ring-green-500 ';
 
-    const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
-      if (validation) {
-        const isValidInput = validation(event);
-        setIsValid(isValidInput);
-      }
-    };
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    if (validation) {
+      const isValidInput = validation(event);
+      setIsValid(isValidInput);
+    }
+  };
 
   return (
     <div>

@@ -40,15 +40,14 @@ export default function BlogPage() {
     createBlogMutation.mutate(data);
   };
 
-
   const isValidEmail = z.string().email();
 
-const handleEmailValidation = (event: React.FocusEvent<HTMLInputElement>) => {
-  const email = event.target.value;
-  const validationResult = isValidEmail.safeParse(email);
-  const isValid = validationResult.success;
-  return isValid;
-};
+  const handleEmailValidation = (event: React.FocusEvent<HTMLInputElement>) => {
+    const email = event.target.value;
+    const validationResult = isValidEmail.safeParse(email);
+    const isValid = validationResult.success;
+    return isValid;
+  };
 
   return (
     <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>

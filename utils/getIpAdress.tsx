@@ -10,4 +10,4 @@ export const getCountryFromIP = async (ip: string): Promise<string | null> => {
     console.error('Error retrieving country from IP:', error);
     return null;
   }
-}
+};

@@ -24,7 +24,6 @@ export async function POST(request: Request) {
       },
     ]);
 
-
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Error signing up user:', error);
