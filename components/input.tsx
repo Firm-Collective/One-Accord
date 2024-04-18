@@ -14,7 +14,7 @@ const Input: React.FC<InputProps> = ({ label, name, register, validation, type, 
   const [isValid, setIsValid] = useState<boolean | null>(null);
   const baseStyles =
     'block w-full p-2 focus:outline-none rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-oneAccord-primary sm:text-sm sm:leading-6';
-  const errorStyles = 'ring-red-500 text-red-500';
+  const errorStyles = 'ring-red-500 ';
   const successStyles = 'ring-green-500 ';
 
   const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
