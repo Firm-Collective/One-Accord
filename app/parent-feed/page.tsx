@@ -1,21 +1,33 @@
 import React from 'react';
-import LocationMap from '..//../components/LiveFeed/LocationMap'; // Import the LocationMap component
-import StatusBar from '..//../components/LiveFeed/StatusBar'; // Import the StatusBar component
-import LiveFeed from '..//../components/LiveFeed/LiveFeed'; // Import the LiveFeed component
+import Form from '../../components/LiveFeed/Form';
+import Button from '@/components/button';
 
-const ParentFeedComponent: React.FC = () => {
+import { supabaseServer } from '@/utils/supabase/server';
+
+
+
+export default async function page() {
+
+  const supasbase = supabaseServer();
+  const { data } = await (await supasbase).auth.getSession();
+
+  console.log(data.session?.user);
+
   return (
     <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
-      <div className='mt-2'><LocationMap className="h-45" /></div>
-      <div className='mt-2'><StatusBar className="h-10" /></div>
-      <div className='mt-2'><LiveFeed className="h-45 border-b-2" /></div>
-    
-     
       
-      
-     </main> 
-    
+      <div >
+      <Form />
+      <Button
+        variant={'primary'}
+        text={'Submit'}
+      // onClick={handleSubmit} // Remove the onClick handler for now
+      />
+      </div>
+    </main>
   );
-};
+}
 
-export default ParentFeedComponent;
+
+
+
