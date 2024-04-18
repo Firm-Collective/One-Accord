@@ -40,6 +40,16 @@ export default function BlogPage() {
     createBlogMutation.mutate(data);
   };
 
+
+  const isValidEmail = z.string().email();
+
+const handleEmailValidation = (event: React.FocusEvent<HTMLInputElement>) => {
+  const email = event.target.value;
+  const validationResult = isValidEmail.safeParse(email);
+  const isValid = validationResult.success;
+  return isValid;
+};
+
   return (
     <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
       <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
@@ -52,15 +62,24 @@ export default function BlogPage() {
           <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div className='mt-2'>
-                <Input label='Title' name='title' register={{ ...register('title') }} />
+                <Input
+                  label='Title'
+                  name='title'
+                  validation={handleEmailValidation}
+                  register={{ ...register('title') }}
+                />
               </div>
               {errors.title && <p className='text-red-500 text-sm'>{errors.title.message}</p>}
             </div>
 
             <div>
               <div className='mt-2'>
-                <Input label='Content' name='content' register={{ ...register('content') }} />
-                {errors.content && <p className='text-red-500 text-sm'>{errors.content.message}</p>}
+                <Input
+                  label='Content'
+                  name='content'
+                  onBlur={handleEmailValidation}
+                  register={{ ...register('content') }}
+                />
               </div>
             </div>
             {createBlogMutation.isError && (
