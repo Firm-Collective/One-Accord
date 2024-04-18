@@ -37,4 +37,3 @@ We are beginning with a GitHub Flow-based strategy, using a `main` branch and `u
 ### Tailwind CSS
 
 [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for rapidly building custom user interfaces. It provides a set of pre-defined utility classes that you can use to style your components.
-
