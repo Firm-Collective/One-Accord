@@ -7,7 +7,7 @@
 
 export const customColors = {
   oneAccord: {
-    primary: '#FC6881',
+    primary: 'black',
     blue: 'blue-300',
     green: 'green-300',
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant: 'primary' | 'secondary';
+  variant: 'primary' | 'secondary' | 'third';
   text: string;
 }
 
@@ -12,6 +12,7 @@ const Button: React.FC<ButtonProps> = ({ variant, text, className, ...props }) =
   const variantStyles = {
     primary: `bg-oneAccord-primary text-white `,
     secondary: 'border border-oneAccord-primary text-black ',
+    third: 'border border-black text-black ',
   };
 
   return (
@@ -24,5 +25,7 @@ const Button: React.FC<ButtonProps> = ({ variant, text, className, ...props }) =
     </button>
   );
 };
+
+
 
 export default Button;
