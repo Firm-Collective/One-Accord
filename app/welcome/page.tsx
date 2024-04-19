@@ -8,12 +8,12 @@ import axios from 'axios';
 import Image from 'next/image';
 import BackButton from '@/components/backButton';
 // Correcting the import for useRouter
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const WelcomeScreen = () => {
 
-    
+    const router = useRouter();
 
     //const handleGoBack = () => {
         //router.back(); // Use router.back() to go back
@@ -52,13 +52,15 @@ const WelcomeScreen = () => {
                     <Button
                         variant='primary'
                         text='Login'
-                        type='submit'
+                        type='button'
+                        onClick={() => router.push('/auth/login')}
                     />
 
                     <Button
                         variant='third'
                         text='Sign Up'
-                        type='submit'
+                        type='button'
+                        onClick={() => router.push('/auth/signup')}
                     />
                     <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>
                         Skip to Live Stream
