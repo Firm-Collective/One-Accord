@@ -2,11 +2,11 @@
 
 Please make sure you've checked the following items before submitting your pull request:
 
-- [X] Have you tested your changes locally?
-- [X] Does your app build successfully on your local machine (`npm run build`)?
-- [X] Have you formatted your code according to project standards (`npm run format`)?
-- [X] Have you removed all `console.log` statements?
-- [X] Linked to the GitHub [GitHub issue #123](https://github.com/your-repo/your-project/issues/6)
+- [] Have you tested your changes locally?
+- [] Does your app build successfully on your local machine (`npm run build`)?
+- [] Have you formatted your code according to project standards (`npm run format`)?
+- [] Have you removed all `console.log` statements?
+- [] Linked to the GitHub [GitHub issue #123](https://github.com/your-repo/your-project/issues/6)
 
 ## Additional Checklist
 
