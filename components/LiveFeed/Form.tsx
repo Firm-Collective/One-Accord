@@ -1,14 +1,28 @@
 import React from 'react';
 
 function Form({ className }: { className?: string }) {
+
+  const handleSendMessage = (text:string) => {
+    
+    alert(text);
+  };
+
   return (
     <form className={className}>
-      <div className="p-6 fixed bottom-0 left-0 w-full bg-white flex items-center"> {/* Added flex and items-center */}
+      <div className='flex item-center'> {/* Added flex and items-center */}
         <input 
+          onKeyDown={(e)=> {
+
+             if (e.key === "Enter") {
+              handleSendMessage(e.currentTarget.value);
+
+              e.currentTarget.value ="";
+             }
+          }}
           type="text" 
           name="message" 
           placeholder="Enter your message" 
-          className="w-full h-9 border border-gray-400 p-2 mr-2"  // Added 'mr-2' for right margin
+          className="w-full h-9 border border-white-400 p-2 mr-2"  // Added 'mr-2' for right margin
         />
         
       </div>
