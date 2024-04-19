@@ -10,7 +10,6 @@ const CountdownTimer: React.FC = () => {
     const interval = setInterval(() => {
       setTimeLeft((prevTime: number) => {
         if (prevTime === 0) {
-          // Move to the next activity
           setCurrentActivityIndex((prevIndex: number) => (prevIndex + 1) % activities.length);
           return 0.1 * 60; 
         }
