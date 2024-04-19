@@ -5,7 +5,7 @@ export default async function Home() {
   const user = await getUser();
 
   return (
-    <main className='bg-white flex min-h-screen flex-col items-center justify-center p-24'>
+    <main className='bg-white min-h-screen py-4 flex justify-center  lg-p-24'>
       {/* TODO:
        This auth form is boilerplate that needs to be reworked
        We need to think through the user experience for the authentication form.
@@ -15,6 +15,7 @@ export default async function Home() {
        the user exists and then logs them in or signs them up 
        */}
       <AuthenticationForm />
+     
     </main>
   );
 }
