@@ -1,3 +1,4 @@
+'use client';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +8,7 @@ import axios from 'axios';
 import Image from 'next/image';
 import BackButton from '@/components/backButton';
 // Correcting the import for useRouter
-import { useRouter } from 'next/router'; // Fixing import
+import { useRouter } from 'next/navigation'; // Fixing import
 import { useEffect, useState } from 'react';
 import Blob from '@/components/blob';
 
