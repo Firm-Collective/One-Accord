@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
-import { Poppins } from 'next/font/google';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const poppins = Poppins({
-  subsets: ['latin', 'latin-ext'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--font-poppins',
+export const jakarta = Plus_Jakarta_Sans({
+  subsets: ['cyrillic-ext', 'latin', 'latin-ext'],
+  variable: '--font-jakarta',
 });
 
 export const metadata: Metadata = {
@@ -23,6 +22,7 @@ export const metadata: Metadata = {
 // 4a I am thnking this will be a middleware (middleware.ts in the root of the project) that checks if the user is logged in and if they are not,
 // it will redirect them to the login page. The other option is to create some kind of context provider
 // that wraps the entire application and checks if the user is logged in. If they are not, it will redirect them to the login page.
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -30,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className="plus-jakarta-sans">
+      <body className={`${jakarta.variable}`}>
         <ReactQueryProvider>
           <ToastContainer />
           {children}
