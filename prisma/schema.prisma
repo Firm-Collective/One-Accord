@@ -32,4 +32,4 @@ model Post {
   authorId  String
 }
 
-
+//may need to check policies on the post to make sure they are for auth users to edit and contribute. 

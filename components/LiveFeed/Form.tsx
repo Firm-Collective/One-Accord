@@ -1,8 +1,26 @@
+"use client"
+
+import { createPost } from '@/utils/supabase/db';
 import React from 'react';
 
+import { types } from 'util';
+// import { createClient } from '@/utils/supabase/client';
+
 function Form({ className }: { className?: string }) {
-  const handleSendMessage = (text: string) => {
-    alert(text);
+  createPost('Title', 'Content');
+  const handleSendMessage = async (text: string) => {
+   
+    try {
+        const createdPost = await createPost("", text);
+        alert('Post created successfully:');
+    } catch (error) {
+      alert('Error creating post');
+    }
+   
+   
+    // alert(text);
+   
+
   };
 
   return (

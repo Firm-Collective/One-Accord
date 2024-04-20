@@ -1,6 +1,6 @@
 'use server';
 
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
+import { CookieMethods, createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
 export async function supabaseServer() {
@@ -31,4 +31,16 @@ export async function supabaseServer() {
       },
     },
   });
+}
+
+export async function fetchMessages(cookies: CookieMethods) {
+  const supabase = createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, { cookies:cookies });
+  const { data, error } = await supabase.from('messages').select('*');
+
+  if (error) {
+    console.error('Error fetching messages:', error.message);
+    return [];
+  }
+
+  return data;
 }
