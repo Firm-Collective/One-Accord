@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import '@fontsource/plus-jakarta-sans';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import { ToastContainer } from 'react-toastify';
