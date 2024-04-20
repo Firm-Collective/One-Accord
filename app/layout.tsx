@@ -1,10 +1,14 @@
 import type { Metadata } from 'next';
-import '@fontsource/plus-jakarta-sans';
+import { Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+export const jakarta = Plus_Jakarta_Sans({
+  subsets: ['cyrillic-ext', 'latin', 'latin-ext'],
+  variable: '--font-jakarta',
+});
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -26,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className="plus-jakarta-sans">
+      <body className={`${jakarta.variable}`}>
         <ReactQueryProvider>
           <ToastContainer />
           {children}
