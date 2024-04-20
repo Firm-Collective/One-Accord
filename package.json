@@ -22,6 +22,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
+    "react-notifications-component": "^4.0.1",
     "react-query": "^3.39.3",
     "react-toastify": "^10.0.5",
     "zod": "^3.22.4"

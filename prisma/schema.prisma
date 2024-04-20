@@ -21,6 +21,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   posts     Post[]
+  eventNotification Boolean @default(false)
 }
 
 model Post {
