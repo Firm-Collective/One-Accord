@@ -31,7 +31,7 @@ const WelcomeScreen = () => {
           </div>
 
           <h2 className='mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900'>Welcome to</h2>
-          <h2 className='mt-2 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900'>
+          <h2 className='mt-2 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900 font-poppins'>
             <span className='font-bold'>one</span>
             <span className='font-normal'>accord</span>
           </h2>

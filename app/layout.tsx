@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans } from 'next/font/google';
+import { Plus_Jakarta_Sans, Poppins } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import { ToastContainer } from 'react-toastify';
@@ -8,6 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 export const jakarta = Plus_Jakarta_Sans({
   subsets: ['cyrillic-ext', 'latin', 'latin-ext'],
   variable: '--font-jakarta',
+});
+export const poppins = Poppins({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -29,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className={`${jakarta.variable}`}>
+    <html lang='en' className={`${jakarta.variable} font-jakarta ${poppins.variable} `}>
+      <body>
         <ReactQueryProvider>
           <ToastContainer />
           {children}

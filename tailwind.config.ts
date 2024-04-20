@@ -1,5 +1,8 @@
 import type { Config } from 'tailwindcss';
 import { customColors } from './utils/colors';
+import { jakarta } from './app/layout';
+import { poppins } from './app/layout';
+
 
 const config: Config = {
   content: [
@@ -15,7 +18,8 @@ const config: Config = {
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       fontFamily: {
-        sans: ['var(--font-poppins)'],
+        jakarta: ['var(--font-jakarta)'],
+        poppins: ['var(--font-poppins)'],
       },
     },
   },
