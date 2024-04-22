@@ -21,9 +21,9 @@ export default function WelcomeScreen() {
         <div className='flex flex-1 flex-col justify-center lg:px-8'>
           <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
             <div className='flex justify-center mt-auto'>
-              <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
+              <Image src='/pink-logo.png' alt='logo' width={114} height={114} />
             </div>
-            <h2 className='mt-10 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900'>Welcome to</h2>
+            <h2 className='mt-8 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900'>Welcome to</h2>
             <h2 className='mt-2 text-center text-4xl font-bold leading-9 tracking-tight text-gray-900'>
               <span className='font-bold'>one</span>
               <span className='font-normal'>accord</span>
