@@ -1,11 +1,11 @@
 import React from 'react';
-import { supabaseServer } from '@/utils/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 import Header from '@/components/LiveFeed/Header';
-import MessageInput from '@/components/LiveFeed/MessageInput';
 import FeedMessages from '@/components/LiveFeed/FeedMessages';
+import AddMessage from '@/components/LiveFeed/AddMessage';
 
 export default async function page() {
-  const supasbase = supabaseServer();
+  const supasbase = createClient();
   const { data } = await (await supasbase).auth.getSession();
 
   console.log(data.session?.user);
@@ -13,10 +13,10 @@ export default async function page() {
   return (
     <div className='max-w-3xl mx-auto md:py-10 h-screen'>
       <div className='h-full border rounded-md'>
-        <Header/>
-          <FeedMessages/>
+        <Header />
+        <FeedMessages />
         <div className='p-5'>
-          <MessageInput/>
+          <AddMessage/>
         </div>
       </div>
     </div>

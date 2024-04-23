@@ -3,7 +3,7 @@
 import { CookieMethods, createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 
-export async function supabaseServer() {
+export async function createClient() {
   const cookieStore = cookies();
 
   return createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, {
@@ -34,7 +34,7 @@ export async function supabaseServer() {
 }
 
 export async function fetchMessages(cookies: CookieMethods) {
-  const supabase = createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, { cookies:cookies });
+  const supabase = createServerClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!, { cookies: cookies });
   const { data, error } = await supabase.from('messages').select('*');
 
   if (error) {

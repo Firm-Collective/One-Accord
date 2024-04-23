@@ -1,20 +1,36 @@
+'use server';
+
+import { PrismaClient } from '@prisma/client';
 import type { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
+import { getSession } from 'next-auth/react';
+
+
+const prisma = new PrismaClient();
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method === 'POST') {
-    // Handle the form submission logic here
-    const formData = req.body;
-    // Make requests to your backend, Prisma, or Supabase here
-    // Example: Use Axios to make a POST request
-    try {
-      const response = await axios.post('/api/submitForm', formData);
-      res.status(200).json(response.data);
-    } catch (error) {
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  } else {
-    res.setHeader('Allow', ['POST']);
-    res.status(405).end('Method Not Allowed');
+
+
+  const session = await getSession({ req });
+
+  if (!session || !session.user) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  
+  const userId: string = session?.user?.name || ""; // Declare userId variable
+  const { title, content } = req.body; 
+  
+  try {
+    const newPost = await prisma.post.create({
+      data: {
+        title,
+        content,
+        author: { connect: { id: userId } }, // Assuming the author ID is stored in the session
+      },
+    });
+    console.log('New post created:', newPost);
+    res.status(201).json(newPost);
+  } catch (error) {
+    console.error('Error creating post:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 }

@@ -1,26 +1,31 @@
-"use client"
+'use client';
 
-import { createPost } from '@/utils/supabase/db';
-import React from 'react';
-
-import { types } from 'util';
-// import { createClient } from '@/utils/supabase/client';
+import { Content } from 'next/font/google';
+// import { createPost } from '@/utils/supabase/db';
+import React, { useState } from 'react';
 
 function Form({ className }: { className?: string }) {
-  createPost('Title', 'Content');
+  // createPost('Title', 'Content');
+  const [message, setMessages] = useState('');
+
   const handleSendMessage = async (text: string) => {
-   
     try {
-        const createdPost = await createPost("", text);
-        alert('Post created successfully:');
+      const response = await fetch('app/api/liveFeed/route/createPost', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ title: message, content: message }),
+      });
+
+      if (response.ok) {
+        alert('Post created successfully');
+      } else {
+        throw new Error('Failed to create post');
+      }
     } catch (error) {
       alert('Error creating post');
     }
-   
-   
-    // alert(text);
-   
-
   };
 
   return (

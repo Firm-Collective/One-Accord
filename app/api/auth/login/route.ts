@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const supabase = createClient();
   const data = await request.json();
   console.log('api called', data);
-  const { error } = await supabase.auth.signInWithPassword(data);
+  const { error } = await (await supabase).auth.signInWithPassword(data);
 
   if (error) {
     console.log('error in api', error);
