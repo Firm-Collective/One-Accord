@@ -15,7 +15,7 @@ export default function WelcomeScreen() {
   const router = useRouter();
 
   return (
-    <main className='-z-[2] bg-white h-screen overflow-hidden relative'>
+    <main className='-z-[2] h-screen overflow-hidden relative'>
       <Blob />
       <div className='z-10 h-full flex flex-col items-center justify-between'>
         <div className='w-full flex flex-1 flex-col justify-center p-8'>
