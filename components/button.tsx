@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({ variant, text, className, ...props }) => {
   const baseStyles =
-    'flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
+    'z-100 flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600';
   const variantStyles = {
     primary: `bg-oneAccord-primary text-white `,
     secondary: 'border border-oneAccord-primary text-black ',
@@ -25,7 +25,5 @@ const Button: React.FC<ButtonProps> = ({ variant, text, className, ...props }) =
     </button>
   );
 };
-
-
 
 export default Button;

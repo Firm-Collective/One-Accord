@@ -35,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en' className={`${jakarta.variable} font-jakarta ${poppins.variable} `}>
-      <body>
+      <body className='relative z-0'>
         <ReactQueryProvider>
           <ToastContainer />
           {children}
