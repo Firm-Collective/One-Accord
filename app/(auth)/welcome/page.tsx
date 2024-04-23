@@ -17,8 +17,8 @@ export default function WelcomeScreen() {
   return (
     <main className='-z-[2] bg-white h-screen overflow-hidden relative'>
       <Blob />
-      <div className='z-10 h-full flex flex-col items-center justify-between p-8'>
-        <div className='flex flex-1 flex-col justify-center lg:px-8'>
+      <div className='z-10 h-full flex flex-col items-center justify-between'>
+        <div className='w-full flex flex-1 flex-col justify-center p-8'>
           <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
             <div className='flex justify-center mt-auto'>
               <Image src='/pink-logo.png' alt='logo' width={114} height={114} />
