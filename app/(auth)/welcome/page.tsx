@@ -37,14 +37,14 @@ export default function WelcomeScreen() {
             <Button
               variant='primary'
               text='Login'
-              onClick={(e) => {
+              onClick={() => {
                 router.push('/login');
               }}
             />
             <Button
               variant='third'
               text='Sign Up'
-              onClick={(e) => {
+              onClick={() => {
                 router.push('/onboarding');
               }}
             />

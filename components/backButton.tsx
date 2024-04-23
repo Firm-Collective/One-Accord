@@ -8,7 +8,7 @@ interface ImageButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement>
 
 const BackButton: React.FC<ImageButtonProps> = ({ onClick }) => {
   return (
-    <button className='absolute top-6 left-2 transform translate-x-1/2 h-[38px]' onClick={onClick}>
+    <button className='absolute top-6 left-2 transform translate-x-1/2 h-[30px]' onClick={onClick}>
       <Image src='/back-arrow-navigation.svg' alt='back' width={20} height={20} />
     </button>
   );

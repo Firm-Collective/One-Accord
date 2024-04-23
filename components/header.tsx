@@ -12,8 +12,8 @@ export default function Header() {
         className='absolute top-6 left-1/2 transform -translate-x-1/2'
         src='/one-accord.webp'
         alt='logo'
-        width={279}
-        height={38}
+        width={215}
+        height={30}
       />
     </div>
   );

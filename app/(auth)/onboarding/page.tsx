@@ -1,38 +1,29 @@
 'use client';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation, useQueryClient } from 'react-query';
 import Button from '@/components/button';
-import axios from 'axios';
 import Image from 'next/image';
-import BackButton from '@/components/backButton';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/header';
+import Blob from '@/components/blob';
 
 export default function GetStarted() {
-  // const handleGoBack = () => {
-  //   window.history.back();
-  // };
-
   const router = useRouter();
 
   return (
-    <main className='flex min-h-screen flex-col items-center justify-between p-24'>
+    <main className='-z-[2] h-screen overflow-hidden relative flex flex-col items-center justify-between'>
       <Header />
-      <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-            Description Title
-          </h2>
-          <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor ut labore et dolore magna
-            aliqua. Bibendum ut tristique et egestas quis.
+      <Blob />
+      <div className='flex min-h-full flex-1 flex-col justify-center p-8'>
+        <div className='flex flex-col items-center'>
+          <Image src='/world.png' alt='logo' width={309} height={147} />
+          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>Unified Faith</h2>
+          <p className='mt-5 lg:w-80 text-center text-sm text-gray-600 hover:text-gray-900'>
+            Your global hub for spiritual growth and community connection. Join believers worldwide in prayer, worship,
+            and reflection. Experience unity in faith, wherever you are.
           </p>
         </div>
 
-        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-          <Button variant='primary' text='Get Started' type='submit' />
+        <div className='mt-20 sm:mx-auto sm:w-full sm:max-w-sm grid gap-2'>
+          <Button variant='primary' text='Get Started' onClick={() => router.push('/signup')} />
 
           <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>Skip to Live Stream</p>
         </div>
