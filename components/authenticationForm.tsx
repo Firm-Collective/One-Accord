@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import Alert from './alert';
 import { useRouter } from 'next/navigation';
-import BackButton from './backButton';
+import { log } from 'console';
 
 // TODO:
 // 1. Can we consolidate this schema and FormValues into a single type?
@@ -74,22 +74,15 @@ export default function AuthenticationForm() {
   };
 
   return (
-    <main className='bg-white flex min-w-max flex-col items-center justify-between'>
-      <div className='flex items-center justify-between w-full lg:px-6 py-4'>
-        <BackButton onClick={function (): void {
-          throw new Error('Function not implemented.');
-        } }></BackButton>
-        <Image src='/one-accord.webp' alt='logo' width={279} height={38} />
-      </div>
-      <div className='flex min-h-full flex-1 flex-col justify-center px-6 lg:px-8'>
-
-        <div className='sm:mx-auto md-align-top sm:w-full sm:max-w-sm'>
-          
-          <h2 className='mt-20 text-left text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+    <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
+      <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+          <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
+          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
             {isLoginForm ? 'Sign in to your account' : 'Create an account'}
           </h2>
         </div>
-        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
           <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
             <div>
               <div className='mt-2'>
@@ -109,7 +102,7 @@ export default function AuthenticationForm() {
             <div>
               <Button
                 variant='primary'
-                text={loginMutation.isLoading ? 'Signing in...' : 'Continue'}
+                text={loginMutation.isLoading ? 'Signing in...' : 'Sign in'}
                 disabled={loginMutation.isLoading}
                 type='submit'
               />
@@ -126,28 +119,10 @@ export default function AuthenticationForm() {
               </button>
             </div>
           </form>
-          <div className="flex flex-col justify-center mx-4">
-            <div className="flex flex-col justify-center my-2">
-              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Sign in with Google
-              </button>
-              </div>
-              <div className="flex flex-col justify-center my-2">
-              <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                Sign in with Facebook
-              </button>
-              </div>
-              <div className="flex flex-col justify-center my-2">
-              <button className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
-                Sign in with GitHub
-              </button>
-              </div>
-            </div>
-          </div>
+        </div>
         {loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
         {signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
       </div>
-  
     </main>
   );
 }
