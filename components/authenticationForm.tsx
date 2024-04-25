@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Alert from './alert';
 import { useRouter } from 'next/navigation';
 import { log } from 'console';
+import CountdownTimer from './countdownTimer';
 
 // TODO:
 // 1. Can we consolidate this schema and FormValues into a single type?
@@ -73,8 +74,12 @@ export default function AuthenticationForm() {
     }
   };
 
-  return (
-    <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
+  return (<div>
+    {/* when ready to push, take this div and the countdownTimer off, we dont need to change this file 
+    it was just for practice to see our work. */}
+    <CountdownTimer />
+    <main className='bg-white flex min-h-screen flex-col items-center p-24'>
+      
       <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
         <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
           <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
@@ -123,6 +128,6 @@ export default function AuthenticationForm() {
         {loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
         {signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
       </div>
-    </main>
+    </main></div>
   );
 }
