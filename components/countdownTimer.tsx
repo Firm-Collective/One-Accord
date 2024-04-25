@@ -1,3 +1,4 @@
+
 'use client';
 import { useState, useEffect } from 'react';
 import ActivityJoinButton from './activityIconButton';
@@ -39,6 +40,7 @@ const CountdownTimer: React.FC = () => {
 
   return (
     <div>
+
     
       <div className='flex flex-col items-center justify-center mb-5 container mx-auto'>
         <div className='grid grid-cols-1 md:w-full'>
