@@ -19,10 +19,15 @@ export async function POST(request: Request) {
     // Create a corresponding user record in the database
     const newUser = await supabase.from('User').upsert([
       {
-        id: data?.user?.id,
+        id: '0',
         email: userData.email,
       },
     ]);
+
+    if (newUser.error) {
+      console.error("Error", newUser.error)
+      return NextResponse.json({ error: 'An error accured adding a user to the db'}, {status: 400})
+    }
 
 
     return NextResponse.json({ success: true, data });
