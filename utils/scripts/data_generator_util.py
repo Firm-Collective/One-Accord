@@ -3,15 +3,15 @@ import uuid
 from random import choice, randint, sample
 from datetime import datetime, timedelta
 
-# Function to connect to the PostgreSQL database
+# Function to connect to the PostgreSQL database add the connection params 
 def connect_to_db():
     try:
         connection = psycopg2.connect(
-            dbname="postgres",
-            user="postgres.xwaaedxcebzucapumzsm",
-            password="oapass20302068",
-            host="aws-0-us-west-1.pooler.supabase.com",
-            port="5432"
+            dbname="dbname",
+            user="user",
+            password="password",
+            host="host",
+            port="port"
         )
         return connection
     except Exception as e:
