@@ -1,31 +1,37 @@
 'use client';
 
-import { Content } from 'next/font/google';
-// import { createPost } from '@/utils/supabase/db';
+import ErrorPage from '@/app/error/page';
+import { supabaseBrowswer } from '@/utils/supabase/client';
+
+
 import React, { useState } from 'react';
 
-function Form({ className }: { className?: string }) {
+
+
+
+
+
+
+
+
+
+function AddMessages({ className }: { className?: string }) {
   // createPost('Title', 'Content');
   const [message, setMessages] = useState('');
+  const supabase = supabaseBrowswer();
 
-  const handleSendMessage = async (text: string) => {
-    try {
-      const response = await fetch('app/api/liveFeed/route/createPost', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ title: message, content: message }),
-      });
+  const handleSendMessage = async (content: string) => {
+  alert(content);
 
-      if (response.ok) {
-        alert('Post created successfully');
-      } else {
-        throw new Error('Failed to create post');
-      }
-    } catch (error) {
-      alert('Error creating post');
-    }
+   const {error }= await supabase.from("Posts").insert({content})
+
+   if(error) {
+    ErrorPage();
+   }
+
+  
+
+  //call to supabase
   };
 
   return (
@@ -51,4 +57,4 @@ function Form({ className }: { className?: string }) {
   );
 }
 
-export default Form;
+export default AddMessages;

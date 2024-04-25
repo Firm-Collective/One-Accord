@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
+import { supabaseServer } from '@/utils/supabase/server';
 
 export async function POST(request: Request) {
-  const supabase = createClient();
+  const supabase = supabaseServer();
 
-  const { error } = await supabase.auth.signOut();
+  const { error } = await (await supabase).auth.signOut();
 
   if (error) {
     return NextResponse.json({ error: 'An error occurred during login.' }, { status: 400 });
