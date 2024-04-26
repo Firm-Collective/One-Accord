@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import MapGL from '../../components/map';
 import Image from 'next/image';
-// import logo from 'public/one-accord.webp'; // Missing logo
+import logo from '../../public/one-accord.webp';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
@@ -43,7 +43,7 @@ export default function Home() {
 
           <div className='absolute top-0 left-0 pt-5 pl-5'>
             <Image
-              src=''
+              src={logo}
               alt='logo'
               priority={true}
               sizes='(min-width: 60em) 24vw,
