@@ -61,7 +61,7 @@ export default function Signup() {
             </legend>
             <div>
               <div className='mt-4'>
-                <Input label='Email' name='email' isRequired={true} register={{ ...register('email') }} />
+                <Input label='Email' name='email' isRequired={true} type='email' register={{ ...register('email') }} />
               </div>
               {errors.email && <p className='text-red-500 text-sm'>{errors.email.message}</p>}
             </div>
