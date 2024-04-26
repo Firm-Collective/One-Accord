@@ -2,12 +2,13 @@ import React from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import useMapGL from './hooks';
 import styles from './styles.module.css';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapGL = () => {
   const { clusters, selectedUser, setSelectedUser, mapRef, viewPort, setViewport, handleMarkerClick, points } =
     useMapGL();
 
-  const getMarkerClassName = (activity) => {
+  const getMarkerClassName = (activity: string | undefined): string => {
     switch (activity) {
       case 'Trumpet':
         return styles['visible-marker-trumpet'];
@@ -28,12 +29,11 @@ const MapGL = () => {
 
   return (
     <ReactMapGL
-      {...viewPort}
-      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_KEY}
+      mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
       mapStyle='mapbox://styles/charlyboy1993/clv4jourp00h901pp4s6v5l81'
-      onViewportChange={(newViewport) => {
-        setViewport({ ...newViewport });
-      }}
+      initialViewState={viewPort}
+      maxZoom={20}
+      minZoom={4}
       ref={mapRef}
     >
       {clusters.map((cluster, idx) => {
@@ -48,10 +48,10 @@ const MapGL = () => {
               key={`${cluster.properties?.geojsonId}-${cluster.properties?.name}-${idx}`}
               latitude={latitude}
               longitude={longitude}
-              className={getClusterClassName()}
               onClick={() => handleMarkerClick(cluster, viewPort, setViewport)}
             >
               <div
+                className={getClusterClassName()}
                 style={{
                   width: `${size}px`,
                   height: `${size}px`,
@@ -76,9 +76,9 @@ const MapGL = () => {
             key={`${cluster.properties?.geojsonId}-${cluster.properties?.name}-${idx}`}
             latitude={latitude}
             longitude={longitude}
-            className={getMarkerClassName(cluster.properties?.activity)}
           >
             <div
+              className={getMarkerClassName(cluster.properties?.activity)}
               style={{
                 width: '12px',
                 height: '12px',
@@ -111,13 +111,15 @@ const MapGL = () => {
 
       {selectedUser && selectedUser.geometry && selectedUser.geometry.coordinates ? (
         <Popup
+          offset={25}
           latitude={selectedUser.geometry.coordinates[1]}
           longitude={selectedUser.geometry.coordinates[0]}
           onClose={() => {
             setSelectedUser(null);
           }}
+          closeButton={false}
         >
-          <div>{selectedUser.properties?.activity}</div>
+          <div style={{ color: "black" }}>{selectedUser.properties?.activity}</div>
         </Popup>
       ) : null}
     </ReactMapGL>
