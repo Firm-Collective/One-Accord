@@ -9,21 +9,18 @@ export default async function page() {
   const supasbase = supabaseServer();
   const { data } = await (await supasbase).auth.getSession();
 
-
   return (
-
-    <>    
-    <div className='max-w-3xl mx-auto md:py-10 h-screen'>
-      <div className='h-full border rounded-md'>
-        <Header />
-        <FeedMessages />
-        <div className='p-5'>
-          <AddMessages/>
+    <>
+      <div className='max-w-3xl mx-auto md:py-10 h-screen'>
+        <div className='h-full border rounded-md'>
+          <Header />
+          <FeedMessages />
+          <div className='p-5'>
+            <AddMessages />
+          </div>
         </div>
       </div>
-    </div>
-    <InitUser user={data.session?.user}/>
+      <InitUser user={data.session?.user} />
     </>
-
   );
 }

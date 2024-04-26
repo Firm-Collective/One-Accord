@@ -3,17 +3,7 @@
 import ErrorPage from '@/app/error/page';
 import { supabaseBrowswer } from '@/utils/supabase/client';
 
-
 import React, { useState } from 'react';
-
-
-
-
-
-
-
-
-
 
 function AddMessages({ className }: { className?: string }) {
   // createPost('Title', 'Content');
@@ -21,17 +11,15 @@ function AddMessages({ className }: { className?: string }) {
   const supabase = supabaseBrowswer();
 
   const handleSendMessage = async (content: string) => {
-  alert(content);
+    
 
-   const {error }= await supabase.from("Posts").insert({content})
+    const { error } = await supabase.from('Posts').insert({ content });
 
-   if(error) {
-    ErrorPage();
-   }
+    if (error) {
+      ErrorPage();
+    }
 
-  
-
-  //call to supabase
+    //call to supabase
   };
 
   return (
