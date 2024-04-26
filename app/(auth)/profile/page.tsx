@@ -9,48 +9,6 @@ import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { z } from 'zod';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
-async function handler(req: { method: string; body: { userId: any; data: any; }; }, res: { status: (arg0: number) => { (): any; new(): any; json: { (arg0: { error?: string; id?: string; email?: string; country?: string; username?: string; city?: string; birthdate?: Date; notifications?: boolean; createdAt?: Date; updatedAt?: Date; }): void; new(): any; }; }; }) {
-  const userSession = await session({ req });
-
-  if (typeof userSession === 'undefined') {
-    res.status(401).json({ error: 'Unauthorized' });
-    return;
-  }
-
-  if (req.method === 'POST') {
-    try {
-      const { userId, data } = req.body;
-
-      // Check if the user exists
-      const existingUser = await prisma.user.findUnique({
-        where: { id: userId },
-      });
-
-      if (!existingUser) {
-        res.status(404).json({ error: 'User not found' });
-        return;
-      }
-
-      // Perform upsert operation
-      const upsertedData = await prisma.user.upsert({
-        where: { username: userId },
-        update: { ...data },
-        create: { ...data, userId: userId },
-      });
-
-      res.status(200).json(upsertedData);
-    } catch (error) {
-      console.error('Error:', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
-  } else {
-    res.status(405).json({ error: 'Method not allowed' });
-  }
-}
 
 
 type FormValues = {
