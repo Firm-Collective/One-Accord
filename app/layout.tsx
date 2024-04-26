@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Plus_Jakarta_Sans, Poppins } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import { ToastContainer } from 'react-toastify';

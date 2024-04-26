@@ -10,7 +10,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { z } from 'zod';
 
-
 type FormValues = {
   username: string;
   country: string;
@@ -66,47 +65,30 @@ export default function Profile() {
               indicates required
             </legend>
             <div>
-            <div className='flex items-center justify-between'></div>
+              <div className='flex items-center justify-between'></div>
               <div className='mt-4'>
-                <Input 
-                  label='Username' 
-                  name='username' 
-                  isRequired={true} 
-                  register={{ ...register('username') }} />
+                <Input label='Username' name='username' isRequired={true} register={{ ...register('username') }} />
               </div>
               {errors.username && <p className='text-red-500 text-sm'>{errors.username.message}</p>}
             </div>
             <div>
-            <div className='flex items-center justify-between'></div>
+              <div className='flex items-center justify-between'></div>
               <div className='mt-4'>
-                <Input
-                  label='Country'
-                  name='country'
-                  type='country'
-                  register={{ ...register('country') }}
-                />
+                <Input label='Country' name='country' type='country' register={{ ...register('country') }} />
                 {errors.country && <p className='text-red-500 text-sm'>{errors.country.message}</p>}
               </div>
             </div>
             <div>
-            <div className='flex items-center justify-between'></div>
+              <div className='flex items-center justify-between'></div>
               <div className='mt-4'>
-                <Input 
-                  label='City' 
-                  name='city' 
-                  isRequired={true} 
-                  register={{ ...register('city') }} />
+                <Input label='City' name='city' isRequired={true} register={{ ...register('city') }} />
               </div>
               {errors.city && <p className='text-red-500 text-sm'>{errors.city.message}</p>}
             </div>
             <div>
-            <div className='flex items-center justify-between'></div>
+              <div className='flex items-center justify-between'></div>
               <div className='mt-4'>
-                <Input 
-                  label='Birth Year' 
-                  name='birthyear' 
-                  isRequired={true} 
-                  register={{ ...register('birthyear') }} />
+                <Input label='Birth Year' name='birthyear' isRequired={true} register={{ ...register('birthyear') }} />
               </div>
               {errors.birthyear && <p className='text-red-500 text-sm'>{errors.birthyear.message}</p>}
             </div>
@@ -121,7 +103,10 @@ export default function Profile() {
               />
             </div>
             <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>
-              Skip to <a className='mt-5 text-center text-sm text-blue-600 hover:text-gray-900' href="/livestream">Live Stream</a>
+              Skip to{' '}
+              <a className='mt-5 text-center text-sm text-blue-600 hover:text-gray-900' href='/livestream'>
+                Live Stream
+              </a>
             </p>
           </form>
         </div>
@@ -130,7 +115,6 @@ export default function Profile() {
     </main>
   );
 }
-function session(arg0: { req: { method: string; body: { userId: any; data: any; }; }; }) {
+function session(arg0: { req: { method: string; body: { userId: any; data: any } } }) {
   throw new Error('Function not implemented.');
 }
-

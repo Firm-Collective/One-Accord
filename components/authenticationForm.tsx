@@ -10,7 +10,6 @@ import axios from 'axios';
 import { useState } from 'react';
 import Alert from './alert';
 import { useRouter } from 'next/navigation';
-import { log } from 'console';
 
 // TODO:
 // 1. Can we consolidate this schema and FormValues into a single type?

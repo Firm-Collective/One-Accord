@@ -23,7 +23,15 @@ const Button: React.FC<ButtonProps> = ({ variant, text, imageUrl, className, ...
       className={classNames(baseStyles, variantStyles[variant], className)}
       type='submit'
     >
-      {imageUrl && <Image className='absolute left-4 top-1/2 transform -translate-y-1/2' src={imageUrl} alt='logo' width={20} height={20} />}
+      {imageUrl && (
+        <Image
+          className='absolute left-4 top-1/2 transform -translate-y-1/2'
+          src={imageUrl}
+          alt='logo'
+          width={20}
+          height={20}
+        />
+      )}
       {text}
     </button>
   );
