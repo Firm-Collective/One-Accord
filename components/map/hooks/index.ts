@@ -1,52 +1,90 @@
-import { useState, useRef } from "react";
-import FlyToInterpolator from "react-map-gl";
+import { useState, useRef, useMemo } from "react";
 import useSuperCluster from "use-supercluster";
 import mockDataGeoContinents from "../data/mockDataGeoContinents.json";
+import getCenter from "geolib/es/getCenter";
+
+type User = {
+  type: string;
+  properties: {
+    geojsonId: number;
+    name: string;
+    continent: string;
+    activity: string;
+  };
+  geometry: {
+    type: string;
+    coordinates: [number, number];
+  };
+};
+
+type GeoFeature = {
+  type: string;
+  properties: {
+    geojsonId: number;
+    name: string;
+    continent: string;
+    activity: string;
+    country?: string; 
+    city?: string;
+  };
+  geometry: {
+    type: string;
+    coordinates: [number, number];
+  };
+};
 
 const useMapGL = () => {
-  const [selectedUser, setSelectedUser] = useState({});
-  const mapRef = useRef(null);
+  const [selectedUser, setSelectedUser] = useState<User | null>();
+  const mapRef = useRef(null); 
 
-  // Implement hooks
+  const points: GeoFeature[] | undefined = useMemo(() => {
+    return mockDataGeoContinents?.features.map((user: GeoFeature) => ({
+      type: "Feature",
+      properties: {
+        cluster: false,
+        geojsonId: user.properties.geojsonId,
+        name: user.properties.name,
+        country: user.properties.country,
+        city: user.properties.city,
+        activity: user.properties.activity,
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [user.geometry.coordinates[0], user.geometry.coordinates[1]],
+      },
+    })) as GeoFeature[];
+  }, []);
 
-  const points = mockDataGeoContinents?.features?.map((user) => ({
-    type: "Feature",
-    properties: {
-      cluster: false,
-      geojsonId: user.properties.geojsonId,
-      name: user.properties.name,
-      country: user.properties.country,
-      city: user.properties.city,
-      activity: user.properties.activity,
-    },
-    geometry: {
-      type: "Point",
-      coordinates: [user.geometry.coordinates[0], user.geometry.coordinates[1]],
-    },
-  }));
+  console.log("🚀 ~ constpoints:GeoFeature[]|undefined=mockDataGeoContinents?.features.map ~ points:", points)
   
-  console.log("🚀 ~ points ~ points:", points)
+  const coordinates = mockDataGeoContinents?.features.map((user: GeoFeature) => ({
+    longitude: user.geometry.coordinates[0],
+    latitude: user.geometry.coordinates[1]
+  }));
+
+  // Implement useMemo
+
+  const center: {latitude: number, longitude: number } = getCenter(coordinates) || { latitude: 52.6376, longitude: -1.135171 };
+  
   const [viewPort, setViewport] = useState({
-    width: "100vw",
-    height: "100vh",
-    latitude: 52.6376,
-    longitude: -1.135171,
+    latitude: center.latitude,
+    longitude: center.longitude,
     zoom: 4,
-  });
+    });
 
   // get map bounds
-  const bounds = mapRef.current
-    ? mapRef.current.getMap().getBounds().toArray().flat()
+  const bounds =
+  mapRef.current && (mapRef.current).getMap()
+    ? (mapRef.current).getMap().getBounds().toArray().flat() 
     : null;
 
   // get clusters
   const { clusters, supercluster } = useSuperCluster({
-    points: points ? points.slice(0, 3000) : [],
+    points: points ? points.slice(0, 500) : [],
     zoom: viewPort.zoom,
     bounds,
     options: { radius: 75, maxZoom: 100 },
   });
-  console.log("🚀 ~ useMapGL ~ clusters:", clusters)
 
   const handleMarkerClick = (cluster, viewPort, setViewport) => {
     const expansionZoom = Math.min(
@@ -55,10 +93,9 @@ const useMapGL = () => {
     );
     setViewport({
       ...viewPort,
-      latitude: cluster.geometry.coordinates[1],
-      longitude: cluster.geometry.coordinates[0],
+      latitude: cluster?.geometry?.coordinates[1],
+      longitude: cluster?.geometry?.coordinates[0],
       zoom: expansionZoom,
-      transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
       transitionDuration: "auto",
     });
   };
