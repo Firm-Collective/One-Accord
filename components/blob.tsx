@@ -11,7 +11,7 @@ export default function Blob() {
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
+  }, [colors.length]); // Empty dependency array ensures the effect runs only once on component mount
 
   return (
     <>
