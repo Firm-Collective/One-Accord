@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
+import { Plus_Jakarta_Sans, Poppins } from 'next/font/google';
 import './globals.css';
 import ReactQueryProvider from '@/utils/providers/ReactQueryProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Poppins } from 'next/font/google';
-
 const poppins = Poppins({
-  subsets: ['latin'],
-  weight: '500',
+  subsets: ['latin', 'latin-ext'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -30,8 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
-      <body className={poppins.className}>
+    <html lang='en' className={` {poppins.variable} `}>
+      <body className='relative z-0 bg-white bg-none'>
         <ReactQueryProvider>
           <ToastContainer />
           {children}
