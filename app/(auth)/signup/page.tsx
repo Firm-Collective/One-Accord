@@ -32,11 +32,14 @@ export default function Signup() {
     resolver: zodResolver(schema),
   });
 
+
   const signInMutation = useMutation({
     mutationFn: (signInData: FormValues) => {
       return axios.post('/api/auth/signup', signInData);
     },
-    onSuccess: () => {},
+    onSuccess: () => {
+      router.push('/profile')
+    },
     onError: (error) => {
       console.log('error', error);
     },
