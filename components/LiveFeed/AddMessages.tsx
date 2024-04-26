@@ -11,8 +11,7 @@ function AddMessages({ className }: { className?: string }) {
   const supabase = supabaseBrowswer();
 
   const handleSendMessage = async (content: string) => {
-    
-
+    alert(content);
     const { error } = await supabase.from('Posts').insert({ content });
 
     if (error) {

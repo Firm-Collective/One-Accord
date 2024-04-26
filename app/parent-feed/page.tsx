@@ -4,7 +4,7 @@ import Header from '@/components/LiveFeed/Header';
 import FeedMessages from '@/components/LiveFeed/FeedMessages';
 import InitUser from '@/utils/store/initUser';
 import AddMessages from '@/components/LiveFeed/AddMessages';
-
+import ListMessages from '@/components/LiveFeed/ListMessages';
 export default async function page() {
   const supasbase = supabaseServer();
   const { data } = await (await supasbase).auth.getSession();
@@ -15,6 +15,7 @@ export default async function page() {
         <div className='h-full border rounded-md'>
           <Header />
           <FeedMessages />
+          <ListMessages />
           <div className='p-5'>
             <AddMessages />
           </div>
