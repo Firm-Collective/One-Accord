@@ -111,7 +111,7 @@ export default function Profile() {
               {errors.birthyear && <p className='text-red-500 text-sm'>{errors.birthyear.message}</p>}
             </div>
             {loginMutation.isError && <p className='text-red-500 text-sm'>An error occurred during updating.</p>}
-            <p className='text-gray-700 text-base lg:text-sm text-center mt-8'>Join us in lighting up the world! Let us know where you're participating from and help illuminate the world!</p>
+            <p className='text-gray-700 text-base lg:text-sm text-center mt-8'>Join us in lighting up the world!</p>
             <div className='mt-6'>
               <Button
                 variant='primary'
