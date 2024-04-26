@@ -1,5 +1,5 @@
+import { PrismaClient } from '@prisma/client/extension';
 import { createBrowserClient } from '@supabase/ssr';
 
-export function createClient() {
-  return createBrowserClient(process.env.SUPABASE_URL!, process.env.SUPABASE_ANON_KEY!);
-}
+export const supabaseBrowswer = () =>
+  createBrowserClient<PrismaClient>(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
