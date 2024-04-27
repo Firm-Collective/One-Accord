@@ -1,8 +1,11 @@
 export interface User {
   id: string;
   email: string;
-  name?: string;
+  username?: string;
   password: string;
+  country?: string;
+  city?: string;
+  birthYear?: number;
   createdAt: Date;
   updatedAt: Date;
   posts: Post[];
