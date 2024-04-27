@@ -11,15 +11,15 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-   directUrl = env("DIRECT_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
   username  String   @unique
-  Country   String
-  City      String
+  location  Location @relation(fields: [user_location_id], references: [id])  
+  user_location_id  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   posts     Post[]
@@ -33,6 +33,15 @@ model Post {
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String
+}
+
+model Location {
+  id  String  @unique
+  city  String
+  country String
+  latitude  String
+  longitude String
+  users User[]
 }
 
 

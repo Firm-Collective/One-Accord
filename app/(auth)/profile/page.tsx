@@ -14,14 +14,14 @@ type FormValues = {
   username: string;
   country: string;
   city: string;
-  birthyear: string;
+  birth_year: string
 };
 
 const schema = z.object({
   username: z.string().min(4),
   country: z.string().min(2),
   city: z.string().min(2),
-  birthyear: z.string().min(4),
+  birth_year: z.string().min(4)
 });
 
 export default function Profile() {
@@ -88,9 +88,9 @@ export default function Profile() {
             <div>
               <div className='flex items-center justify-between'></div>
               <div className='mt-4'>
-                <Input label='Birth Year' name='birthyear' isRequired={true} register={{ ...register('birthyear') }} />
+                <Input label='Birth Year' name='birth_year' isRequired={true} register={{ ...register('birth_year') }} />
               </div>
-              {errors.birthyear && <p className='text-red-500 text-sm'>{errors.birthyear.message}</p>}
+              {errors.birth_year && <p className='text-red-500 text-sm'>{errors.birth_year.message}</p>}
             </div>
             {loginMutation.isError && <p className='text-red-500 text-sm'>An error occurred during updating.</p>}
             <p className='text-gray-700 text-base lg:text-sm text-center mt-8'>Join us in lighting up the world!</p>
@@ -115,6 +115,7 @@ export default function Profile() {
     </main>
   );
 }
+
 function session(arg0: { req: { method: string; body: { userId: any; data: any } } }) {
   throw new Error('Function not implemented.');
 }
