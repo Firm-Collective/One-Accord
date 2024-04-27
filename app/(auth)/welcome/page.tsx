@@ -45,10 +45,18 @@ export default function WelcomeScreen() {
               variant='third'
               text='Sign Up'
               onClick={() => {
-                router.push('/onboarding');
+                router.push('/signup');
               }}
             />
-            <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>Skip to Live Stream</p>
+            <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>
+              <button
+                onClick={() => {
+                  router.push('/onboarding');
+                }}
+              >
+                Skip to Live Stream
+              </button>
+            </p>
           </div>
         </div>
       </div>
