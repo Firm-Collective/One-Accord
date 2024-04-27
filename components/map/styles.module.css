@@ -40,7 +40,7 @@
 /* Define animation for visible markers */
 .visible-marker {
   opacity: 0;
-  transition: opacity 1s ease-in; 
+  transition: opacity 0.1s ease-in; 
 }
 
 /* Define animation for hidden markers */
