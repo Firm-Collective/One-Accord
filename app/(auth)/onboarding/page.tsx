@@ -23,7 +23,7 @@ export default function GetStarted() {
         </div>
 
         <div className='mt-20 sm:mx-auto sm:w-full sm:max-w-sm grid gap-2'>
-          <Button variant='primary' text='Get Started' onClick={() => router.push('/signup')} />
+          <Button variant='primary' text='Get Started' onClick={() => router.push('/live')} />
 
           <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>Skip to Live Stream</p>
         </div>
