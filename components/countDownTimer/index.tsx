@@ -1,4 +1,4 @@
-import countdownTimer from './countdownTimer';
+import CountdownTimer from './countdownTimer';
 import activityIconButton from './activityIconButton';
 
-export { countdownTimer, activityIconButton };
+export { CountdownTimer, activityIconButton };
