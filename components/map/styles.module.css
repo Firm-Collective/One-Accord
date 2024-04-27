@@ -1,0 +1,72 @@
+/* Define keyframes for Trumpet markers */
+@keyframes toggleVisibilityTrumpet {
+  0% { opacity: 0; }
+  25% { opacity: 1; } 
+  75% { opacity: 0; } 
+  100% { opacity: 0; }
+}
+
+/* Define keyframes for Worship markers */
+@keyframes toggleVisibilityWorship {
+  0% { opacity: 0; }
+  20% { opacity: 0.5; } 
+  70% { opacity: 1; } 
+  100% { opacity: 0; }
+}
+
+/* Define keyframes for Prayer markers */
+@keyframes toggleVisibilityPrayer {
+  0% { opacity: 0; }
+  15% { opacity: 0.75; } 
+  65% { opacity: 0.5; } 
+  100% { opacity: 0; }
+}
+
+/* Define keyframes for Communion markers */
+@keyframes toggleVisibilityCommunion {
+  0% { opacity: 0; }
+  10% { opacity: 0.5; }
+  60% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Define keyframes for cluster markers */
+@keyframes toggleVisibilityCluster {
+  0% { opacity: 0}
+  50% { opacity: 1 }
+  100% { opacity: 0; }
+}
+
+/* Define animation for visible markers */
+.visible-marker {
+  opacity: 0;
+  transition: opacity 1s ease-in; 
+}
+
+/* Define animation for hidden markers */
+.hidden-marker {
+  opacity: 0;
+}
+
+/* Apply specific animation for each color activity */
+.visible-marker-trumpet {
+  animation: toggleVisibilityTrumpet 8s infinite; 
+}
+
+.visible-marker-worship {
+  animation: toggleVisibilityWorship 5s infinite; 
+}
+
+.visible-marker-prayer {
+  animation: toggleVisibilityPrayer 2s infinite; 
+}
+
+.visible-marker-communion {
+  animation: toggleVisibilityCommunion 3s infinite; 
+}
+
+/* Define animation for visible cluster markers */
+.visible-marker-cluster {
+  opacity: 0;
+  animation: toggleVisibilityCluster 2s infinite;
+}
