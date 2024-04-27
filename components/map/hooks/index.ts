@@ -1,7 +1,13 @@
+"use client";
+
 import { useState, useRef, useMemo } from "react";
 import useSuperCluster from "use-supercluster";
 import mockDataGeoContinents from "../data/mockDataGeoContinents.json";
 import getCenter from "geolib/es/getCenter";
+import { createBrowserClient } from '@supabase/ssr'
+import { useQuery } from "react-query";
+import { mapAPI, mapKeys} from "../queries"
+
 
 type User = {
   type: string;
@@ -17,59 +23,74 @@ type User = {
   };
 };
 
-type GeoFeature = {
-  type: string;
-  properties: {
-    geojsonId: number;
-    name: string;
-    continent: string;
-    activity: string;
-    country?: string; 
-    city?: string;
-  };
-  geometry: {
-    type: string;
-    coordinates: [number, number];
-  };
-};
-
 const useMapGL = () => {
+  const supaClient = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
   const [selectedUser, setSelectedUser] = useState<User | null>();
   const mapRef = useRef(null); 
 
-  const points: GeoFeature[] | undefined = useMemo(() => {
-    return mockDataGeoContinents?.features.map((user: GeoFeature) => ({
-      type: "Feature",
-      properties: {
-        cluster: false,
-        geojsonId: user.properties.geojsonId,
-        name: user.properties.name,
-        country: user.properties.country,
-        city: user.properties.city,
-        activity: user.properties.activity,
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [user.geometry.coordinates[0], user.geometry.coordinates[1]],
-      },
-    })) as GeoFeature[];
-  }, []);
-
-  console.log("🚀 ~ constpoints:GeoFeature[]|undefined=mockDataGeoContinents?.features.map ~ points:", points)
+  // useQuery
+  const querryMapInfo = useQuery([...mapKeys.lists()], async () => {
+    try {
+      const mapData = await mapAPI.getMapData({ supaClient });
+      return mapData?.data;
+    } catch (error) {
+      console.error("Error al obtener datos del mapa:", error);
+      throw error;
+    }
+  }, {
+    onSuccess: (mapData) => {
+      if (!mapData) {
+        console.error("No se encontraron datos en el mapa.");
+        return [];
+      }
   
-  const coordinates = mockDataGeoContinents?.features.map((user: GeoFeature) => ({
-    longitude: user.geometry.coordinates[0],
-    latitude: user.geometry.coordinates[1]
-  }));
+      const transformedData = mapData.map((item: any) => ({
+        type: "Feature",
+        properties: {
+          cluster: false,
+          geojsonId: item.id,
+          name: item.User?.username || "",
+          country: item.User?.Location?.country || "",
+          city: item.User?.Location?.city || "",
+          activity: item.Activity?.name || "",
+        },
+        geometry: {
+          type: "Point",
+          coordinates: [
+            parseFloat(item.User?.Location?.latitude || "0"),
+            parseFloat(item.User?.Location?.longitude || "0")
+          ],
+        },
+      }));
+  
+      return transformedData;
+    },
+    onError: (error) => {
+      console.error("Error:", error);
+    },
+  });
+  
+  console.log("🚀 ~ querryMapInfo ~ querryMapInfo:", querryMapInfo.data)
+
+  const points = querryMapInfo.data;
+  
+  const coordinates = querryMapInfo?.data?.map((user) => ({
+    longitude: user?.geometry?.coordinates[0],
+    latitude: user?.geometry?.coordinates[1]
+  }))
+  
 
   // Implement useMemo
 
-  const center: {latitude: number, longitude: number } = getCenter(coordinates) || { latitude: 52.6376, longitude: -1.135171 };
+  const center: {latitude: number, longitude: number } = getCenter(coordinates);
   
   const [viewPort, setViewport] = useState({
-    latitude: center.latitude,
-    longitude: center.longitude,
-    zoom: 4,
+    latitude: center.latitud,
+    longitude: center.longitud,
+    zoom: 14,
     });
 
   // get map bounds
@@ -80,10 +101,11 @@ const useMapGL = () => {
 
   // get clusters
   const { clusters, supercluster } = useSuperCluster({
-    points: points ? points.slice(0, 500) : [],
+    points: points ? points.slice(0, 1000) : [],
     zoom: viewPort.zoom,
     bounds,
     options: { radius: 75, maxZoom: 100 },
+    disableRefresh: querryMapInfo.isFetching
   });
 
   const handleMarkerClick = (cluster, viewPort, setViewport) => {
