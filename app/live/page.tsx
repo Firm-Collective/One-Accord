@@ -5,6 +5,7 @@ import Head from 'next/head';
 import MapGL from '../../components/map';
 import Image from 'next/image';
 import logo from '../../public/one-accord.webp';
+import { CountdownTimer } from '@/components/countDownTimer/index';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
@@ -36,8 +37,8 @@ export default function Home() {
           <link rel='icon' href='/favicon.ico' />
           <title>One Accord</title>
         </Head>
-        <main className='w-screen h-screen relative overflow-hidden'>
-          <section className='w-full h-full p-0 m-0'>
+        <main className='w-screen h-screen relative overflow-hidden flex flex-col'>
+          <section className='flex-grow p-0 m-0'>
             <MapGL />
           </section>
 
@@ -46,9 +47,7 @@ export default function Home() {
               src={logo}
               alt='logo'
               priority={true}
-              sizes='(min-width: 60em) 24vw,
-            (min-width: 28em) 45vw,
-            100vw'
+              sizes='(min-width: 60em) 24vw, (min-width: 28em) 45vw, 100vw'
               className='object-contain cursor-pointer'
             />
           </div>
@@ -59,6 +58,13 @@ export default function Home() {
               <p className='text-center text-4xl font-bold'>{currentTime}</p>
             </div>
           </div>
+
+          <section className='w-screen h-10vh overflow-hidden'>
+            {/* Timer Component */}
+            <CountdownTimer />
+          </section>
+
+          <section className='w-screen h-50vh'>{/* Feed Component */}</section>
         </main>
       </div>
     </>

@@ -76,14 +76,8 @@ export default function AuthenticationForm() {
 
   return (
     <div>
-      {/* when ready to push, take this div and the countdownTimer off, we dont need to change this file 
-    it was just for practice to see our work. */}
-      <CountdownTimer />
       <main className='bg-white flex min-h-screen flex-col items-center p-24'>
         <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-          <div className='flex justify-center items-center text-red-500'>
-            <CountdownTimer />
-          </div>
           <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
             <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
             <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
