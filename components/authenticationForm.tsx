@@ -11,6 +11,7 @@ import { useState } from 'react';
 import Alert from './alert';
 import { useRouter } from 'next/navigation';
 import { log } from 'console';
+import CountdownTimer from './countDownTimer/countdownTimer';
 
 // TODO:
 // 1. Can we consolidate this schema and FormValues into a single type?
@@ -74,55 +75,63 @@ export default function AuthenticationForm() {
   };
 
   return (
-    <main className='bg-white flex min-h-screen flex-col items-center justify-between p-24'>
-      <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
-        <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
-          <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
-          <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
-            {isLoginForm ? 'Sign in to your account' : 'Create an account'}
-          </h2>
-        </div>
-        <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
-          <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
-            <div>
-              <div className='mt-2'>
-                <Input label='Email address' name='email' register={{ ...register('email') }} />
+    <div>
+      {/* when ready to push, take this div and the countdownTimer off, we dont need to change this file 
+    it was just for practice to see our work. */}
+      <CountdownTimer />
+      <main className='bg-white flex min-h-screen flex-col items-center p-24'>
+        <div className='flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8'>
+          <div className='flex justify-center items-center text-red-500'>
+            <CountdownTimer />
+          </div>
+          <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
+            <Image src='/one-accord.webp' alt='logo' width={293} height={48} />
+            <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+              {isLoginForm ? 'Sign in to your account' : 'Create an account'}
+            </h2>
+          </div>
+          <div className='mt-10 sm:mx-auto sm:w-full sm:max-w-sm'>
+            <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
+              <div>
+                <div className='mt-2'>
+                  <Input label='Email address' name='email' register={{ ...register('email') }} />
+                </div>
+                {errors.email && <p className='text-red-500 text-sm'>{errors.email.message}</p>}
               </div>
-              {errors.email && <p className='text-red-500 text-sm'>{errors.email.message}</p>}
-            </div>
 
-            <div>
-              <div className='flex items-center justify-between'></div>
-              <div className='mt-2'>
-                <Input label='Password' name='password' type='password' register={{ ...register('password') }} />
-                {errors.password && <p className='text-red-500 text-sm'>{errors.password.message}</p>}
+              <div>
+                <div className='flex items-center justify-between'></div>
+                <div className='mt-2'>
+                  <Input label='Password' name='password' type='password' register={{ ...register('password') }} />
+                  {errors.password && <p className='text-red-500 text-sm'>{errors.password.message}</p>}
+                </div>
               </div>
-            </div>
-            {loginMutation.isError && <p className='text-red-500 text-sm'>An error occurred during login.</p>}
-            <div>
-              <Button
-                variant='primary'
-                text={loginMutation.isLoading ? 'Signing in...' : 'Sign in'}
-                disabled={loginMutation.isLoading}
-                type='submit'
-              />
-            </div>
-            <div className='flex items-center justify-between'>
-              <button
-                type='button'
-                onClick={() => {
-                  setIsLoginForm((prev) => !prev);
-                }}
-                className='text-sm text-gray-600 hover:text-gray-900'
-              >
-                {isLoginForm ? 'Create an account' : 'Sign in to your account'}
-              </button>
-            </div>
-          </form>
+              {loginMutation.isError && <p className='text-red-500 text-sm'>An error occurred during login.</p>}
+              <div>
+                <Button
+                  variant='primary'
+                  text={loginMutation.isLoading ? 'Signing in...' : 'Sign in'}
+                  disabled={loginMutation.isLoading}
+                  type='submit'
+                />
+              </div>
+              <div className='flex items-center justify-between'>
+                <button
+                  type='button'
+                  onClick={() => {
+                    setIsLoginForm((prev) => !prev);
+                  }}
+                  className='text-sm text-gray-600 hover:text-gray-900'
+                >
+                  {isLoginForm ? 'Create an account' : 'Sign in to your account'}
+                </button>
+              </div>
+            </form>
+          </div>
+          {loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
+          {signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
         </div>
-        {loginMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
-        {signInMutation.error ? <Alert type='error' message='An error occurred during sign up.' /> : null}
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

@@ -1,4 +1,5 @@
 import AuthenticationForm from '@/components/authenticationForm';
+import CountdownTimer from '@/components/countDownTimer/countdownTimer';
 import { getUser } from '@/utils/supabase/auth';
 
 export default async function Home() {
@@ -14,7 +15,8 @@ export default async function Home() {
        3. We could follow the airbnb approach of having a single form that is loops through the database to see if 
        the user exists and then logs them in or signs them up 
        */}
-      <AuthenticationForm />
+      {/* <AuthenticationForm /> */}
+      <CountdownTimer />
     </main>
   );
 }
