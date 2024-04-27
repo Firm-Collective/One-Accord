@@ -1,5 +1,5 @@
 import AuthenticationForm from '@/components/authenticationForm';
-import CountdownTimer from '@/components/countdownTimer';
+import CountdownTimer from '@/components/countDownTimer/countdownTimer';
 import { getUser } from '@/utils/supabase/auth';
 
 export default async function Home() {
