@@ -14,14 +14,14 @@ type FormValues = {
   username: string;
   country: string;
   city: string;
-  birth_year: string
+  birth_year: string;
 };
 
 const schema = z.object({
   username: z.string().min(4),
   country: z.string().min(2),
   city: z.string().min(2),
-  birth_year: z.string().min(4)
+  birth_year: z.string().min(4),
 });
 
 export default function Profile() {
@@ -59,7 +59,7 @@ export default function Profile() {
           <h2 className='w-full text-left text-[28px] font-bold leading-9 tracking-tight text-gray-900'>
             Tell us about yourself
           </h2>
-          <form className='my-4'>
+          <form className='my-4' onSubmit={handleSubmit(onSubmit)}>
             <legend className='text-xs text-right text-gray-700'>
               <span className='text-red-500 mr-1'>*</span>
               indicates required
@@ -88,7 +88,12 @@ export default function Profile() {
             <div>
               <div className='flex items-center justify-between'></div>
               <div className='mt-4'>
-                <Input label='Birth Year' name='birth_year' isRequired={true} register={{ ...register('birth_year') }} />
+                <Input
+                  label='Birth Year'
+                  name='birth_year'
+                  isRequired={true}
+                  register={{ ...register('birth_year') }}
+                />
               </div>
               {errors.birth_year && <p className='text-red-500 text-sm'>{errors.birth_year.message}</p>}
             </div>
@@ -114,8 +119,4 @@ export default function Profile() {
       </div>
     </main>
   );
-}
-
-function session(arg0: { req: { method: string; body: { userId: any; data: any } } }) {
-  throw new Error('Function not implemented.');
 }

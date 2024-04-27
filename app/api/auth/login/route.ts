@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/utils/supabase/server';
 
-// login user to supabase
+// Sign in a user with Supabase authentication
 export async function POST(request: Request) {
   const supabase = createClient();
   const data = await request.json();
