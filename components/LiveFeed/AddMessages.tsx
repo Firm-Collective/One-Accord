@@ -1,23 +1,20 @@
-'use client';
-
+import React, { useState } from 'react';
 import ErrorPage from '@/app/error/page';
 import { supabaseBrowswer } from '@/utils/supabase/client';
-
 import { z } from 'zod';
-import React, { useState } from 'react';
 
 const PostSchema = z.object({
   activity_id: z.string(),
   category_id: z.string(),
   content: z.string(),
-  created_at: z.string(), // You can use z.date() if the created_at column is a date type in your database
+  created_at: z.string(),
   event_id: z.string(),
   is_offensive: z.boolean(),
   is_visible: z.boolean(),
   keywords_id: z.string(),
   media_type_id: z.string(),
   sentiment_id: z.string(),
-  tag_id: z.string().optional(), // This property is optional
+  tag_id: z.string().optional(),
   user_id: z.string(),
 });
 
@@ -40,52 +37,50 @@ function generatePostData(content: any) {
 }
 
 function AddMessages({ className }: { className?: string }) {
-  // createPost('Title', 'Content');
-  const [message, setMessages] = useState('');
-
-
+  const [message, setMessage] = useState('');
 
   const handleSendMessage = async (content: string) => {
     try {
-      // Generate postData object
       const postData = generatePostData(content);
-
-      // Validate message data against schema
       PostSchema.parse(postData);
 
-      // Insert message into Supabase
       const { data, error } = await supabase.from('Post').insert(postData);
+      
+      if (error) {
+        throw error;
+      }
 
-      // Message sent successfully
-      // You can add additional logic here if needed
+      setMessage(''); // Clear message input after sending
     } catch (error) {
-      // Validation failed or database error occurred
       console.error('Error sending message:', error);
-      // Redirect to error page or display error message to user
-      ErrorPage();
+      ErrorPage(); // Redirect to error page or display error message to user
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (message.trim() !== '') {
+      await handleSendMessage(message);
     }
   };
 
   return (
-    <form className={className}>
-      <div className='flex item-center'>
+    <form className={className} onSubmit={handleSubmit}>
+      <div className='flex items-center'>
         <input
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleSendMessage(e.currentTarget.value);
-              e.currentTarget.value = '';
-            }
-          }}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
           type='text'
           name='message'
           placeholder='Enter your message'
           className='w-full h-9 border border-white-400 p-2 mr-2'
         />
+        <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+          Send
+        </button>
       </div>
     </form>
   );
 }
-
-
 
 export default AddMessages;
