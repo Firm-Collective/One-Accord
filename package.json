@@ -17,7 +17,7 @@
     "axios": "^1.6.8",
     "classnames": "^2.5.1",
     "dotenv": "^16.4.5",
-    "next": "^14.2.2",
+    "next": "^14.2.3",
     "next-auth": "^4.24.7",
     "postgres": "^3.4.4",
     "react": "^18",

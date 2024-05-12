@@ -6,14 +6,14 @@ import InitMessages from '@/utils/store/initMessages';
 export default async function FeedMessages() {
   const supabase = supabaseServer();
 
-  const { data } = await (await supabase).from('Post').select('*,users(*)');
+  const { data, error } = await (await supabase).from('Post').select('*,users(*)');
 
   console.log(data);
 
   return (
     <Suspense fallback={'loading..'}>
       <ListMessages />
-      <InitMessages messages={data || []} />
+      <InitMessages messages={data || [] } />
     </Suspense>
   );
 }

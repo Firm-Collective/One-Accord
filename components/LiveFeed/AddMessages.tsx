@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import ErrorPage from '@/app/error/page';
 import { supabaseBrowswer } from '@/utils/supabase/client';
@@ -22,17 +24,17 @@ const supabase = supabaseBrowswer();
 
 function generatePostData(content: any) {
   return {
-    activity_id: "activity_id_value",
-    category_id: "category_id_value",
+    activity_id: "6e6a36da-06ed-426d-80cc-d1ff2276fb98",
+    category_id: "2525edcc-b972-4a14-bfc5-66697a89b5bc",
     content,
     created_at: "2024-05-07T12:00:00Z",
-    event_id: "event_id_value",
+    event_id: "9eac149d-12b1-4c91-b14b-8fd87341b572",
     is_offensive: false,
     is_visible: true,
-    keywords_id: "keywords_id_value",
-    media_type_id: "media_type_id_value",
-    sentiment_id: "sentiment_id_value",
-    user_id: "user_id_value"
+    keywords_id: "b5901b2c-b39b-4b20-8465-0b7898b159e9",
+    media_type_id: "f1075159-b937-4e9c-a5f1-2aa2d482086e",
+    sentiment_id: "94ddc4f2-82f7-4c22-8e56-95b462d3b7ae",
+    user_id: "9466d9ab-d2db-4414-8483-907e85e55f5f"
   };
 }
 
@@ -41,10 +43,11 @@ function AddMessages({ className }: { className?: string }) {
 
   const handleSendMessage = async (content: string) => {
     try {
+      
       const postData = generatePostData(content);
-      PostSchema.parse(postData);
+      const validatedData = PostSchema.parse(postData);
 
-      const { data, error } = await supabase.from('Post').insert(postData);
+      const { data, error } = await supabase.from('Post').insert(validatedData);
       
       if (error) {
         throw error;
