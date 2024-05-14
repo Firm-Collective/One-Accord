@@ -10,8 +10,9 @@ export default function Message({ message }: { message: Imessage }) {
           <h1 className='font-bold'>Mario</h1>
           <h1 className='text-sm text-gray-400'>{new Date().toDateString()}</h1>
         </div>
-        <p> {message.content} </p>
+        <p className='text-white-300'> {message.content} </p>
       </div>
     </div>
   );
 }
+

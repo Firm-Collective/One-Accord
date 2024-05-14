@@ -14,15 +14,19 @@ export async function insertPost(document: any) {
 }
 
 export async function getAllPosts() {
-  let { data: Post, error } = await supabase.from('Post').select('*');
-
-  if (error) {
-    console.log('Error getting blogs', error);
-  } else {
-    console.log(Post);
-    return Post;
+  try {
+    const { data: posts, error } = await supabase.from('Post').select('*');
+    if (error) {
+      throw error;
+    }
+    console.log(posts);
+    return posts;
+  } catch (error) {
+    console.log('Error getting posts');
+    return []; // Return an empty array in case of error
   }
 }
+
 
 export async function getOnePost(id: number) {
   let { data, error } = await supabase.from('Post').select('*').eq('id', id).single();

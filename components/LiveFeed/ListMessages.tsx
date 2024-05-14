@@ -1,61 +1,85 @@
 'use client';
 
-// import React, { useEffect, useState } from 'react';
 
-// import { useMessage } from '@/utils/store/messages';
-// import Message from './Message';
-
-// export default function ListMessages() {
-//   const messsages = useMessage((state) => state.messages);
-
-//   return (
-//     <div className='flex-1 flex flex-col p-5 h-full overflow-y-auto'>
-//       <div className='flex-1 '></div>
-//       <div className='space-y-7'>
-//         {messsages.map((value, index) => {
-//           return <Message key={index} message={value} />;
-//         })}
-//       </div>
-//     </div>
-//   );
-// }
 import React, { useState, useEffect, ReactElement } from 'react';
-
-import { getAllPosts, getAllUsers, getOneUser } from '@/utils/supabase/db';
-// import { useRouter } from "next/router";
-import { supabase } from '@/utils/supabase/db';
+import { getAllPosts } from '@/utils/supabase/db';
 
 interface Post {
-  id: number;
-  content: string;
-  updated_at: string;
+  activity_id: string
+  category_id: string
+  content: string
+  created_at: string
+  event_id: string
+  id: string
+  is_offensive: boolean
+  is_visible: boolean
+  keywords_id: string
+  media_type_id: string
+  sentiment_id: string
+  tag_id: string | null
+  user_id: string
 }
 
-interface User {
-  id: string;
-  username: string;
-  birth_year: string;
+interface ListMessagesProps {
+  posts?: Post[]; // Make the prop optional
 }
 
-export default function Post(): ReactElement {
-  const [posts, setBlogs] = useState<Post[]>([]);
-  const [users, setUsers] = useState<User[]>([]);
+export default function ListMessages({ posts: propPosts }: ListMessagesProps): ReactElement  {
+  const [posts, setPosts] = useState<Post[]>([]);
+
 
   useEffect(() => {
     async function fetchData() {
-      await getAllPosts().then((response) => setBlogs(response as Post[]));
-      // console.log(blogs);
+      try {
+        const fetchedPosts = await getAllPosts();
+        setPosts(fetchedPosts);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
     }
-    fetchData();
-  }, []);
 
-  useEffect(() => {
-    async function fetchData() {
-      await getAllUsers().then((response) => setUsers(response as User[]));
-      // console.log(blogs);
-    }
     fetchData();
-  }, []);
+  }, [posts]);
+
+
+
+  return (
+    <>
+      {posts.map((post: Post) => (
+        <div className='post' key={post.id}>
+      
+          <p className='postDesc'>{post.content}</p>
+          <div className='postButtons'></div>
+        </div>
+      ))}
+    </>
+  );
+}
+
+
+
+
+
+
+// interface User {
+//   id: string;
+//   username: string;
+//   birth_year: string;
+// }
+
+// export default function Post(): ReactElement {
+//   
+//   const [users, setUsers] = useState<User[]>([]);
+
+
+
+//   useEffect(() => {
+//     async function fetchData() {
+//       await getAllUsers().then((response) => setUsers(response as User[]));
+//       // console.log(blogs);
+//     }
+//     fetchData();
+//   }, []);
 
   // This is how you get one user data based on user id
   // useEffect(() => {
@@ -66,35 +90,6 @@ export default function Post(): ReactElement {
   //   fetchData();
   // }, []);
 
-  if (!posts) {
-    return <div>Loading...</div>;
-  }
 
-  return (
-    <>
-      {posts.map((b: Post) => {
-        return (
-          <div className='post' key={b.id}>
-            <div className='postInfo'>{/* <p className="postDesc">{b.id}</p> */}</div>
-            <p className='postDesc'>{b.content}</p>
 
-            <div className='postButtons'></div>
-          </div>
-        );
-      })}
-      {users.map((u: User) => {
-        return (
-          <div className='post' key={u.id}>
-            <div className='postInfo'>
-              <p className='postDesc'>{u.id}</p>
-              <p className='postDesc'>{u.username}</p>
-              <p className='postDesc'>{u.birth_year}</p>
-            </div>
-
-            <div className='postButtons'></div>
-          </div>
-        );
-      })}
-    </>
-  );
-}
+ 
