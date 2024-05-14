@@ -38,3 +38,28 @@ We are beginning with a GitHub Flow-based strategy, using a `main` branch and `u
 
 [Tailwind CSS](https://tailwindcss.com/) is a utility-first CSS framework for rapidly building custom user interfaces. It provides a set of pre-defined utility classes that you can use to style your components.
 
+## Getting Started
+
+```
+npx create-next-app@latest -e with-tailwindcss with-supabase my-project
+npm install @supabase/ssr @supabase/supabase-js
+npm i framer-motion
+npm install @heroicons/react
+
+```
+
+## Authentication
+
+### Supabase Oauth Setup
+
+- Github Oauth
+  - Supabase homepage > Authentication > Providers > Github
+    - Client ID = [Github profile > Settings > Developer settings > APP_NAME >General > [Client ID]
+    - Client Secret = [Github profile > Settings > Developer settings > APP_NAME > General > [Client secret]
+  - Github homepage > Github profile icon > Settings > Developer settings > OAuth Apps
+    - New OAuth App
+      - Application name = real-time-chat
+      - Homepage URL = http://localhost:3000
+      - Application description = [optional]
+      - Authorization callback URL = [Supabase > Authentication > Providers > Github > Callback URL]
+    - General > Client ID, Client secret
