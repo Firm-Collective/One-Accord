@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import ErrorPage from '@/app/error/page';
 import { supabaseBrowswer } from '@/utils/supabase/client';
 import { z } from 'zod';
+import Button from '../button';
+
 
 const PostSchema = z.object({
   activity_id: z.string(),
@@ -38,32 +40,37 @@ function generatePostData(content: any) {
   };
 }
 
-function AddMessages({ className }: { className?: string }) {
-  const [message, setMessage] = useState('');
+interface AddPostsProps {
+  className?: string;
+  refetch: () => void; // Add the refetch prop
+}
 
-  const handleSendMessage = async (content: string) => {
+function AddPosts({ className, refetch }: AddPostsProps) {
+  const [post, setPost] = useState('');
+
+  const handleSendPost = async (content: string) => {
     try {
-      
       const postData = generatePostData(content);
       const validatedData = PostSchema.parse(postData);
 
       const { data, error } = await supabase.from('Post').insert(validatedData);
-      
+
       if (error) {
         throw error;
       }
 
-      setMessage(''); // Clear message input after sending
+      setPost(''); // Clear message input after sending
+      refetch(); // Call refetch after successful post sending
     } catch (error) {
-      console.error('Error sending message:', error);
+      console.error('Error sending post:', error);
       ErrorPage(); // Redirect to error page or display error message to user
     }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (message.trim() !== '') {
-      await handleSendMessage(message);
+    if (post.trim() !== '') {
+      await handleSendPost(post);
     }
   };
 
@@ -71,19 +78,17 @@ function AddMessages({ className }: { className?: string }) {
     <form className={className} onSubmit={handleSubmit}>
       <div className='flex items-center'>
         <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={post}
+          onChange={(e) => setPost(e.target.value)}
           type='text'
-          name='message'
-          placeholder='Enter your message'
+          name='post'
+          placeholder='Enter your post'
           className='w-full h-9 border border-white-400 p-2 mr-2'
         />
-        <button type='submit' className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
-          Send
-        </button>
+        <Button variant={'primary'} text={''} type='submit'>Send</Button>
       </div>
     </form>
   );
 }
 
-export default AddMessages;
+export default AddPosts;

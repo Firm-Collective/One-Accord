@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { User } from '@supabase/supabase-js';
 
-export type Imessage = {
+export type IPost = {
  
 
 category_id: string;
@@ -21,10 +21,10 @@ users: {}[];
 
 };
 
-interface MessageState {
-  messages: Imessage[];
+interface PostState {
+  posts: IPost[];
 }
 
-export const useMessage = create<MessageState>()((set) => ({
-  messages: [],
+export const usePost = create<PostState>()((set) => ({
+  posts: [],
 }));

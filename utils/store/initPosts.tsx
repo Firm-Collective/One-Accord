@@ -2,13 +2,13 @@
 
 import { User } from '@supabase/supabase-js';
 import React, { useEffect, useRef } from 'react';
-import { Imessage, useMessage } from './messages';
+import { IPost, usePost } from './posts';
 
-export default function InitMessages({ messages }: { messages: Imessage[] }) {
+export default function InitPosts({ posts }: { posts: IPost[] }) {
   const initState = useRef(false);
   useEffect(() => {
     if (!initState.current) {
-      useMessage.setState({ messages });
+      usePost.setState({ posts });
     }
 
     initState.current = true;

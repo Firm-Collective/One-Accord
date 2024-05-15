@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client/extension';
+
 import { createBrowserClient } from '@supabase/ssr';
 import { Database } from './types';
 

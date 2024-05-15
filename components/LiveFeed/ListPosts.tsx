@@ -1,53 +1,37 @@
-'use client';
+"use client"
 
-
-import React, { useState, useEffect, ReactElement } from 'react';
-import { getAllPosts } from '@/utils/supabase/db';
+import React, { ReactElement } from 'react';
+import { getAllPosts, supabase } from '@/utils/supabase/db';
+import { useQuery } from 'react-query';
 
 interface Post {
-  activity_id: string
-  category_id: string
-  content: string
-  created_at: string
-  event_id: string
-  id: string
-  is_offensive: boolean
-  is_visible: boolean
-  keywords_id: string
-  media_type_id: string
-  sentiment_id: string
-  tag_id: string | null
-  user_id: string
+  activity_id: string;
+  category_id: string;
+  content: string;
+  created_at: string;
+  event_id: string;
+  id: string;
+  is_offensive: boolean;
+  is_visible: boolean;
+  keywords_id: string;
+  media_type_id: string;
+  sentiment_id: string;
+  tag_id: string | null;
+  user_id: string;
 }
 
-interface ListMessagesProps {
+interface ListPostsProps {
   posts?: Post[]; // Make the prop optional
 }
 
-export default function ListMessages({ posts: propPosts }: ListMessagesProps): ReactElement  {
-  const [posts, setPosts] = useState<Post[]>([]);
-
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const fetchedPosts = await getAllPosts();
-        setPosts(fetchedPosts);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      }
-    }
-
-    fetchData();
-  }, [posts]);
-
-
+export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactElement {
+  const { data: posts, isLoading, isError, error, refetch } = useQuery(['posts'], getAllPosts);
 
   return (
     <>
-      {posts.map((post: Post) => (
+      <button onClick={() => refetch()}>refetch</button>
+      {posts?.map((post: Post) => (
         <div className='post' key={post.id}>
-      
           <p className='postDesc'>{post.content}</p>
           <div className='postButtons'></div>
         </div>
@@ -55,6 +39,7 @@ export default function ListMessages({ posts: propPosts }: ListMessagesProps): R
     </>
   );
 }
+
 
 
 

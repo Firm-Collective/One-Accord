@@ -15,11 +15,11 @@ export async function insertPost(document: any) {
 
 export async function getAllPosts() {
   try {
-    const { data: posts, error } = await supabase.from('Post').select('*');
+    const { data: posts, error } = await supabase.from('Post').select('*').limit(40).order('created_at', { ascending: false });
     if (error) {
       throw error;
     }
-    console.log(posts);
+    console.log("Retrieve Post: ", posts);
     return posts;
   } catch (error) {
     console.log('Error getting posts');
@@ -64,7 +64,7 @@ export async function deletePost(id: number) {
 //user
 
 export async function getAllUsers() {
-  let { data: Post, error } = await supabase.from('User').select('*');
+  let { data: Post, error } = await supabase.from('User').select('*').order('created_at', { ascending: true });
 
   if (error) {
     console.log('Error getting users', error);
