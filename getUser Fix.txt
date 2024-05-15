@@ -1,0 +1,60 @@
+getUser fix
+
+app/auth-server-action/page.tsx -----------
+
+Replace if (data.session) {
+With if (data.user) {
+
+app/todo/page.tsx --------------
+
+Replace     if (!data.session) {
+
+With     if (!data) {
+
+lib/actions/index.ts -------------
+
+Replace     return supabase.auth.getSession();
+
+With     return supabase.auth.getUser();
+
+app/auth-server-action/components/SignInForm.tsx --------------
+
+Replace the onSubmit toast notifications with
+
+	if (error) {
+        toast({
+            variant: "destructive",
+            title: "You submitted the following values:",
+            description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">
+                        Unsuccessful Login
+                    </code>2
+                </pre>
+            ),
+        });
+    } else if (error?.message) {
+        toast({
+            variant: "destructive",
+            title: "You submitted the following values:",
+            description: (
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">{error.message}</code>
+                </pre>
+            ),
+        });
+    } else {
+        console.log("------ no error here ------");
+        console.log("parseResult: ", parseResult);
+        toast({
+            title: "You submitted the following values:",
+            description: (
+                <pre className="mt=2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">
+                        Successfully logged in
+                    </code>
+                </pre>
+            ),
+        });
+    }
+
