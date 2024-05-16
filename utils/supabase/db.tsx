@@ -15,18 +15,21 @@ export async function insertPost(document: any) {
 
 export async function getAllPosts() {
   try {
-    const { data: posts, error } = await supabase.from('Post').select('*').limit(40).order('created_at', { ascending: false });
+    const { data: posts, error } = await supabase
+      .from('Post')
+      .select('*')
+      .limit(40)
+      .order('created_at', { ascending: false });
     if (error) {
       throw error;
     }
-    console.log("Retrieve Post: ", posts);
+    console.log('Retrieve Post: ', posts);
     return posts;
   } catch (error) {
     console.log('Error getting posts');
     return []; // Return an empty array in case of error
   }
 }
-
 
 export async function getOnePost(id: number) {
   let { data, error } = await supabase.from('Post').select('*').eq('id', id).single();

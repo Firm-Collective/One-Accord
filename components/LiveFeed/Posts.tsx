@@ -15,4 +15,3 @@ export default function Post({ post }: { post: IPost }) {
     </div>
   );
 }
-

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
 import ErrorPage from '@/app/error/page';
@@ -25,17 +25,17 @@ const supabase = supabaseBrowser();
 
 function generatePostData(content: any) {
   return {
-    activity_id: "6e6a36da-06ed-426d-80cc-d1ff2276fb98",
-    category_id: "2525edcc-b972-4a14-bfc5-66697a89b5bc",
+    activity_id: '6e6a36da-06ed-426d-80cc-d1ff2276fb98',
+    category_id: '2525edcc-b972-4a14-bfc5-66697a89b5bc',
     content,
     created_at: new Date().toISOString(), // Use current time
-    event_id: "9eac149d-12b1-4c91-b14b-8fd87341b572",
+    event_id: '9eac149d-12b1-4c91-b14b-8fd87341b572',
     is_offensive: false,
     is_visible: true,
-    keywords_id: "b5901b2c-b39b-4b20-8465-0b7898b159e9",
-    media_type_id: "f1075159-b937-4e9c-a5f1-2aa2d482086e",
-    sentiment_id: "94ddc4f2-82f7-4c22-8e56-95b462d3b7ae",
-    user_id: "9466d9ab-d2db-4414-8483-907e85e55f5f"
+    keywords_id: 'b5901b2c-b39b-4b20-8465-0b7898b159e9',
+    media_type_id: 'f1075159-b937-4e9c-a5f1-2aa2d482086e',
+    sentiment_id: '94ddc4f2-82f7-4c22-8e56-95b462d3b7ae',
+    user_id: '9466d9ab-d2db-4414-8483-907e85e55f5f',
   };
 }
 
@@ -58,7 +58,7 @@ function AddPosts({ className, refetch }: AddPostsProps) {
         throw error;
       }
 
-      console.log("Post added successfully: ", data);
+      console.log('Post added successfully: ', data);
 
       setPost(''); // Clear message input after sending
       refetch(); // Call refetch after successful post sending
@@ -83,7 +83,7 @@ function AddPosts({ className, refetch }: AddPostsProps) {
           onChange={(e) => setPost(e.target.value)}
           type='text'
           name='post'
-          placeholder='Enter your post'
+          placeholder='Comment'
           className='w-full h-9 border border-white-400 p-2 mr-2'
         />
         <Button variant={'primary'} text={'Send and Refetch'} type='submit' /> {/* Single button */}
@@ -93,5 +93,3 @@ function AddPosts({ className, refetch }: AddPostsProps) {
 }
 
 export default AddPosts;
-
-
