@@ -3,7 +3,7 @@ import Alert from '@/components/alert';
 import Button from '@/components/button';
 import Header from '@/components/header';
 import Input from '@/components/input';
-import SocialAuth from '@/components/socialAuth';
+import SocialAuth from '@/components/authentication/socialAuth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
@@ -32,13 +32,12 @@ export default function Signup() {
     resolver: zodResolver(schema),
   });
 
-
   const signInMutation = useMutation({
     mutationFn: (signInData: FormValues) => {
       return axios.post('/api/auth/signup', signInData);
     },
     onSuccess: () => {
-      router.push('/profile')
+      router.push('/profile');
     },
     onError: (error) => {
       console.log('error', error);
