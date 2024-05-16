@@ -6,9 +6,11 @@ import MapGL from '../../components/map';
 import Image from 'next/image';
 import logo from '../../public/one-accord.webp';
 import { CountdownTimer } from '@/components/countDownTimer/index';
+import { Loading } from '@/components/loading';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Función para obtener la hora actual y formatearla
@@ -38,9 +40,7 @@ export default function Home() {
           <title>One Accord</title>
         </Head>
         <main className='w-screen h-screen relative overflow-hidden flex flex-col'>
-          <section className='flex-grow p-0 m-0'>
-            <MapGL />
-          </section>
+          <section className='flex-grow p-0 m-0'>{loading ? <Loading /> : <MapGL />}</section>
 
           <div className='absolute top-0 left-0 pt-5 pl-5'>
             <Image
