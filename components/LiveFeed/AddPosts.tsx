@@ -2,10 +2,9 @@
 
 import React, { useState } from 'react';
 import ErrorPage from '@/app/error/page';
-import { supabaseBrowswer } from '@/utils/supabase/client';
+import { supabaseBrowser } from '@/utils/supabase/client';
 import { z } from 'zod';
 import Button from '../button';
-
 
 const PostSchema = z.object({
   activity_id: z.string(),
@@ -22,14 +21,14 @@ const PostSchema = z.object({
   user_id: z.string(),
 });
 
-const supabase = supabaseBrowswer();
+const supabase = supabaseBrowser();
 
 function generatePostData(content: any) {
   return {
     activity_id: "6e6a36da-06ed-426d-80cc-d1ff2276fb98",
     category_id: "2525edcc-b972-4a14-bfc5-66697a89b5bc",
     content,
-    created_at: "2024-05-07T12:00:00Z",
+    created_at: new Date().toISOString(), // Use current time
     event_id: "9eac149d-12b1-4c91-b14b-8fd87341b572",
     is_offensive: false,
     is_visible: true,
@@ -59,6 +58,8 @@ function AddPosts({ className, refetch }: AddPostsProps) {
         throw error;
       }
 
+      console.log("Post added successfully: ", data);
+
       setPost(''); // Clear message input after sending
       refetch(); // Call refetch after successful post sending
     } catch (error) {
@@ -85,10 +86,12 @@ function AddPosts({ className, refetch }: AddPostsProps) {
           placeholder='Enter your post'
           className='w-full h-9 border border-white-400 p-2 mr-2'
         />
-        <Button variant={'primary'} text={''} type='submit'>Send</Button>
+        <Button variant={'primary'} text={'Send and Refetch'} type='submit' /> {/* Single button */}
       </div>
     </form>
   );
 }
 
 export default AddPosts;
+
+
