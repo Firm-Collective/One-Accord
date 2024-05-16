@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -8,6 +8,7 @@ import './css/style.css';
 
 import { Header } from '@/components/landing/ui/header';
 import Link from 'next/link';
+import Loading from './loading';
 
 export default function DefaultLayout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -22,8 +23,9 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
   return (
     <>
       <Header />
-
-      <main className='grow'>{children}</main>
+      <Suspense fallback={<Loading />}>
+        <main className='grow'>{children}</main>
+      </Suspense>
 
       <footer className='pt-24 ' aria-labelledby='footer-heading'>
         <h2 id='footer-heading' className='sr-only'>

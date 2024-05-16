@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Head from 'next/head';
 import MapGL from '../../components/map';
 import Image from 'next/image';
@@ -10,7 +10,6 @@ import { Loading } from '@/components/loading';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState('');
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Función para obtener la hora actual y formatearla
@@ -40,7 +39,11 @@ export default function Home() {
           <title>One Accord</title>
         </Head>
         <main className='w-screen h-screen relative overflow-hidden flex flex-col'>
-          <section className='flex-grow p-0 m-0'>{loading ? <Loading /> : <MapGL />}</section>
+          <section className='flex-grow p-0 m-0'>
+            <Suspense fallback={<Loading />}>
+              <MapGL />
+            </Suspense>
+          </section>
 
           <div className='absolute top-0 left-0 pt-5 pl-5'>
             <Image
@@ -61,7 +64,9 @@ export default function Home() {
 
           <section className='w-screen h-10vh overflow-hidden'>
             {/* Timer Component */}
-            <CountdownTimer />
+            <Suspense fallback={<Loading />}>
+              <CountdownTimer />
+            </Suspense>
           </section>
 
           <section className='w-screen h-50vh'>{/* Feed Component */}</section>
