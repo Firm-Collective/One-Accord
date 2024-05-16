@@ -5,7 +5,6 @@ import { createClient } from '@/utils/supabase/server';
 export async function POST(request: Request) {
   const supabase = createClient();
   const data = await request.json();
-  console.log('api called', data);
   const { error } = await supabase.auth.signInWithPassword(data);
 
   if (error) {

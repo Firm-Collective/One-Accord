@@ -1,5 +1,5 @@
 import Button from '../button';
-import useSocialAuth from './hooks';
+import useSocialAuth from './hooks/useSocialAuth';
 
 export default function SocialAuth() {
   const { loginWithGoogle, loginWithFacebook, loginWithApple } = useSocialAuth();
