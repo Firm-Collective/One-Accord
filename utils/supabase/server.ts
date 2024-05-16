@@ -1,6 +1,6 @@
 'use server';
 
-import { PrismaClient } from '@prisma/client/extension';
+
 import { CookieMethods, createServerClient, type CookieOptions } from '@supabase/ssr';
 import { cookies } from 'next/headers';
 import { Database } from './types';

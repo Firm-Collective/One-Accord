@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import React, { ReactElement } from 'react';
-import { getAllPosts, supabase } from '@/utils/supabase/db';
+import { getAllPosts } from '@/utils/supabase/db';
 import { useQuery } from 'react-query';
+import AddPosts from './AddPosts'; // Adjust the import path as needed
 
 interface Post {
   activity_id: string;
@@ -27,9 +28,19 @@ interface ListPostsProps {
 export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactElement {
   const { data: posts, isLoading, isError, error, refetch } = useQuery(['posts'], getAllPosts);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {"error message"}</div>;
+  }
+
+  console.log("Fetched posts: ", posts);
+
   return (
     <>
-      <button onClick={() => refetch()}>refetch</button>
+      <AddPosts refetch={refetch} />
       {posts?.map((post: Post) => (
         <div className='post' key={post.id}>
           <p className='postDesc'>{post.content}</p>
