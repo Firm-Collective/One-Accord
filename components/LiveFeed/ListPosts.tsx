@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { ReactElement } from 'react';
 import { getAllPosts } from '@/utils/supabase/db';
@@ -33,29 +33,23 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
   }
 
   if (isError) {
-    return <div>Error: {"error message"}</div>;
+    return <div>Error: {'error message'}</div>;
   }
 
-  console.log("Fetched posts: ", posts);
+  console.log('Fetched posts: ', posts);
 
   return (
     <>
-      <AddPosts refetch={refetch} />
       {posts?.map((post: Post) => (
         <div className='post' key={post.id}>
           <p className='postDesc'>{post.content}</p>
           <div className='postButtons'></div>
         </div>
       ))}
+      <AddPosts refetch={refetch} />
     </>
   );
 }
-
-
-
-
-
-
 
 // interface User {
 //   id: string;
@@ -64,10 +58,8 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
 // }
 
 // export default function Post(): ReactElement {
-//   
+//
 //   const [users, setUsers] = useState<User[]>([]);
-
-
 
 //   useEffect(() => {
 //     async function fetchData() {
@@ -77,15 +69,11 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
 //     fetchData();
 //   }, []);
 
-  // This is how you get one user data based on user id
-  // useEffect(() => {
-  //   async function fetchData() {
-  //    const data= await getOneUser('e636d844-6a9d-4efe-a98d-69c3aef382f5');
-  //     console.log(data);
-  //   }
-  //   fetchData();
-  // }, []);
-
-
-
- 
+// This is how you get one user data based on user id
+// useEffect(() => {
+//   async function fetchData() {
+//    const data= await getOneUser('e636d844-6a9d-4efe-a98d-69c3aef382f5');
+//     console.log(data);
+//   }
+//   fetchData();
+// }, []);
