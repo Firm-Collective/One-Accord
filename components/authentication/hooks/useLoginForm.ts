@@ -31,9 +31,16 @@ const useLoginForm = () => {
       const onValid = async (data: LoginSchemaType) => {
       const parsedValues = LoginSchema.safeParse(data);
 
-        if (parsedValues.success) {
-            loginMutation.mutate(data);
-          }
+      if (!parsedValues.success) {
+        type K = keyof LoginSchemaType;
+        parsedValues.error.errors.forEach((v) =>
+          form.setError(v.path.join(".") as K, { message: v.message })
+        );
+        return;
+      } 
+
+      loginMutation.mutate(data);
+      
       };
 
       const onInvalid = (errors: Partial<FieldErrorsImpl<LoginSchemaType>>) => {

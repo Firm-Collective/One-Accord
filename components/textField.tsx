@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller, Control, FieldValues, Path } from 'react-hook-form';
+import { Controller, Control, FieldValues, Path, FieldError } from 'react-hook-form';
 import classNames from 'classnames';
 import type { TextFieldProps } from '@mui/material/TextField';
 import TextFieldMui from '@mui/material/TextField';
@@ -11,6 +11,12 @@ type ControllerType<TFieldValues extends FieldValues, TNames> = {
 };
 
 type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps;
+
+type ExtendedFieldError = FieldError & {
+  birth_year: {
+    message?: string;
+  };
+};
 
 function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldValues> = Path<TFieldValues>>({
   control,
@@ -48,7 +54,10 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
             field.onChange(value);
           }}
           error={!!fieldState.error}
-          helperText={fieldState.error?.message ?? ''}
+          helperText={
+            (fieldState.error?.message ?? "") ||
+            ((fieldState?.error as ExtendedFieldError)?.birth_year?.message ?? '')
+          }
           InputLabelProps={{
             ...InputLabelProps,
             shrink: true,
