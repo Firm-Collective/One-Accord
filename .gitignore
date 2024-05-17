@@ -38,3 +38,8 @@ next-env.d.ts
 
 
 /utils/data
+
+/supabase/functions/
+/supabase/config.toml
+/supabase/gitignore
+/supabase/
