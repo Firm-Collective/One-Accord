@@ -6,6 +6,7 @@ import { useQuery } from 'react-query';
 import AddPosts from './AddPosts'; // Adjust the import path as needed
 import { CommentSection } from './CommentSection';
 
+
 interface Post {
   activity_id: string;
   category_id: string;
@@ -49,7 +50,7 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
         </div>
       ))}
       <AddPosts refetch={refetch} />
-      <CommentSection icRoundSend="public/ic_round-send.svg" property1="default" />
+      <CommentSection frame="/frame-163422.svg" image="image-1-2.png" property1="default" vector="vector-2.svg" thumbsUp='/ThumbsUp.svg' returnVector='/ReturnVector.svg' sendVector='/SendVector.svg'/>
 
     </>
   );
