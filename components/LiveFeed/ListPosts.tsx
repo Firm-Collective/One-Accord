@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react';
 import { getAllPosts } from '@/utils/supabase/db';
 import { useQuery } from 'react-query';
 import AddPosts from './AddPosts'; // Adjust the import path as needed
+import { CommentSection } from './CommentSection';
 
 interface Post {
   activity_id: string;
@@ -40,6 +41,7 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
 
   return (
     <>
+    
       {posts?.map((post: Post) => (
         <div className='post' key={post.id}>
           <p className='postDesc'>{post.content}</p>
@@ -47,6 +49,8 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
         </div>
       ))}
       <AddPosts refetch={refetch} />
+      <CommentSection icRoundSend="public/ic_round-send.svg" property1="default" />
+
     </>
   );
 }

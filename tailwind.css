@@ -1,0 +1,38 @@
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --1-themes-keyboard-bg: rgba(208, 211, 218, 1);
+  --1-themes-keyboard-key-border: rgba(108, 108, 113, 1);
+  --1-themes-label-primary: rgba(0, 0, 0, 1);
+  --2-radius-radius-full: 9999px;
+  --2-radius-radius-sm: 6px;
+  --2-radius-radius-xs: 4px;
+  --tokens-basic-forms-switch-content-gap-between: -2px;
+}
+
+/*
+
+To enable a theme in your HTML, simply add one of the following data attributes to an HTML element, like so:
+
+<body data-1-themes-mode="light">
+    <!-- the rest of your content -->
+</body>
+
+You can apply the theme on any DOM node, not just the `body`
+
+*/
+
+[data-1-themes-mode="light"] {
+  --1-themes-label-primary: rgba(0, 0, 0, 1);
+}
+
+[data-1-themes-mode="dark"] {
+  --1-themes-label-primary: rgba(255, 255, 255, 1);
+}

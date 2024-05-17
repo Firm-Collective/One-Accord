@@ -1,6 +1,6 @@
 import React from 'react';
 import { supabaseServer } from '@/utils/supabase/server';
-import Header from '@/components/LiveFeed/Header';
+
 
 import InitUser from '@/utils/store/initUser';
 
@@ -12,14 +12,25 @@ export default async function page() {
 
   return (
     <>
-      <div className='max-w-3xl mx-auto md:py-10 h-screen'>
-        <div className='h-full border rounded-md'>
-          <Header />
-          <FeedPosts />
+      <main
+        style={{
+          display: 'inline-flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          gap: '5px',
+          padding: '20px',
+          border: '1px solid #e5e7eb',
+          borderRadius: '8px',
+          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+          height: '100vh',
+          
+        }}
+      >
+        <FeedPosts />
 
-          <div className='p-5'></div>
-        </div>
-      </div>
+        <div className='p-5'></div>
+      </main>
+
       <InitUser user={data.session?.user} />
     </>
   );
