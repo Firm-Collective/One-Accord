@@ -50,7 +50,7 @@ export default function ListPosts({ posts: propPosts }: ListPostsProps): ReactEl
         </div>
       ))}
       <AddPosts refetch={refetch} />
-      <CommentSection frame="/frame-163422.svg" image="image-1-2.png" property1="default" vector="vector-2.svg" thumbsUp='/ThumbsUp.svg' returnVector='/ReturnVector.svg' sendVector='/SendVector.svg'/>
+      <CommentSection frame="/frame-163422.svg" userPhoto='/Image-7.png' property1="default" vector="vector-2.svg" returnVector='/ReturnVector.svg' sendVector='/SendVector.svg'/>
 
     </>
   );
