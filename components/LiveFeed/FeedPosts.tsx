@@ -2,9 +2,10 @@ import React, { Suspense } from 'react';
 
 import { supabaseServer } from '@/utils/supabase/server';
 import { LIMIT_MESSAGE } from '@/constant';
-import ListPosts from './ListPosts';
+
 
 import InitPosts from '@/utils/store/initPosts';
+import { Messages } from './MessagesOnFeed/MessageSection';
 
 export default async function FeedPosts() {
   const supabase = await supabaseServer();
@@ -18,7 +19,8 @@ export default async function FeedPosts() {
   return (
     <>
       <Suspense fallback={'loading..'}>
-        <ListPosts />
+        
+        <Messages image = "image-7.png" img = "image.png" profilePictureClassName rectangle = "rectangle.png" image1 = "image-3.png" unsplashIfgrcqhznqg = "unsplash-ifgrcqhznqg.png"/>
         <InitPosts posts={data?.reverse() || []} />
       </Suspense>
     </>
