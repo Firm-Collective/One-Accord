@@ -20,7 +20,7 @@ export default async function FeedPosts() {
     <>
       <Suspense fallback={'loading..'}>
         
-        <Messages image = "image-7.png" img = "image.png" profilePictureClassName rectangle = "rectangle.png" image1 = "image-3.png" unsplashIfgrcqhznqg = "unsplash-ifgrcqhznqg.png"/>
+        <Messages  image = "image-7.png" img = "image.png" profilePictureClassName rectangle = "rectangle.png" image1 = "image-3.png" unsplashIfgrcqhznqg = "unsplash-ifgrcqhznqg.png"/>
         <InitPosts posts={data?.reverse() || []} />
       </Suspense>
     </>
