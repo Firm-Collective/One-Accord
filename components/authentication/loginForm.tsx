@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Button from '@/components/button';
 import TextField from '@/components/textField';
 import useLoginForm from './hooks/useLoginForm';
-// import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-// import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton } from '@mui/material';
 import Link from "next/link";
 
@@ -47,7 +47,7 @@ export default function LoginForm() {
               InputProps={{
                 endAdornment: (
                   <IconButton onClick={() => setIsPasswordVisible(!isPasswordVisible)}>
-                    {/* {isPasswordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />} */}
+                    {isPasswordVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
                   </IconButton>
                 ),
               }}
