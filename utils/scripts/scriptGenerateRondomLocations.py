@@ -18,7 +18,7 @@ continents = {
 }
 
 # Number of objects
-num_objects = 50000
+num_objects = 10
 
 # List to store generated objects
 features = []

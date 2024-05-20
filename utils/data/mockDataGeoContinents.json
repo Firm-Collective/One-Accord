@@ -1,0 +1,965 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 1,
+        "name": "Location 1",
+        "continent": "North America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          100.49357073431122,
+          14.10026014828646
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 2,
+        "name": "Location 2",
+        "continent": "North America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          157.6211743444557,
+          29.820617541687366
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 3,
+        "name": "Location 3",
+        "continent": "North America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          111.07985184540064,
+          14.013037261781612
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 4,
+        "name": "Location 4",
+        "continent": "North America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          171.59334973672804,
+          18.87343237935152
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 5,
+        "name": "Location 5",
+        "continent": "North America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -13.02910758362188,
+          56.00712063428588
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 6,
+        "name": "Location 6",
+        "continent": "North America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.26922656536192,
+          51.552222717905806
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 7,
+        "name": "Location 7",
+        "continent": "North America",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -57.313137006693324,
+          30.804295859992475
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 8,
+        "name": "Location 8",
+        "continent": "North America",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          70.81116035187165,
+          36.951952116176784
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 9,
+        "name": "Location 9",
+        "continent": "North America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -1.0960817101944826,
+          19.23489121861425
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 10,
+        "name": "Location 10",
+        "continent": "North America",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -122.40718242096153,
+          77.4746099062657
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 11,
+        "name": "Location 11",
+        "continent": "Central America",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.26505361754633,
+          26.094520354177153
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 12,
+        "name": "Location 12",
+        "continent": "Central America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          28.673647295195593,
+          16.968471040260415
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 13,
+        "name": "Location 13",
+        "continent": "Central America",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          65.48464344533127,
+          7.474436022979951
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 14,
+        "name": "Location 14",
+        "continent": "Central America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -163.4388497238024,
+          19.224846177156664
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 15,
+        "name": "Location 15",
+        "continent": "Central America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          123.98434612933403,
+          25.478774679807103
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 16,
+        "name": "Location 16",
+        "continent": "Central America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -170.9366025621541,
+          15.625548097330862
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 17,
+        "name": "Location 17",
+        "continent": "Central America",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          155.84061292331262,
+          11.97480753395377
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 18,
+        "name": "Location 18",
+        "continent": "Central America",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -138.29508528964016,
+          21.658373587645315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 19,
+        "name": "Location 19",
+        "continent": "Central America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.77403776495035,
+          29.991591494507915
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 20,
+        "name": "Location 20",
+        "continent": "Central America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          119.86323717578301,
+          20.137931525771357
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 21,
+        "name": "Location 21",
+        "continent": "South America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          22.944116698468406,
+          6.792156691692568
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 22,
+        "name": "Location 22",
+        "continent": "South America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.534086662724093,
+          -17.09605316391535
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 23,
+        "name": "Location 23",
+        "continent": "South America",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -175.25974454161815,
+          -57.156788591186825
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 24,
+        "name": "Location 24",
+        "continent": "South America",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -37.488205448418114,
+          11.427897046237433
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 25,
+        "name": "Location 25",
+        "continent": "South America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.01935399737341,
+          -15.618989029249185
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 26,
+        "name": "Location 26",
+        "continent": "South America",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          133.83962649963956,
+          -4.438946373559659
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 27,
+        "name": "Location 27",
+        "continent": "South America",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.897396724571877,
+          -58.64815051076562
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 28,
+        "name": "Location 28",
+        "continent": "South America",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.93395151340025,
+          -12.857754415692682
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 29,
+        "name": "Location 29",
+        "continent": "South America",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -154.27543622259415,
+          10.647170384524486
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 30,
+        "name": "Location 30",
+        "continent": "South America",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          147.7311671414693,
+          -14.095047974472486
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 31,
+        "name": "Location 31",
+        "continent": "Africa",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -93.47784277605673,
+          28.88943331969044
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 32,
+        "name": "Location 32",
+        "continent": "Africa",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.190145929639272,
+          -2.0502432106053945
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 33,
+        "name": "Location 33",
+        "continent": "Africa",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -161.69607134496522,
+          -12.170727397178574
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 34,
+        "name": "Location 34",
+        "continent": "Africa",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.009851558795276,
+          30.162352137207876
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 35,
+        "name": "Location 35",
+        "continent": "Africa",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.03201535968549,
+          14.37483305401765
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 36,
+        "name": "Location 36",
+        "continent": "Africa",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          103.8797258501586,
+          -1.1906231919402686
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 37,
+        "name": "Location 37",
+        "continent": "Africa",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -141.59663216580043,
+          33.678210990674586
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 38,
+        "name": "Location 38",
+        "continent": "Africa",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -120.98329272106756,
+          -18.262973759252723
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 39,
+        "name": "Location 39",
+        "continent": "Africa",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -30.768955409535522,
+          21.335211971943096
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 40,
+        "name": "Location 40",
+        "continent": "Africa",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -174.8378956705551,
+          18.565069457026155
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 41,
+        "name": "Location 41",
+        "continent": "Europe",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          102.5107174610701,
+          67.84525811059355
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 42,
+        "name": "Location 42",
+        "continent": "Europe",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -45.55800693166057,
+          38.46294032809619
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 43,
+        "name": "Location 43",
+        "continent": "Europe",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          56.459097220276306,
+          68.36789709748516
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 44,
+        "name": "Location 44",
+        "continent": "Europe",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -42.32158958399859,
+          36.655739105213094
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 45,
+        "name": "Location 45",
+        "continent": "Europe",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          101.82536222955571,
+          54.51467583953519
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 46,
+        "name": "Location 46",
+        "continent": "Europe",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -51.5697787327573,
+          36.64883870359102
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 47,
+        "name": "Location 47",
+        "continent": "Europe",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          23.39452251985321,
+          45.692010858358714
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 48,
+        "name": "Location 48",
+        "continent": "Europe",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          63.07644204570599,
+          67.03998057842998
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 49,
+        "name": "Location 49",
+        "continent": "Europe",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          69.9116566775671,
+          52.9393452709187
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 50,
+        "name": "Location 50",
+        "continent": "Europe",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -20.95306044243975,
+          53.00216604080793
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 51,
+        "name": "Location 51",
+        "continent": "Asia",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -46.40599626684883,
+          50.362792614192244
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 52,
+        "name": "Location 52",
+        "continent": "Asia",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -140.18723522926084,
+          15.763158755409545
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 53,
+        "name": "Location 53",
+        "continent": "Asia",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -156.05973629094893,
+          54.49977545415326
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 54,
+        "name": "Location 54",
+        "continent": "Asia",
+        "activity": "Worship"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -132.74471639536225,
+          74.1887745710995
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 55,
+        "name": "Location 55",
+        "continent": "Asia",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -159.8860833363543,
+          66.81245592542363
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 56,
+        "name": "Location 56",
+        "continent": "Asia",
+        "activity": "Communion"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          124.15076852457702,
+          34.80007446583688
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 57,
+        "name": "Location 57",
+        "continent": "Asia",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          161.22903527073692,
+          54.37196841803633
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 58,
+        "name": "Location 58",
+        "continent": "Asia",
+        "activity": "Prayer"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -132.83064290126254,
+          19.5150258362888
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 59,
+        "name": "Location 59",
+        "continent": "Asia",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.62172077412237,
+          41.84459424066452
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "geojsonId": 60,
+        "name": "Location 60",
+        "continent": "Asia",
+        "activity": "Trumpet"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -61.89979962827067,
+          10.17036963750586
+        ]
+      }
+    }
+  ]
+}
