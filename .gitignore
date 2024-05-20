@@ -42,4 +42,5 @@ next-env.d.ts
 /supabase/functions/
 /supabase/config.toml
 /supabase/gitignore
-/supabase/
+
+/utils/scripts/data_generator_util
