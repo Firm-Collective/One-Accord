@@ -106,7 +106,7 @@ const useMapGL = () => {
   const [viewPort, setViewport] = useState({
     latitude: center.latitud,
     longitude: center.longitud,
-    zoom: 4,
+    zoom: 0,
     });
 
   // get map bounds
@@ -117,7 +117,7 @@ const useMapGL = () => {
 
   // get clusters
   const { clusters, supercluster } = useSuperCluster({
-    points: points ? points.slice(0, 1000) : [],
+    points: points ? points.slice(0, 10) : [],
     zoom: viewPort.zoom,
     bounds,
     options: { radius: 75, maxZoom: 100 },
