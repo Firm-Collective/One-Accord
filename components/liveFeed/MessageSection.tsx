@@ -41,7 +41,7 @@ const MessageSection: React.FC<Props> = ({
     <div className={`inline-flex flex-col items-start gap-[5px] relative ${className} h-[150px] overflow-y-auto`}>
       {/* {posts?.map((post: Post) => ( <></> ))} */}
       <div className='bg-[#d9d9d9] flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'>
-        <Image className='relative w-[28px] h-[28px]' alt='Image' src={ModeratorImage} />
+        <Image className='relative w-[28px] h-[28px]' alt='Image' src={ModeratorImage} width={28} height={28} />
         <p className="relative w-[300px] mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
           <span className='font-semibold'>Moderator</span>
           <span className="[font-family:'Poppins-Regular',Helvetica]">&nbsp;</span>
