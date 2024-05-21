@@ -1,12 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 'use client';
-import PropTypes from 'prop-types';
 import React from 'react';
 import CommentSection from './CommentSection';
 import MessageSection from './MessageSection';
 import useLiveFeed from './hooks/useLiveFeed';
 
-export const LiveFeed = ({
+type Props = {
+  className: string;
+  ModeratorImage: string;
+  img?: string;
+  profilePictureClassName: string;
+  rectangle?: string;
+  image1?: string;
+  unsplashIfgrcqhznqg?: string;
+};
+
+export const LiveFeed: React.FC<Props> = ({
   className,
   ModeratorImage,
   img = 'image.png',
@@ -14,16 +23,13 @@ export const LiveFeed = ({
   rectangle = 'rectangle.png',
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
-}): JSX.Element => {
+}) => {
   const { querryPostInfo } = useLiveFeed();
 
-  if (querryPostInfo.isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (querryPostInfo.isError) {
-    return <div>Error: {'error message'}</div>;
-  }
+  const sanitizedPosts = (querryPostInfo?.data ?? []).map((post) => ({
+    ...post,
+    tag_id: post.tag_id ?? null,
+  }));
 
   return (
     <div className='w-[100%] h-[281px]'>
@@ -34,7 +40,7 @@ export const LiveFeed = ({
         image1={image1}
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
-        posts={querryPostInfo?.data ?? []}
+        posts={sanitizedPosts}
       />
       <CommentSection
         property1='default'

@@ -22,6 +22,7 @@ type User = {
   };
 };
 
+
 const useMapGL = () => {
   const supaClient = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -81,8 +82,6 @@ const useMapGL = () => {
       cluster: false,
       geojsonId: user.properties.geojsonId,
       name: user.properties.name,
-      country: user.properties.country,
-      city: user.properties.city,
       activity: user.properties.activity,
     },
     geometry: {
@@ -101,7 +100,7 @@ const useMapGL = () => {
 
   // Implement useMemo
 
-  const center: {latitude: number, longitude: number } = getCenter(coordinates);
+  const center = getCenter(coordinates) as any;
   
   const [viewPort, setViewport] = useState({
     latitude: center.latitud,
@@ -110,10 +109,10 @@ const useMapGL = () => {
     });
 
   // get map bounds
-  const bounds =
-  mapRef.current && (mapRef.current).getMap()
-    ? (mapRef.current).getMap().getBounds().toArray().flat() 
-    : null;
+  const bounds = undefined
+  // mapRef.current && (mapRef.current)
+  //   ? (mapRef.current).getBounds().toArray().flat() 
+  //   : null;
 
   // get clusters
   const { clusters, supercluster } = useSuperCluster({
@@ -124,7 +123,7 @@ const useMapGL = () => {
     // disableRefresh: querryMapInfo.isFetching
   });
 
-  const handleMarkerClick = (cluster, viewPort, setViewport) => {
+  const handleMarkerClick = (cluster: any, viewPort: any, setViewport: any) => {
     const expansionZoom = Math.min(
       supercluster.getClusterExpansionZoom(cluster.id),
       20

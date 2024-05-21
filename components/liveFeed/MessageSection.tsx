@@ -1,17 +1,47 @@
-const MessageSection = ({
+import Image from 'next/image';
+
+type PostSchemaType = {
+  id: string;
+  activity_id: string;
+  category_id: string;
+  content: string;
+  created_at: string;
+  event_id: string;
+  is_offensive: boolean;
+  is_visible: boolean;
+  keywords_id: string;
+  media_type_id: string;
+  sentiment_id: string;
+  user_id: string;
+  tag_id: string | null;
+};
+
+
+type Props = {
+  className: string;
+  ModeratorImage: string;
+  img?: string;
+  profilePictureClassName: string;
+  rectangle?: string;
+  image1?: string;
+  unsplashIfgrcqhznqg?: string;
+  posts: PostSchemaType[] | [];
+};
+
+const MessageSection: React.FC<Props> = ({
   className,
   ModeratorImage,
   profilePictureClassName,
   image1,
   rectangle,
   unsplashIfgrcqhznqg,
-  posts
+  posts,
 }) => {
   return (
     <div className={`inline-flex flex-col items-start gap-[5px] relative ${className} h-[150px] overflow-y-auto`}>
       {/* {posts?.map((post: Post) => ( <></> ))} */}
       <div className='bg-[#d9d9d9] flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'>
-        <img className='relative w-[28px] h-[28px]' alt='Image' src={ModeratorImage} />
+        <Image className='relative w-[28px] h-[28px]' alt='Image' src={ModeratorImage} />
         <p className="relative w-[300px] mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
           <span className='font-semibold'>Moderator</span>
           <span className="[font-family:'Poppins-Regular',Helvetica]">&nbsp;</span>
