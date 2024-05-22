@@ -6,7 +6,7 @@ const useLiveFeed = () => {
     const supaClient = createClient();
 
     // useQuery
-  const querryPostInfo = useQuery([...postKeys.lists()], async () => {
+  const queryPostInfo = useQuery([...postKeys.lists()], async () => {
     try {
       const postData = await postAPI.getPostData({ supaClient });
       return postData?.data;
@@ -27,7 +27,7 @@ const useLiveFeed = () => {
   });
 
     return {
-        querryPostInfo
+      queryPostInfo
     }
 }
 

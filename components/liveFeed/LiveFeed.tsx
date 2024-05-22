@@ -24,9 +24,9 @@ export const LiveFeed: React.FC<Props> = ({
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
 }) => {
-  const { querryPostInfo } = useLiveFeed();
+  const { queryPostInfo } = useLiveFeed();
 
-  const sanitizedPosts = (querryPostInfo?.data ?? []).map((post) => ({
+  const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
@@ -41,10 +41,11 @@ export const LiveFeed: React.FC<Props> = ({
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
         posts={sanitizedPosts}
+        refetch={queryPostInfo.refetch}
       />
       <CommentSection
         property1='default'
-        refetch={querryPostInfo.refetch}
+        refetch={queryPostInfo.refetch}
         frame={'/frame-163422.svg'}
         userPhoto={'/Image-7.png'}
       />
