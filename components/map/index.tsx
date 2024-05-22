@@ -29,7 +29,7 @@ const MapGL = () => {
 
   return (
     <div className='w-[100%] h-[281px]'>
-      <ReactMapGL
+      {/* <ReactMapGL
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
         mapStyle='mapbox://styles/charlyboy1993/clv4jourp00h901pp4s6v5l81'
         initialViewState={viewPort}
@@ -123,7 +123,7 @@ const MapGL = () => {
             <div style={{ color: 'black' }}>{selectedUser.properties?.activity}</div>
           </Popup>
         ) : null}
-      </ReactMapGL>
+      </ReactMapGL> */}
     </div>
   );
 };
