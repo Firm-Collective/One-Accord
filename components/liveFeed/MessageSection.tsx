@@ -77,24 +77,6 @@ const MessageSection: React.FC<Props> = ({
 
     
  {/* {posts?.map((post: Post) => ( <></> ))} */}
-      <div className='bg-white flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'>
-        <div
-          className={`relative w-[28px] h-[28px] bg-[url(/profile-pic.png)] bg-[100%_100%] ${profilePictureClassName}`}
-        />
-        <p className="relative w-[300px] mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
-          <span className='font-semibold'>ekklesia</span>
-          <span className="[font-family:'Poppins-Regular',Helvetica]">&nbsp;</span>
-          <span className="[font-family:'Poppins-Light',Helvetica] font-light text-[11px]">
-            (UK) Today at 10:05 AM
-            <br />
-          </span>
-          <span className="[font-family:'Poppins-Regular',Helvetica]">
-            I saw a vision of fires of Revival
-            <br />
-            sweeping across China
-          </span>{' '}
-        </p>
-      </div>
       {posts?.map((post: PostSchemaType) => (
         <div key={post.id} className='bg-white flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'>
           <div className={`relative w-[28px] h-[28px] bg-[url(/profile-pic.png)] bg-[100%_100%] ${profilePictureClassName}`} />
