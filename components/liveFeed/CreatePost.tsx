@@ -12,7 +12,7 @@ export const CreatePost = ({ refetch }: Props) => {
 
   return (
     <form
-      className='w-[370px] h-[50px] rounded-[8px] bg-[#f1f1f1] relative flex items-center'
+     
       onSubmit={form.handleSubmit(onValid, onInvalid)}
     >
       <TextField
