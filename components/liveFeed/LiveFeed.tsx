@@ -46,8 +46,8 @@ export const LiveFeed: React.FC<Props> = ({
       <CommentSection
         property1='default'
         refetch={queryPostInfo.refetch}
-        frame={'/frame-163422.svg'}
-        userPhoto={'/Image-7.png'}
+        
+        icRoundSend={'/ic-round-send.svg'}
       />
     </div>
   );
