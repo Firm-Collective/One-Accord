@@ -12,7 +12,7 @@ type Props = {
 };
 
 
-const useLiveFeed = ({ refetch }: Props) => {
+const useCreatPost = ({ refetch }: Props) => {
     
   const supaClient = createClient()
   const router = useRouter();
@@ -92,4 +92,4 @@ const useLiveFeed = ({ refetch }: Props) => {
     }
 }
 
-export default useLiveFeed;
+export default useCreatPost;

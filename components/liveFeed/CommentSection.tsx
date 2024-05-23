@@ -39,12 +39,19 @@ export const CommentSection = ({
                     property1 === "with-text" ? "w-[227px]" : "w-[228px]"
                   } ${property1 === "with-text" ? "text-[#1e1f20]" : "text-[#898a9d]"}`}
                 >
-                  {property1 === "default" && <CreatePost refetch={refetch}/>}
+                  {property1 === "default" && <>Comment</>}
 
                   {property1 === "with-text" && <p>God is moving in Eur</p>}
                 </div>
               </div>
             </div>
+            <img
+              className={`w-[24px] top-[7px] h-[24px] absolute ${
+                property1 === "with-text" ? "left-[339px]" : "left-[340px]"
+              }`}
+              alt="Ic round send"
+              src={property1 === "with-text" ? "image.svg" : icRoundSend}
+            />
           </>
         )}
 
