@@ -1,6 +1,7 @@
 import TextField from '@/components/textField';
 import useCreatePost from './hooks/useCreatePost';
-import SendVector from './ui/SendVector';
+
+import { IcRoundSend } from './ui/icRoundSend';
 
 type Props = {
   refetch: () => void;
@@ -26,7 +27,7 @@ export const CreatePost = ({ refetch }: Props) => {
       />
 
       <button type='submit'>
-        <SendVector className={`w-[18px] top-[18px] h-[18px] absolute left-[340px]`} color='#898A8D' />
+        <IcRoundSend  />
       </button>
     </form>
   );

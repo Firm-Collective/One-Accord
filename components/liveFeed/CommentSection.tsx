@@ -6,15 +6,15 @@ import { CreatePost } from './CreatePost';
 
 interface Props {
   property1: 'guest-chat' | 'with-text' | 'default';
-  frame: string;
-  userPhoto: string;
+
+  icRoundSend: string;
+
   refetch: () => void;
 }
 
 export const CommentSection = ({
   property1,
-  frame = '/frame-163422.svg',
-  userPhoto = '/Image-7.png',
+  icRoundSend,
   refetch,
 }: Props): JSX.Element => {
   return (
@@ -29,17 +29,7 @@ export const CommentSection = ({
             </div>
             {/* <FaSmileO className='!absolute !w-[20px] !h-[20px] !top-[5px] !left-[241px]' color='#898A8D' /> */}
           </div>
-          {/* <Vector className='!absolute !w-[20px] !h-[20px] !top-[9px] !left-[358px]' color='#898A8D' /> */}
-          {/* <img
-            className='w-[27px] left-[10px] top-[5px] h-[27px] absolute'
-            alt='Image'
-            src={property1 === 'with-text' ? '/Image-7.png' : userPhoto}
-          /> */}
-          {/* <img
-            className='w-[29px] left-[323px] top-[4px] h-[29px] absolute'
-            alt='Frame'
-            src={property1 === 'with-text' ? '/frame-163422.svg' : frame}
-          /> */}
+          
         </>
       )}
       {property1 === 'guest-chat' && (
@@ -59,9 +49,7 @@ export const CommentSection = ({
 CommentSection.propTypes = {
   property1: PropTypes.oneOf(['guest-chat', 'with-text', 'default']),
   vector: PropTypes.string,
-  frame: PropTypes.string,
-  returnVector: PropTypes.string,
-  userPhoto: PropTypes.string,
+  icRoundSend: PropTypes.string,
   refetch: PropTypes.func.isRequired, // Make refetch required
 };
 
