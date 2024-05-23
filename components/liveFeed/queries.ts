@@ -27,13 +27,15 @@ export const postAPI = {
           Keywords(id, words, frequency),
           Event(id, name),
           MediaType(id, type),
-          User(id, user_type_id, UserType:UserType(id, name), user_location_id, Location:Location(id, city, country, latitude, longitude))
+          User(id, username, UserType:UserType(id, name), Location:Location(id, city, country, latitude, longitude))
         `).limit(10)
         .order('created_at', { ascending: false });
       
         const response = (await query).data;
+        console.log("🚀 ~ response:", response)
 
         const parsedSchema = PostSchema.safeParse(response);
+        console.log("🚀 ~ parsedSchema:", parsedSchema)
         
 
         if (!parsedSchema.success) {
