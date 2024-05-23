@@ -18,8 +18,9 @@ const UserTypeSchema = z.object({
 // User Schema
 const UserSchema = z.object({
   id: z.string().uuid(),
-  user_type_id: UserTypeSchema.shape.id,
-  user_location_id: LocationSchema.shape.id,
+  username: z.string(),
+  UserType: UserTypeSchema,
+  Location: LocationSchema
 });
 
 // Category Schema
@@ -75,6 +76,7 @@ export const PostSchema = z.array(
     is_visible: z.boolean(),
     is_offensive: z.boolean(),
     user_id: UserSchema.shape.id,
+    User: UserSchema,
     activity_id: ActivitySchema.shape.id,
     category_id: CategorySchema.shape.id,
     tag_id: TagSchema.shape.id.nullish(),
@@ -94,7 +96,7 @@ export const CretePostSchema = z.object({
     content: z.string(),
     is_visible: z.boolean(),
     is_offensive: z.boolean(),
-    user_id: UserSchema.shape.id,
+    user_id: UserSchema,
     activity_id: ActivitySchema.shape.id,
     category_id: CategorySchema.shape.id,
     tag_id: TagSchema.shape.id.nullish(),
