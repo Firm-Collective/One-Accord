@@ -32,7 +32,7 @@ export const LiveFeed: React.FC<Props> = ({
   }));
 
   return (
-    <div className='w-[100%] h-[281px]'>
+    <div className='w-[100%] h-[281px] space-y-8'>
       <MessageSection
         className={className}
         ModeratorImage={ModeratorImage}
@@ -41,7 +41,6 @@ export const LiveFeed: React.FC<Props> = ({
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
         posts={sanitizedPosts}
-        refetch={queryPostInfo.refetch}
       />
       <CommentSection
         property1='default'
