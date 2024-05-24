@@ -18,6 +18,22 @@ const useLiveFeed = ({ refetch }: Props) => {
   const router = useRouter();
   const { toast } = useToast();
 
+
+
+  const fetchUserId = async () => {
+    try {
+      const response = await axios.get('/api/user/getUserId'); 
+      return response.data.userId;
+    } catch (error) {
+      console.error('Failed to fetch user ID:', error);
+      return '7ed30fc3-eb0a-4dc5-a9de-2466633bc415'; // Return anonymous user ID in case of error
+    }
+  };
+
+  const getEventId = () => {
+    return '9eac149d-12b1-4c91-b14b-8fd87341b572'; // One Accord
+}
+
   const form = useForm<CreteContentPostSchemaType>({
       resolver: zodResolver(CreteContentPostSchema),
       defaultValues: {
@@ -63,31 +79,48 @@ const useLiveFeed = ({ refetch }: Props) => {
         console.log('Error while determining offensiveness:', error);
       },
     });
+
+    const handlePostTopicClassification = useMutation({
+      mutationFn: async (postData: { text: string }) => {
+        const response = await axios.post<{
+          label: string
+        }>('https://api.one-accord.xyz/api/predict_topic', { text: postData.text });
+        return response.data;
+      },
+      onError: (error) => {
+        console.log('Error while determining topic classification:', error);
+      },
+    });
     
   
     const onValid = async (data: CreteContentPostSchemaType) => {
       console.log("🚀 ~ onValid ~ data:", data);
+
+      const userId = await fetchUserId();
+
       const { label: postToxicity } = await handlePostToxicity.mutateAsync({ text: data.content });
       const isToxic = postToxicity === 'toxic';
+      console.log("🚀 ~ onValid ~ isToxic:", isToxic)
+      
+      // const { label: postTopic } = await handlePostTopicClassification.mutateAsync({ text: data.content });
+      // console.log("🚀 ~ onValid ~ postTopic:", postTopic)
 
-      const { predictions: postOffensiveness } = await handlePostOffensiveness.mutateAsync({ text: data.content });
-      console.log("🚀 ~ onValid ~ postOffensiveness:", postOffensiveness)
-      const isOffensive = postOffensiveness[0].label === 'offensive';
+      // const { predictions: postOffensiveness } = await handlePostOffensiveness.mutateAsync({ text: data.content });
+      // const isOffensive = postOffensiveness[0].label === 'offensive';
 
     // Build object for post
-    const postData: CretePostSchemaType = {
-      user_id: '94b2a736-d8c7-4722-8d64-86a0a24d4f80', 
-      activity_id: '6e6a36da-06ed-426d-80cc-d1ff2276fb98',
-      category_id: '2525edcc-b972-4a14-bfc5-66697a89b5bc',
+    const postData: CreatePostSchemaTypePick = {
+      is_offensive: isToxic,
+      is_visible: !isToxic,
+      user_id: userId, 
+      activity_id: getActivityIdBasedOnTime(),
       content: data.content || '', // Ensure that content has a value
-      created_at: new Date().toISOString(),
-      event_id: '9eac149d-12b1-4c91-b14b-8fd87341b572',
-      // is_toxic: isToxic
-      is_offensive: isOffensive,
-      is_visible: true,
+      event_id: getEventId(), // One Accord
+      category_id: '2525edcc-b972-4a14-bfc5-66697a89b5bc',
       keywords_id: 'b5901b2c-b39b-4b20-8465-0b7898b159e9',
-      media_type_id: 'f1075159-b937-4e9c-a5f1-2aa2d482086e',
-      sentiment_id: '94ddc4f2-82f7-4c22-8e56-95b462d3b7ae',
+      media_type_id: 'b43e4c0b-21e3-4f3f-9cf2-62c3f5e97935',
+      sentiment_id: '9f0d7f13-25d9-48cb-afcd-b1134a1a7f3a',
+      created_at: new Date().toISOString(),
     };
     console.log("🚀 ~ onValid ~ postData:", postData)
     
