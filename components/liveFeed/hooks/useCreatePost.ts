@@ -32,7 +32,27 @@ const useLiveFeed = ({ refetch }: Props) => {
   const router = useRouter();
   const { toast } = useToast();
 
+  const activityMap = {
+    '6e6a36da-06ed-426d-80cc-d1ff2276fb98': 'Worship',
+    'fd5101fc-0218-496f-91a1-04c1e6472b20': 'Prayer',
+    '9cfe08ad-dbe7-4643-9e19-302ed4f5f72c': 'Communion',
+    '8bde9d86-cb73-4f58-9a04-9fd3b74ed6a0': 'Voice of God'
+  };
 
+  const getActivityIdBasedOnTime = () => {
+    const currentTime = new Date();
+    const minutes = currentTime.getMinutes();
+  
+    if (minutes >= 0 && minutes < 15) {
+      return '6e6a36da-06ed-426d-80cc-d1ff2276fb98'; // Worship
+    } else if (minutes >= 15 && minutes < 30) {
+      return 'fd5101fc-0218-496f-91a1-04c1e6472b20'; // Prayer
+    } else if (minutes >= 30 && minutes < 45) {
+      return '9cfe08ad-dbe7-4643-9e19-302ed4f5f72c'; // Communion
+    } else {
+      return '8bde9d86-cb73-4f58-9a04-9fd3b74ed6a0'; // Voice of God
+    }
+  };
 
   const fetchUserId = async () => {
     try {
