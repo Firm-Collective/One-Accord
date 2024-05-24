@@ -37,8 +37,8 @@ export const CommentSection = ({ property1, icRoundSend, refetch }: Props): JSX.
       >
         {['default', 'with-text'].includes(property1) && (
           <>
-            <div className="w-[373px] left-0 top-0 h-[38px] absolute">
-              <div className="w-[371px] h-[38px] rounded-[8px] bg-[#f1f1f1] relative">
+            <div className="w-full max-w-[773] left-0 top-0 h-[38px] absolute">
+              <div className="w-full max-w-[771px] h-[38px] rounded-[8px] bg-[#f1f1f1] relative">
                 <div
                   className={`[font-family:'Poppins-Regular',Helvetica] left-[10px] tracking-[0] text-[14px] top-0 h-[38px] font-normal leading-[18px] absolute ${
                     property1 === 'with-text' ? 'w-[227px]' : 'w-[228px]'
