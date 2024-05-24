@@ -16,7 +16,6 @@ export async function POST(request: Request) {
           }
 
         const { data: post, error } = await supabase.from('Post').insert({
-            id: data.id,
             content: data.content,
             is_visible: data.is_visible,
             is_offensive: data.is_offensive,
