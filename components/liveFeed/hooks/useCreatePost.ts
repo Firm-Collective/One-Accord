@@ -5,11 +5,25 @@ import { useForm, FieldErrorsImpl } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast";
-import { CretePostSchema, CreteContentPostSchema, type CretePostSchemaType, CreteContentPostSchemaType } from "../schemas";
+import { CretePostSchema, CreteContentPostSchema, ParseCretePostSchema, type CretePostSchemaType, CreteContentPostSchemaType } from "../schemas";
 
 type Props = {
   refetch: () => void;
 };
+
+type CreatePostSchemaTypePick = Pick<CretePostSchemaType, 
+  'user_id' | 
+  'activity_id' | 
+  'category_id' | 
+  'content' | 
+  'created_at' | 
+  'event_id' | 
+  'is_offensive' | 
+  'is_visible' | 
+  'keywords_id' | 
+  'media_type_id' | 
+  'sentiment_id'
+>;
 
 
 const useLiveFeed = ({ refetch }: Props) => {
@@ -42,14 +56,12 @@ const useLiveFeed = ({ refetch }: Props) => {
     });
   
     const createPostMutation = useMutation({
-       mutationFn: async (postData: CretePostSchemaType) => {
+       mutationFn: async (postData: CreatePostSchemaTypePick) => {
         return await axios.post('/api/post', postData);
         
       },
       onSuccess: () => {
-        refetch()
-        form.reset()
-        
+        form.reset()        
       },
       onError: (error) => {
         console.log('error', error);
@@ -131,7 +143,8 @@ const useLiveFeed = ({ refetch }: Props) => {
       }
     
       // Schema validation with zod
-      const parsedValues = CretePostSchema.safeParse(postData);
+      const parsedValues = ParseCretePostSchema.safeParse(postData);
+      console.log("🚀 ~ onValid ~ parsedValues:", parsedValues)
     
       if (!parsedValues.success) {
         type K = keyof CreteContentPostSchemaType;
