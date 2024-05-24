@@ -96,7 +96,8 @@ export const CretePostSchema = z.object({
     content: z.string(),
     is_visible: z.boolean(),
     is_offensive: z.boolean(),
-    user_id: UserSchema,
+    user_id: UserSchema.shape.id,
+    User: UserSchema,
     activity_id: ActivitySchema.shape.id,
     category_id: CategorySchema.shape.id,
     tag_id: TagSchema.shape.id.nullish(),
@@ -105,6 +106,21 @@ export const CretePostSchema = z.object({
     event_id: EventSchema.shape.id,
     media_type_id: MediaTypeSchema.shape.id,
     created_at: z.string()
+})
+
+export const ParseCretePostSchema = z.object({
+  content: z.string(),
+  is_visible: z.boolean(),
+  is_offensive: z.boolean(),
+  user_id: UserSchema.shape.id,
+  activity_id: ActivitySchema.shape.id,
+  category_id: CategorySchema.shape.id,
+  tag_id: TagSchema.shape.id.nullish(),
+  sentiment_id: SentimentSchema.shape.id,
+  keywords_id: KeywordsSchema.shape.id,
+  event_id: EventSchema.shape.id,
+  media_type_id: MediaTypeSchema.shape.id,
+  created_at: z.string()
 })
 
 

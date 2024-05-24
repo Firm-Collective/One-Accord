@@ -32,10 +32,8 @@ export const postAPI = {
         .order('created_at', { ascending: false });
       
         const response = (await query).data;
-        console.log("🚀 ~ response:", response)
 
         const parsedSchema = PostSchema.safeParse(response);
-        console.log("🚀 ~ parsedSchema:", parsedSchema)
         
 
         if (!parsedSchema.success) {
