@@ -1,5 +1,9 @@
-# One Accord Recommendations & References
-Team Orange made lots of changes lol
+## features/onboarding-countries branch update
+
+updated & expanded social media links in `app/(landing)/layout.tsx`
+social media icon components were added to `components/landing`
+moved `blob.tsx` component to components/landing folder
+commented out `Header.tsx` components for now as functionality hasn't been implemented yet
 
 ### Branching Strategy
 
@@ -26,6 +30,7 @@ We are beginning with a GitHub Flow-based strategy, using a `main` branch and `u
 ### React Query
 
 [React Query](https://www.npmjs.com/package/react-query) is a data fetching library for React that provides tools for fetching, caching, synchronizing, and updating server state in your application.
+~
 
 ### Zod
 

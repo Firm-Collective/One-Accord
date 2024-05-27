@@ -3,7 +3,7 @@ import Button from '@/components/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/header';
-import Blob from '@/components/blob';
+import Blob from '@/components/landing/blob';
 
 export default function GetStarted() {
   const router = useRouter();

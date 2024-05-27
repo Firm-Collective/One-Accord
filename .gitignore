@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+/branch-notes
+env.local.example
+*.zip
 
 # testing
 /coverage
@@ -43,3 +46,4 @@ next-env.d.ts
 /supabase/gitignore
 
 /utils/scripts/data_generator_util
+node_modules
