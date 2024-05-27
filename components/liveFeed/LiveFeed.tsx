@@ -40,7 +40,7 @@ export const LiveFeed: React.FC<Props> = ({
         image1={image1}
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
-        posts={sanitizedPosts}
+        posts={sanitizedPosts as any}
       />
       <CommentSection
         property1='default'
