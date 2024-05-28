@@ -81,7 +81,8 @@ const useLiveFeed = ({ refetch }: Props) => {
         
       },
       onSuccess: () => {
-        form.reset()        
+        form.reset()     
+        refetch();   
       },
       onError: (error) => {
         console.log('error', error);
@@ -144,7 +145,7 @@ const useLiveFeed = ({ refetch }: Props) => {
     const postData: CreatePostSchemaTypePick = {
       is_offensive: isToxic,
       is_visible: !isToxic,
-      user_id: userId, 
+      user_id: userId, // 'b5a363d5-3f29-4d23-9434-bef69618b5ef' 
       activity_id: getActivityIdBasedOnTime(),
       content: data.content || '', // Ensure that content has a value
       event_id: getEventId(), // One Accord
