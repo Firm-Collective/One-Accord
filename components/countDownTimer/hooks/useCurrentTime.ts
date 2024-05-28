@@ -1,32 +1,23 @@
 import { useState, useEffect } from 'react';
 
-type Props = {
-  timeLeft: number;
-};
-
 type Time = {
   minutes: number;
   seconds: number;
 };
 
-const useCurrentTime = ({timeLeft} : Props) => {
+type Props = {
+  timeLeft: number;
+};
 
-  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
+const useCurrentTime = ({timeLeft}: Props) => {
+
   const [currentTime, setCurrentTime] = useState({ time: '', ampm: '', seconds: 0 });
+  const initialTime: Time = {
+    minutes: Math.floor(timeLeft / 60),
+    seconds: timeLeft % 60,
+  };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const mins = Math.floor(timeLeft / 60);
-      const secs = timeLeft % 60;
-
-      setTime({ minutes: mins, seconds: secs });
-
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, [timeLeft]);
-
-
+  const [currentTimeLeft, setCurrentTimeLeft] = useState<Time>(initialTime);
 
     useEffect(() => {
       const getTime = () => {
@@ -46,9 +37,29 @@ const useCurrentTime = ({timeLeft} : Props) => {
       return () => clearInterval(interval);
     }, []);
 
+    
+  
+    useEffect(() => {
+      const timer = setInterval(() => {
+        setCurrentTimeLeft((prevTimeLeft) => {
+          const newSeconds = prevTimeLeft.seconds === 0 ? 59 : prevTimeLeft.seconds - 1;
+          const newMinutes = prevTimeLeft.seconds === 0 ? prevTimeLeft.minutes - 1 : prevTimeLeft.minutes;
+  
+          if (newMinutes < 0) {
+            return { minutes: 15, seconds: 0 };
+          } else {
+            return { minutes: newMinutes, seconds: newSeconds };
+          }
+        });
+      }, 1000);
+  
+      return () => clearInterval(timer);
+    }, []);
+  
+
     return {
-        time,
-        currentTime
+        currentTime,
+        currentTimeLeft
     }
 }
 
