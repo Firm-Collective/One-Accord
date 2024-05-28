@@ -7,11 +7,14 @@ type Activity = {
     timeLeft: number;
   };
 
+  type Props = {
+    timeLeft: number;
+    setTimeLeft: (time: number) => void;
+  };
 
-const useCurrentActivity = () => {
+const useCurrentActivity = ({timeLeft, setTimeLeft}: Props) => {
 
   const [currentActivityIndex, setCurrentActivityIndex] = useState<number>(0);
-  const [timeLeft, setTimeLeft] = useState<number>(10); // 15 minutes in second is 900
 
   const activities: Activity[] = [
     { id: 1, name: 'Shofar', icon: '/shofar-icon.svg', timeLeft: 0 },
