@@ -7,7 +7,7 @@ const LocationSchema = z.object({
   country: z.string(),
   latitude: z.string(),
   longitude: z.string()
-});
+}).nullish();
 
 // UserType Schema
 const UserTypeSchema = z.object({
@@ -18,7 +18,7 @@ const UserTypeSchema = z.object({
 // User Schema
 const UserSchema = z.object({
   id: z.string().uuid(),
-  username: z.string(),
+  username: z.string().nullish(),
   UserType: UserTypeSchema,
   Location: LocationSchema
 });
