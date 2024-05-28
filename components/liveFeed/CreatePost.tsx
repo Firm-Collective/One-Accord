@@ -6,12 +6,12 @@ type Props = {
   refetch: () => void;
 };
 
-export const CreatePost =  ({ refetch }: Props) => {
-  const { onValid, onInvalid, form } = useCreatePost({ refetch});
+export const CreatePost = ({ refetch }: Props) => {
+  const { onValid, onInvalid, form } = useCreatePost({ refetch });
 
   return (
     <form
-      className='w-[370px] h-[50px] rounded-[8px] bg-[#f1f1f1] relative flex items-center'
+      className='w-[100%] h-100%] rounded-[8px] bg-[#f1f1f1] flex items-center'
       onSubmit={form.handleSubmit(onValid, onInvalid)}
     >
       <TextField
@@ -25,8 +25,8 @@ export const CreatePost =  ({ refetch }: Props) => {
         }}
       />
 
-      <button type='submit' onClick={refetch}>
-        <SendVector className={`w-[18px] top-[18px] h-[18px] absolute left-[340px]`} color='#898A8D' />
+      <button type='submit'>
+        <SendVector className={`w-[18px] top-[32px] h-[18px] absolute left-[351px]`} color='#898A8D' />
       </button>
     </form>
   );
