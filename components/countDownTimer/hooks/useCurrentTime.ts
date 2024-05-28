@@ -1,8 +1,32 @@
 import { useState, useEffect } from 'react';
 
-const useCurrentTime = () => {
+type Props = {
+  timeLeft: number;
+};
 
-    const [time, setTime] = useState({ currentTime: '', ampm: '', seconds: 0 });
+type Time = {
+  minutes: number;
+  seconds: number;
+};
+
+const useCurrentTime = ({timeLeft} : Props) => {
+
+  const [time, setTime] = useState<Time>({ minutes: 0, seconds: 0 });
+  const [currentTime, setCurrentTime] = useState({ time: '', ampm: '', seconds: 0 });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+
+      setTime({ minutes: mins, seconds: secs });
+
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+
 
     useEffect(() => {
       const getTime = () => {
@@ -13,7 +37,7 @@ const useCurrentTime = () => {
         const minutes = date.getMinutes();
         const seconds = date.getSeconds();
         const formattedTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
-        setTime({ currentTime: formattedTime, ampm, seconds });
+        setCurrentTime({ time: formattedTime, ampm, seconds });
       };
   
       getTime();
@@ -23,7 +47,8 @@ const useCurrentTime = () => {
     }, []);
 
     return {
-        time
+        time,
+        currentTime
     }
 }
 

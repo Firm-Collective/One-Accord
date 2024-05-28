@@ -1,8 +1,13 @@
 import React from 'react';
 import useCurrentActivity from './hooks/useCurrentActivity';
 
-export default function CurrentActivity() {
-  const { circumference, offset, activities, currentActivityIndex } = useCurrentActivity();
+type Props = {
+  timeLeft: number;
+  setTimeLeft: (time: number) => void;
+};
+
+export default function CurrentActivity({ timeLeft, setTimeLeft }: Props) {
+  const { circumference, offset, activities, currentActivityIndex } = useCurrentActivity({ timeLeft, setTimeLeft });
   return (
     <div className=' items-center gap-[4px] pt-[2px] pb-0 px-0 inline-flex flex-col  flex-[0_0_auto]'>
       <div className='inline-flex items-start gap-[10px] bg-white rounded-[99px] border-2 border-solid border-transparent '>
