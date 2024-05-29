@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { getUser } from '@/utils/supabase/auth';
 import { type ProfileSchemaType } from '@/components/authentication/schemas';
 import axios from 'axios';
+<<<<<<< HEAD
 
 type BoundingBox = {
   northeast: { lat: number; lng: number };
@@ -14,6 +15,8 @@ type Memo = {
 
 // memoization for api calls
 const memo: Memo = {};
+=======
+>>>>>>> 5d3187c (added a function within /profile to get random coordinates from user country and city)
 
 const fetchLocation = async (supabase: any, latitude: string, longitude: string) => {
   const { data: locations, error } = await supabase
@@ -70,10 +73,6 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
 };
 
 const getRandomCoordinates = async (country: String, city: String) => {
-  // Below url has a 30 000 monthly rate limit
-  // code to get random coords is the same but boundingBox = data.items[0].mapView
-  // https://geocode.search.hereapi.com/v1/geocode
-
   let boundingBox: BoundingBox = {
     // place holder bounding box
     northeast: { lat: -96.66886389924726, lng: 53.487091209273714 },
@@ -96,7 +95,6 @@ const getRandomCoordinates = async (country: String, city: String) => {
     }
   }
 
-  // generate a random lat and long based on bounding box
   const randomLat = Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
   const randomLong =
     Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
