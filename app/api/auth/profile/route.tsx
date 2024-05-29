@@ -4,6 +4,17 @@ import { getUser } from '@/utils/supabase/auth';
 import { type ProfileSchemaType } from '@/components/authentication/schemas';
 import axios from 'axios';
 
+type BoundingBox = {
+  northeast: { lat: number; lng: number };
+  southwest: { lat: number; lng: number };
+};
+type Memo = {
+  [key: string]: BoundingBox;
+};
+
+// memoization for api calls
+const memo: Memo = {};
+
 const fetchLocation = async (supabase: any, latitude: string, longitude: string) => {
   const { data: locations, error } = await supabase
     .from('Location')
@@ -59,27 +70,43 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
 };
 
 const getRandomCoordinates = async (country: String, city: String) => {
+  // TODO: use memoization to reduce the need to call if from same city and country
+
   // Below url has a 30 000 monthly rate limit
   // code to get random coords is the same but boundingBox = data.items[0].mapView
   // https://geocode.search.hereapi.com/v1/geocode
 
-  const response = await axios.get(
-    `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
-  );
-  const data = response.data;
+  let boundingBox: BoundingBox = {
+    // place holder bounding box
+    northeast: { lat: -96.66886389924726, lng: 53.487091209273714 },
+    southwest: { lat: -96.66886389924726, lng: 53.487091209273714 },
+  };
 
-  if (!(data.results.length === 0)) {
-    // generate a random lat and long within the bounding box
-    const boundingBox = data.results[0].bounds;
-    const randomLat =
-      Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
-    const randomLong =
-      Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
-    return { latitude: randomLat, longitude: randomLong };
+  const key = `${country}-${city}`;
+
+  // if we have the country / city cached, then use it instead of calling api
+  if (key in memo) {
+    boundingBox = memo[key];
   } else {
-    // if city / country is not found, then use a constant lat and long
-    return { latitude: '-96.66886389924726', longitude: '53.487091209273714' };
+    // otherwise, call the api and get data
+    const response = await axios.get(
+      `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
+    );
+    const data = response.data;
+    if (data.results.length !== 0) {
+      boundingBox = data.results[0].bounds;
+    }
   }
+
+  // generate a random lat and long based on bounding box
+  const randomLat = Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
+  const randomLong =
+    Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
+
+  // input into memo
+  memo[key] = boundingBox;
+
+  return { latitude: randomLat.toString(), longitude: randomLong.toString() };
 };
 
 export async function POST(request: Request) {
@@ -89,6 +116,7 @@ export async function POST(request: Request) {
   const { country, city } = userData;
 
   const location = await getRandomCoordinates(country, city);
+  console.log(location);
 
   const latitude = location.latitude; // Update with userData.latitude
   const longitude = location.longitude; // Update with userData.longitude
