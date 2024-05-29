@@ -9,6 +9,9 @@
 env.local.example
 *.zip
 
+note.txt
+package-lock.json
+
 # testing
 /coverage
 
