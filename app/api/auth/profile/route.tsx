@@ -88,8 +88,8 @@ export async function POST(request: Request) {
 
   const location = await getRandomCoordinates(country, city);
 
-  const latitude = '-96.66886389924726'; // Update with userData.latitude
-  const longitude = '53.487091209273714'; // Update with userData.longitude
+  const latitude = location.latitude; // Update with userData.latitude
+  const longitude = location.longitude; // Update with userData.longitude
 
   try {
     const user = await getUser();
