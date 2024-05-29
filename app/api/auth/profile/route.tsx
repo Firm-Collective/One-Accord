@@ -59,25 +59,27 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
 };
 
 const getRandomCoordinates = async (country: String, city: String) => {
-  const API_KEY = 'cda37fdc20ac42e2bf537ee741bef6a7';
-
-  // current api has 2500 rate limit but doesn't require billing details (that's why I used it)
-  // const API_END_URL = 'https://api.opencagedata.com/geocode/v1/json';
-
   // Below url has a 30 000 monthly rate limit
   // code to get random coords is the same but boundingBox = data.items[0].mapView
   // https://geocode.search.hereapi.com/v1/geocode
 
-  const response = await axios.get(`${API_END_URL}?q=${city}+${country}&key=${API_KEY}`);
+  const response = await axios.get(
+    `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
+  );
   const data = response.data;
-  const boundingBox = data.results[0].bounds;
 
-  // generate a random lat and long within the bounding box
-  const randomLat = Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
-  const randomLong =
-    Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
-
-  return { latitude: randomLat, longitude: randomLong };
+  if (!(data.results.length === 0)) {
+    // generate a random lat and long within the bounding box
+    const boundingBox = data.results[0].bounds;
+    const randomLat =
+      Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
+    const randomLong =
+      Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
+    return { latitude: randomLat, longitude: randomLong };
+  } else {
+    // if city / country is not found, then use a constant lat and long
+    return { latitude: '-96.66886389924726', longitude: '53.487091209273714' };
+  }
 };
 
 export async function POST(request: Request) {
