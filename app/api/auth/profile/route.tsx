@@ -62,7 +62,7 @@ const getRandomCoordinates = async (country: String, city: String) => {
   const API_KEY = 'cda37fdc20ac42e2bf537ee741bef6a7';
 
   // current api has 2500 rate limit but doesn't require billing details (that's why I used it)
-  const API_END_URL = 'https://api.opencagedata.com/geocode/v1/json';
+  // const API_END_URL = 'https://api.opencagedata.com/geocode/v1/json';
 
   // Below url has a 30 000 monthly rate limit
   // code to get random coords is the same but boundingBox = data.items[0].mapView
