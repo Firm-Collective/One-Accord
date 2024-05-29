@@ -6,6 +6,8 @@ import useProfileForm from './hooks/useProfileForm';
 export default function RegisterForm() {
   const { onValid, onInvalid, updatedProfileMutation, form } = useProfileForm();
 
+  // TODO: On form submit, grab the country and city, then generate random coordinates from that
+
   return (
     <form className='my-4' onSubmit={form.handleSubmit(onValid, onInvalid)}>
       <legend className='text-xs text-right text-gray-700'>

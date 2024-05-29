@@ -2,6 +2,7 @@ import { createClient } from '@/utils/supabase/client';
 import { NextResponse } from 'next/server';
 import { getUser } from '@/utils/supabase/auth';
 import { type ProfileSchemaType } from '@/components/authentication/schemas';
+import axios from 'axios';
 
 const fetchLocation = async (supabase: any, latitude: string, longitude: string) => {
   const { data: locations, error } = await supabase
@@ -57,10 +58,36 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
   return data;
 };
 
+const getRandomCoordinates = async (country: String, city: String) => {
+  const API_KEY = 'cda37fdc20ac42e2bf537ee741bef6a7';
+
+  // current api has 2500 rate limit but doesn't require billing details (that's why I used it)
+  const API_END_URL = 'https://api.opencagedata.com/geocode/v1/json';
+
+  // Below url has a 30 000 monthly rate limit
+  // code to get random coords is the same but boundingBox = data.items[0].mapView
+  // https://geocode.search.hereapi.com/v1/geocode
+
+  const response = await axios.get(`${API_END_URL}?q=${city}+${country}&key=${API_KEY}`);
+  const data = response.data;
+  const boundingBox = data.results[0].bounds;
+
+  // generate a random lat and long within the bounding box
+  const randomLat = Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
+  const randomLong =
+    Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
+
+  return { latitude: randomLat, longitude: randomLong };
+};
+
 export async function POST(request: Request) {
   const supabase = createClient();
   const userData = await request.json();
   //TODO: Add the latitude & longitude random with the country and city (find the API) and change these values
+  const { country, city } = userData;
+
+  const location = await getRandomCoordinates(country, city);
+
   const latitude = '-96.66886389924726'; // Update with userData.latitude
   const longitude = '53.487091209273714'; // Update with userData.longitude
 
