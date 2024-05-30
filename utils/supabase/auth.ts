@@ -10,7 +10,7 @@ export const getUser = async () => {
 
 export const protectAction = async () => {
   const auth = getSupabaseAuth({ isComponent: true });
-  const user = (await auth.getUser()).data.user;
+  const user = (await auth.getUser()).data.user; 
   if (!user) throw new Error('Not authorized');
 };
 
