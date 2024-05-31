@@ -5,8 +5,16 @@ import styles from './styles.module.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapGL = () => {
-  const { clusters, selectedUser, setSelectedUser, mapRef, viewPort, setViewport, handleMarkerClick, points } =
-    useMapGL();
+  const {
+    clusters,
+    selectedUser,
+    setSelectedUser,
+    mapRef,
+    viewPort,
+    setViewport,
+    handleMarkerClick,
+    points = [],
+  } = useMapGL();
 
   const getMarkerClassName = (activity: string | undefined): string => {
     switch (activity) {
@@ -29,10 +37,11 @@ const MapGL = () => {
 
   return (
     <div className='w-[100%] h-[281px]'>
-      {/* <ReactMapGL
+      <ReactMapGL
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-        mapStyle='mapbox://styles/charlyboy1993/clv4jourp00h901pp4s6v5l81'
+        mapStyle='mapbox://styles/drekinsey/clvftd1nu02g401pef7u0ampk'
         initialViewState={viewPort}
+        onMove={(evt) => setViewport(evt.viewState)}
         maxZoom={20}
         minZoom={0}
         ref={mapRef}
@@ -49,7 +58,7 @@ const MapGL = () => {
                 key={`${cluster.properties?.geojsonId}-${cluster.properties?.name}-${idx}`}
                 latitude={latitude}
                 longitude={longitude}
-                onClick={() => handleMarkerClick(cluster, viewPort, setViewport)}
+                onClick={() => handleMarkerClick(cluster)}
               >
                 <div
                   className={getClusterClassName()}
@@ -123,7 +132,7 @@ const MapGL = () => {
             <div style={{ color: 'black' }}>{selectedUser.properties?.activity}</div>
           </Popup>
         ) : null}
-      </ReactMapGL> */}
+      </ReactMapGL>
     </div>
   );
 };
