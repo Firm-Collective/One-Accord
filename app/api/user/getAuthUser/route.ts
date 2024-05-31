@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     try {
 
         const user = await getUser();
-        console.log(user, "message");
+        
 
           return NextResponse.json({ success: true, user });
 
