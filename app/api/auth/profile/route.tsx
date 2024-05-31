@@ -70,8 +70,6 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
 };
 
 const getRandomCoordinates = async (country: String, city: String) => {
-  // TODO: use memoization to reduce the need to call if from same city and country
-
   // Below url has a 30 000 monthly rate limit
   // code to get random coords is the same but boundingBox = data.items[0].mapView
   // https://geocode.search.hereapi.com/v1/geocode
@@ -112,11 +110,9 @@ const getRandomCoordinates = async (country: String, city: String) => {
 export async function POST(request: Request) {
   const supabase = createClient();
   const userData = await request.json();
-  //TODO: Add the latitude & longitude random with the country and city (find the API) and change these values
   const { country, city } = userData;
 
   const location = await getRandomCoordinates(country, city);
-  console.log(location);
 
   const latitude = location.latitude; // Update with userData.latitude
   const longitude = location.longitude; // Update with userData.longitude
