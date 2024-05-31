@@ -14,6 +14,7 @@ export default async function FeedPosts() {
             profilePictureClassName='bg-[url(/profile-pic.png)]'
             rectangle='/rectangle.png'
             unsplashIfgrcqhznqg='/unsplash-iFgRcqHznqg.png'
+            uilExit='/uil_exit.svg'
           />
         </Suspense>
       </div>

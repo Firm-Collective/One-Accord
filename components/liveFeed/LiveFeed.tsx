@@ -6,7 +6,6 @@ import MessageSection from './MessageSection';
 import useLiveFeed from './hooks/useLiveFeed';
 
 import { useRouter } from 'next/navigation';
-import { dividerClasses } from '@mui/material';
 
 type Props = {
   className: string;
@@ -53,7 +52,11 @@ export const LiveFeed: React.FC<Props> = ({
         posts={sanitizedPosts as any}
       />
 
-      {userAuth.data ? (
+      {userAuth.isLoading ? (
+        <div>Loading...</div>
+      ) : userAuth.isError ? (
+        <div>Error: {"userAuth.error.message"}</div>
+      ) : userAuth.data?.isAuthenticated ? (
         <>
           <CommentSection
             property1='default'
@@ -63,7 +66,7 @@ export const LiveFeed: React.FC<Props> = ({
           />
         </>
       ) : (
-        <div  className="flex w-[370.94px] h-[46.15px] items-center justify-center gap-[10px] relative bg-white rounded-[4px] border border-solid border-black">
+        <div className='flex w-[370.94px] h-[46.15px] items-center justify-center gap-[10px] relative bg-white rounded-[4px] border border-solid border-black'>
           <div className='relative w-[187px] h-[24px]' onClick={handleRedirect} style={{ cursor: 'pointer' }}>
             <img className='absolute w-[24px] h-[24px] top-0 left-0' alt='Uil exit' src={uilExit} />
             <div className="absolute h-[15px] top-[4px] left-[34px] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-[#272727] text-[12px] text-center tracking-[0] leading-[15px] whitespace-nowrap">

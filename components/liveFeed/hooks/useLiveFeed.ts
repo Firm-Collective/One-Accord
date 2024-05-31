@@ -8,19 +8,20 @@ const useLiveFeed = () => {
 
     const fetchUserAuth = async () => {
       try {
-        const response = await axios.get('/api/user/getAuthId'); 
-        return response;
+        const response = await axios.get('/api/user/getAuthUser');
+        return response.data; // Make sure response.data contains isAuthenticated field
       } catch (error) {
         console.error('Failed to fetch user:', error);
-        return null; // Return anonymous user ID in case of error
+        return { isAuthenticated: false }; // Return a default value indicating not authenticated
       }
     };
+    
     const userAuth = useQuery(['userAuth'], fetchUserAuth);
 
     
 
     // useQuery
-  const queryPostInfo: any = useQuery([...postKeys.lists()], async () => {
+  const queryPostInfo = useQuery([...postKeys.lists()], async () => {
     try {
       const postData = await postAPI.getPostData({ supaClient });
       return postData?.data;
