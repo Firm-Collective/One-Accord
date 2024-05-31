@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, useEffect } from "react";
 import useSuperCluster from "use-supercluster";
 import getCenter from "geolib/es/getCenter";
-import { createBrowserClient } from '@supabase/ssr'
+import { createClient } from '@/utils/supabase/client'
 import { useQuery } from "react-query";
 import { mapAPI, mapKeys} from "../queries"
-import mockDataGeoContinents from "@/utils/data/mockDataGeoContinents.json";
+import { MapRef } from 'react-map-gl';
+// import mockDataGeoContinents from "@/utils/data/mockDataGeoContinents.json";
 
 type User = {
   type: string;
@@ -22,119 +23,89 @@ type User = {
   };
 };
 
+type GeolibInputCoordinates = {
+  latitude: number;
+  longitude: number;
+};
+
+type BBox = [number, number, number, number];
 
 const useMapGL = () => {
-  const supaClient = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
+  const supaClient = createClient()
   const [selectedUser, setSelectedUser] = useState<User | null>();
-  const mapRef = useRef(null); 
+  const mapRef = useRef<MapRef | null>(null);
 
-  // DB request 
-  // useQuery
-  // const querryMapInfo = useQuery([...mapKeys.lists()], async () => {
-  //   try {
-  //     const mapData = await mapAPI.getMapData({ supaClient });
-  //     return mapData?.data;
-  //   } catch (error) {
-  //     console.error("Error al obtener datos del mapa:", error);
-  //     throw error;
-  //   }
-  // }, {
-  //   onSuccess: (mapData) => {
-  //     if (!mapData) {
-  //       console.error("No se encontraron datos en el mapa.");
-  //       return [];
-  //     }
+  // DB request with useQuery
+  const { data: points, isFetching } = useQuery([...mapKeys.lists()], async () => {
+    const mapData = await mapAPI.getMapData({ supaClient });
+    return mapData?.data?.map((item: any) => ({
+      type: "Feature",
+      properties: {
+        cluster: false,
+        geojsonId: item.id,
+        name: item.User?.username || "",
+        country: item.User?.Location?.country || "",
+        city: item.User?.Location?.city || "",
+        activity: item.Activity?.name || "",
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [
+          parseFloat(item.User?.Location?.latitude || "0"),
+          parseFloat(item.User?.Location?.longitude || "0")
+        ],
+      },
+    })) || [];
+  });
   
-  //     const transformedData = mapData.map((item: any) => ({
-  //       type: "Feature",
-  //       properties: {
-  //         cluster: false,
-  //         geojsonId: item.id,
-  //         name: item.User?.username || "",
-  //         country: item.User?.Location?.country || "",
-  //         city: item.User?.Location?.city || "",
-  //         activity: item.Activity?.name || "",
-  //       },
-  //       geometry: {
-  //         type: "Point",
-  //         coordinates: [
-  //           parseFloat(item.User?.Location?.latitude || "0"),
-  //           parseFloat(item.User?.Location?.longitude || "0")
-  //         ],
-  //       },
-  //     }));
-  
-  //     return transformedData;
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error:", error);
-  //   },
-  // });
-  // const points = querryMapInfo.data;
-
-  // Muckup data request 
-  const points = mockDataGeoContinents?.features?.map((user) => ({
-    type: "Feature",
-    properties: {
-      cluster: false,
-      geojsonId: user.properties.geojsonId,
-      name: user.properties.name,
-      activity: user.properties.activity,
-    },
-    geometry: {
-      type: "Point",
-      coordinates: [user.geometry.coordinates[0], user.geometry.coordinates[1]],
-    },
-  }));
-  
- 
-  
-  const coordinates = mockDataGeoContinents?.features?.map((user) => ({
+  // Implement useMemo
+  const coordinates = useMemo(() => points?.map((user) => ({
     longitude: user?.geometry?.coordinates[0],
     latitude: user?.geometry?.coordinates[1]
-  }))
+  })), [points]) || [];
   
 
-  // Implement useMemo
-
-  const center = getCenter(coordinates) as any;
+  const center = getCenter(coordinates as GeolibInputCoordinates[]);
   
+  const defaultLatitude = 0; 
+  const defaultLongitude = 0; 
+
   const [viewPort, setViewport] = useState({
-    latitude: center.latitud,
-    longitude: center.longitud,
-    zoom: 0,
-    });
+    latitude: center ? center.latitude : defaultLatitude,
+    longitude: center ? center.longitude : defaultLongitude,
+    zoom: 1,
+  });
 
-  // get map bounds
-  const bounds = undefined
-  // mapRef.current && (mapRef.current)
-  //   ? (mapRef.current).getBounds().toArray().flat() 
-  //   : null;
+
+  useEffect(() => {
+    if (mapRef.current) {
+      const bounds = mapRef.current.getMap().getBounds().toArray().flat();
+      setMapBounds(bounds as BBox);
+    }
+  }, [mapRef, viewPort]);
+
+  const [mapBounds, setMapBounds] = useState<BBox | undefined>(undefined);
+
 
   // get clusters
   const { clusters, supercluster } = useSuperCluster({
-    points: points ? points.slice(0, 10) : [],
+    points: points || [],
     zoom: viewPort.zoom,
-    bounds,
-    options: { radius: 75, maxZoom: 100 },
-    // disableRefresh: querryMapInfo.isFetching
+    bounds: mapBounds,
+    options: { radius: 75, maxZoom: 20 },
+    disableRefresh: isFetching
   });
 
-  const handleMarkerClick = (cluster: any, viewPort: any, setViewport: any) => {
-    const expansionZoom = Math.min(
-      supercluster.getClusterExpansionZoom(cluster.id),
-      20
-    );
-    setViewport({
-      ...viewPort,
-      latitude: cluster?.geometry?.coordinates[1],
-      longitude: cluster?.geometry?.coordinates[0],
-      zoom: expansionZoom,
-      transitionDuration: "auto",
-    });
+  const handleMarkerClick = (cluster: any) => {
+    if (supercluster && cluster.properties && cluster.properties.cluster_id) {
+      const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.properties.cluster_id), 20);
+      setViewport({
+        ...viewPort,
+        latitude: cluster.geometry.coordinates[1],
+        longitude: cluster.geometry.coordinates[0],
+        zoom: expansionZoom,
+      });
+    }
   };
 
   return {

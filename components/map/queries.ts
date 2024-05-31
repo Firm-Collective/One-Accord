@@ -38,7 +38,6 @@ export const mapAPI = {
             },
         })));
         
-        console.log("🚀 ~ parsedSchema:", parsedSchema)
 
         if (!parsedSchema.success) {
             console.error("Error parsing schema:", parsedSchema.error);
