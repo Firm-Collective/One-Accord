@@ -55,8 +55,7 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
           }}
           error={!!fieldState.error}
           helperText={
-            (fieldState.error?.message ?? "") ||
-            ((fieldState?.error as ExtendedFieldError)?.birth_year?.message ?? '')
+            (fieldState.error?.message ?? '') || ((fieldState?.error as ExtendedFieldError)?.birth_year?.message ?? '')
           }
           InputLabelProps={{
             ...InputLabelProps,

@@ -7,53 +7,49 @@ import { useMutation } from 'react-query';
 import { useRouter } from 'next/navigation';
 
 const useLoginForm = () => {
-    const router = useRouter();
-    const form = useForm<z.infer<typeof LoginSchema>>({
-        resolver: zodResolver(LoginSchema),
-        defaultValues: {
-          email: '',
-          password: '',
-        },
-      });
-    
-      const loginMutation = useMutation({
-        mutationFn: (loginData: LoginSchemaType) => {
-          return axios.post('/api/auth/login', loginData);
-        },
-        onSuccess: () => {
-          router.push('/live');
-        },
-        onError: (error) => {
-          console.log('error', error);
-        },
-      });
-    
-      const onValid = async (data: LoginSchemaType) => {
-      const parsedValues = LoginSchema.safeParse(data);
+  const router = useRouter();
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+  });
 
-      if (!parsedValues.success) {
-        type K = keyof LoginSchemaType;
-        parsedValues.error.errors.forEach((v) =>
-          form.setError(v.path.join(".") as K, { message: v.message })
-        );
-        return;
-      } 
+  const loginMutation = useMutation({
+    mutationFn: (loginData: LoginSchemaType) => {
+      return axios.post('/api/auth/login', loginData);
+    },
+    onSuccess: () => {
+      router.push('/live');
+    },
+    onError: (error) => {
+      console.log('error', error);
+    },
+  });
 
-      loginMutation.mutate(data);
-      
-      };
+  const onValid = async (data: LoginSchemaType) => {
+    const parsedValues = LoginSchema.safeParse(data);
 
-      const onInvalid = (errors: Partial<FieldErrorsImpl<LoginSchemaType>>) => {
-        console.error("onInvalid", errors);
-      };
+    if (!parsedValues.success) {
+      type K = keyof LoginSchemaType;
+      parsedValues.error.errors.forEach((v) => form.setError(v.path.join('.') as K, { message: v.message }));
+      return;
+    }
 
-      return {
-        form,
-        onValid,
-        onInvalid,
-        loginMutation,
-      }
-    
-}
+    loginMutation.mutate(data);
+  };
+
+  const onInvalid = (errors: Partial<FieldErrorsImpl<LoginSchemaType>>) => {
+    console.error('onInvalid', errors);
+  };
+
+  return {
+    form,
+    onValid,
+    onInvalid,
+    loginMutation,
+  };
+};
 
 export default useLoginForm;

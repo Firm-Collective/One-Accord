@@ -24,7 +24,6 @@ const useCurrentActivity = ({ timeLeft }: Props) => {
     { id: 4, name: 'Shofar', icon: '/shofar-icon.svg', timeLeft: 0 },
   ];
 
-
   const initialTime: Time = {
     minutes: Math.floor(timeLeft / 60),
     seconds: timeLeft % 60,

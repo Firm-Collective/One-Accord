@@ -6,8 +6,6 @@ type Props = {
   currentActivityIndex: number;
 };
 
-
-
 export default function CurrentActivity({ timeLeft, currentActivityIndex }: Props) {
   const { circumference, offset, activities } = useCurrentActivity({ timeLeft });
 

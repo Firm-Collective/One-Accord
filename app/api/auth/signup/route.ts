@@ -6,11 +6,14 @@ export async function POST(request: Request) {
   const userData = await request.json();
 
   try {
-    const { data, error } = await supabase.auth.signUp({...userData, options: {
-      data: {
-        email: userData.email
-      }
-    }});
+    const { data, error } = await supabase.auth.signUp({
+      ...userData,
+      options: {
+        data: {
+          email: userData.email,
+        },
+      },
+    });
 
     if (error) {
       console.error('Error signing up user:', error);

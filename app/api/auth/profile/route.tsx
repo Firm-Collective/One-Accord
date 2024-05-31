@@ -86,12 +86,16 @@ const getRandomCoordinates = async (country: String, city: String) => {
     boundingBox = memo[key];
   } else {
     // otherwise, call the api and get data
-    const response = await axios.get(
-      `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
-    );
-    const data = response.data;
-    if (data.results.length !== 0) {
-      boundingBox = data.results[0].bounds;
+    try {
+      const response = await axios.get(
+        `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
+      );
+      const data = response.data;
+      if (data.results.length !== 0) {
+        boundingBox = data.results[0].bounds;
+      }
+    } catch (error) {
+      console.error('Error grabbing coordinates from user city and country.');
     }
   }
 

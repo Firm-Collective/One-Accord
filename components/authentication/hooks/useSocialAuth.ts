@@ -1,52 +1,52 @@
 import { createClient } from '@/utils/supabase/client';
 
 const useSocialAuth = () => {
-    const supabase = createClient()
-    
-      const loginWithGoogle = () => {
-        supabase.auth.signInWithOAuth({
-          provider: 'google',
-          options: {
-            queryParams: {
-              access_type: 'offline',
-              prompt: 'consent',
-            },
-            redirectTo: `${location.origin}/api/auth/callback/`,
-          },
-        });
-      };
-    
-      const loginWithFacebook = () => {
-        supabase.auth.signInWithOAuth({
-          provider: 'facebook',
-          options: {
-            queryParams: {
-              access_type: 'offline',
-              prompt: 'consent',
-            },
-            redirectTo: `${location.origin}/api/auth/callback/`,
-          },
-        });
-      };
-    
-      const loginWithApple = () => {
-        supabase.auth.signInWithOAuth({
-          provider: 'apple',
-          options: {
-            queryParams: {
-              access_type: 'offline',
-              prompt: 'consent',
-            },
-            redirectTo: `${location.origin}/api/auth/callback/`,
-          },
-        });
-      };
+  const supabase = createClient();
 
-      return {
-        loginWithGoogle, 
-        loginWithFacebook, 
-        loginWithApple
-      }
-}
+  const loginWithGoogle = () => {
+    supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        redirectTo: `${location.origin}/api/auth/callback/`,
+      },
+    });
+  };
+
+  const loginWithFacebook = () => {
+    supabase.auth.signInWithOAuth({
+      provider: 'facebook',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        redirectTo: `${location.origin}/api/auth/callback/`,
+      },
+    });
+  };
+
+  const loginWithApple = () => {
+    supabase.auth.signInWithOAuth({
+      provider: 'apple',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        redirectTo: `${location.origin}/api/auth/callback/`,
+      },
+    });
+  };
+
+  return {
+    loginWithGoogle,
+    loginWithFacebook,
+    loginWithApple,
+  };
+};
 
 export default useSocialAuth;

@@ -27,7 +27,6 @@ function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldVa
 }: DropdownProps<TFieldValues, TNames>) {
   useScrollDisabled();
 
-  
   return (
     <Controller
       control={control}
@@ -35,13 +34,7 @@ function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldVa
       render={({ field, fieldState }) => (
         <FormControl fullWidth>
           <InputLabel shrink>{label}</InputLabel>
-          <Select
-            {...field}
-            label={label}
-            displayEmpty  
-            {...textFieldProps}
-           
-          >
+          <Select {...field} label={label} displayEmpty {...textFieldProps}>
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
@@ -49,11 +42,7 @@ function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldVa
             ))}
           </Select>
           {helperText && (
-            <MuiTextField
-              helperText={helperText}
-              error={!!fieldState.error}
-              style={{ display: 'none' }}
-            />
+            <MuiTextField helperText={helperText} error={!!fieldState.error} style={{ display: 'none' }} />
           )}
         </FormControl>
       )}

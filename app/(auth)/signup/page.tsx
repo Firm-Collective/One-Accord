@@ -5,7 +5,6 @@ import SignUpForm from '@/components/authentication/registerForm';
 import SocialAuth from '@/components/authentication/socialAuth';
 
 export default function Signup() {
-
   return (
     <main className='h-screen flex flex-col items-center justify-between'>
       <Header />

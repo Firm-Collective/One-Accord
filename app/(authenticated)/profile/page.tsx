@@ -5,8 +5,6 @@ import { Title } from '@/components/authentication/title';
 import ProfileForm from '@/components/authentication/profileForm';
 
 export default function Profile() {
-
-
   return (
     <main className='h-screen flex flex-col items-center justify-between'>
       <Header />
@@ -19,4 +17,3 @@ export default function Profile() {
     </main>
   );
 }
-

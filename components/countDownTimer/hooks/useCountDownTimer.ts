@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 
-
 const useCountDownTimer = () => {
-
   const now = new Date();
   const minutes = now.getMinutes();
-  
+
   let currentTimeLeft = 0;
   let currentActivityIndex = 0;
 
@@ -25,12 +23,10 @@ const useCountDownTimer = () => {
 
   const [timeLeft, setTimeLeft] = useState<number>(currentTimeLeft);
 
-
   return {
     timeLeft,
-    currentActivityIndex
-  }
-
-}
+    currentActivityIndex,
+  };
+};
 
 export default useCountDownTimer;

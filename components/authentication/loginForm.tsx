@@ -5,7 +5,7 @@ import useLoginForm from './hooks/useLoginForm';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { IconButton } from '@mui/material';
-import Link from "next/link";
+import Link from 'next/link';
 
 export default function LoginForm() {
   const { onValid, onInvalid, loginMutation, form } = useLoginForm();
