@@ -3,7 +3,6 @@ import { NextResponse } from 'next/server';
 import { getUser } from '@/utils/supabase/auth';
 import { type ProfileSchemaType } from '@/components/authentication/schemas';
 import axios from 'axios';
-<<<<<<< HEAD
 
 type BoundingBox = {
   northeast: { lat: number; lng: number };
@@ -15,8 +14,6 @@ type Memo = {
 
 // memoization for api calls
 const memo: Memo = {};
-=======
->>>>>>> 5d3187c (added a function within /profile to get random coordinates from user country and city)
 
 const fetchLocation = async (supabase: any, latitude: string, longitude: string) => {
   const { data: locations, error } = await supabase
