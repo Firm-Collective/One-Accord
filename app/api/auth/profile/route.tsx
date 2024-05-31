@@ -2,6 +2,18 @@ import { createClient } from '@/utils/supabase/client';
 import { NextResponse } from 'next/server';
 import { getUser } from '@/utils/supabase/auth';
 import { type ProfileSchemaType } from '@/components/authentication/schemas';
+import axios from 'axios';
+
+type BoundingBox = {
+  northeast: { lat: number; lng: number };
+  southwest: { lat: number; lng: number };
+};
+type Memo = {
+  [key: string]: BoundingBox;
+};
+
+// memoization for api calls
+const memo: Memo = {};
 
 const fetchLocation = async (supabase: any, latitude: string, longitude: string) => {
   const { data: locations, error } = await supabase
@@ -18,14 +30,14 @@ const fetchLocation = async (supabase: any, latitude: string, longitude: string)
   return locations.length > 0 ? locations[0] : null;
 };
 
-const insertUserLocation = async (supabase: any, userData: ProfileSchemaType) => {
+const insertUserLocation = async (supabase: any, userData: ProfileSchemaType, latitude: string, longitude: string) => {
   const { data, error } = await supabase
     .from('Location')
     .insert({
       country: userData.country,
       city: userData.city,
-      latitude: '-96.66886389924726', // Update with userData.latitude
-      longitude: '53.487091209273714', // Update with userData.longitude
+      latitude: latitude, // Update with userData.latitude
+      longitude: longitude, // Update with userData.longitude
     })
     .select();
 
@@ -57,12 +69,51 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
   return data;
 };
 
+const getRandomCoordinates = async (country: String, city: String) => {
+  let boundingBox: BoundingBox = {
+    // place holder bounding box
+    northeast: { lat: -96.66886389924726, lng: 53.487091209273714 },
+    southwest: { lat: -96.66886389924726, lng: 53.487091209273714 },
+  };
+
+  const key = `${country}-${city}`;
+
+  // if we have the country / city cached, then use it instead of calling api
+  if (key in memo) {
+    boundingBox = memo[key];
+  } else {
+    // otherwise, call the api and get data
+    try {
+      const response = await axios.get(
+        `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
+      );
+      const data = response.data;
+      if (data.results.length !== 0) {
+        boundingBox = data.results[0].bounds;
+      }
+    } catch (error) {
+      console.error('Error grabbing coordinates from user city and country.');
+    }
+  }
+
+  const randomLat = Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
+  const randomLong =
+    Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
+
+  // input into memo
+  memo[key] = boundingBox;
+
+  return { latitude: randomLat.toString(), longitude: randomLong.toString() };
+};
+
 export async function POST(request: Request) {
   const supabase = createClient();
   const userData = await request.json();
-  //TODO: Add the latitude & longitude random with the country and city (find the API) and change these values
-  const latitude = '-96.66886389924726'; // Update with userData.latitude
-  const longitude = '53.487091209273714'; // Update with userData.longitude
+
+  const location = await getRandomCoordinates(userData.country, userData.city);
+
+  const latitude = location.latitude; // Update with userData.latitude
+  const longitude = location.longitude; // Update with userData.longitude
 
   try {
     const user = await getUser();
@@ -76,7 +127,7 @@ export async function POST(request: Request) {
 
     if (!locationExisted) {
       console.log('Location not found, inserting new location...');
-      const location = await insertUserLocation(supabase, userData);
+      const location = await insertUserLocation(supabase, userData, latitude, longitude);
       const data = await updateUser(supabase, userData, user.id, location.id);
       return NextResponse.json({ success: true, data });
     }
