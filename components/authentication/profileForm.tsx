@@ -2,9 +2,12 @@ import React from 'react';
 import Button from '@/components/button';
 import TextField from '@/components/textField';
 import useProfileForm from './hooks/useProfileForm';
+import { countries } from '@/utils/data/countries';
+import Dropdown from '@/components/dropdown';
 
 export default function RegisterForm() {
   const { onValid, onInvalid, updatedProfileMutation, form } = useProfileForm();
+  const allCountries = Object.entries(countries).map(([code, name]) => ({ value: code, label: name }));
 
   // TODO: On form submit, grab the country and city, then generate random coordinates from that
 
@@ -31,17 +34,17 @@ export default function RegisterForm() {
       </div>
       <div>
         <div className='flex items-center justify-between'></div>
-        <div className='mt-4'>
+        <div className='mt-4 ml-3 pr-3'>
           {/* TODO: API for country and then city*/}
-          <TextField
+          <Dropdown
             control={form.control}
             name='country'
+            options={allCountries}
             label={
               <span>
                 Country <span className='text-red-500 ml-1'>*</span>
               </span>
             }
-            type='text'
           />
         </div>
       </div>
