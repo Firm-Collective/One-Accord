@@ -31,6 +31,8 @@ export const LiveFeed: React.FC<Props> = ({
   const { queryPostInfo, userAuth } = useLiveFeed();
   const router = useRouter();
 
+  
+
   const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
@@ -40,8 +42,7 @@ export const LiveFeed: React.FC<Props> = ({
     router.push('/login'); // or '/signup' depending on your routing setup
   };
 
-  console.log('userAuth:', userAuth);
-  console.log('userAuth.data:', userAuth.data);
+
 
 
   return (
