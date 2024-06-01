@@ -40,6 +40,10 @@ export const LiveFeed: React.FC<Props> = ({
     router.push('/login'); // or '/signup' depending on your routing setup
   };
 
+  console.log('userAuth:', userAuth);
+  console.log('userAuth.data:', userAuth.data);
+
+
   return (
     <div className='w-[100%] h-[281px] space-y-8'>
       <MessageSection

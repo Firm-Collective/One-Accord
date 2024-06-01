@@ -9,12 +9,14 @@ const useLiveFeed = () => {
     const fetchUserAuth = async () => {
       try {
         const response = await axios.get('/api/user/getAuthUser');
-        return response.data; // Make sure response.data contains isAuthenticated field
+        console.log('API response:', response.data); // Debugging log for API response
+        return response.data; // Ensure this contains isAuthenticated property
       } catch (error) {
         console.error('Failed to fetch user:', error);
         return { isAuthenticated: false }; // Return a default value indicating not authenticated
       }
     };
+    
     
     const userAuth = useQuery(['userAuth'], fetchUserAuth);
 
