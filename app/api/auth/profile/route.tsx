@@ -42,6 +42,7 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
     .from('User')
     .update({
       username: userData.username,
+      user_type_id: userData.user_type_id,
       birth_year: userData.birth_year,
       user_location_id: location,
       updated_at: new Date(),

@@ -13,8 +13,15 @@ export const SignUpSchema = z.object({email: z.string().email(),
   })
 })
 
+
+export const UserType = z.object({
+  id: z.string(),
+  name: z.string()
+})
+
 export const ProfileSchema = z.object({
   username: z.string().min(4),
+  user_type_id: UserType.shape.id,
   country: z.string().min(2),
   city: z.string().min(2),
   birth_year: z.string().nullable().refine((value) => {
@@ -37,9 +44,16 @@ export const ProfileSchema = z.object({
   })
 });
 
+export const UserTypeArr = z.array(UserType)
+
+
+
 export type LoginSchemaType = z.input<typeof LoginSchema>;
 export type SignUpSchemaType = z.input<typeof SignUpSchema>;
 export type ProfileSchemaType = z.input<typeof ProfileSchema>;
+export type UserTypeType = z.input<typeof UserType>;
+
+
 
 
 
