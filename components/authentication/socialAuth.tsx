@@ -19,7 +19,7 @@ export default function SocialAuth() {
           type='submit'
           onClick={loginWithGoogle}
         />
-        <Button
+        {/* <Button
           variant='third'
           imageUrl='/facebook.svg'
           text={'Continue with Facebook'}
@@ -32,7 +32,7 @@ export default function SocialAuth() {
           text={'Continue with Apple'}
           type='submit'
           onClick={loginWithApple}
-        />
+        /> */}
       </div>
       <div className='mt-4 text-xs text-black flex gap-[6px] items-center justify-center'>
         <span className='cursor-pointer text-blue-500 hover:text-blue-600 '>Terms of Use</span>
