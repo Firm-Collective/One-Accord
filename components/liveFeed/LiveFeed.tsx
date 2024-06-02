@@ -24,9 +24,9 @@ export const LiveFeed: React.FC<Props> = ({
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
 }) => {
-  const { queryPostInfo, pagination } = useLiveFeed();
+  const { queryPostInfo, pagination, allPostData } = useLiveFeed();
 
-  const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
+  const sanitizedPosts = (allPostData ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));

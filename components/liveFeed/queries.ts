@@ -35,6 +35,7 @@ export const postAPI = {
     const response = (await query).data;
 
     const parsedSchema = PostSchema.safeParse(response);
+    console.log(parsedSchema);
 
     if (!parsedSchema.success) {
       console.error('Error parsing schema:', parsedSchema.error);

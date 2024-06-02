@@ -2,10 +2,15 @@ import { useQuery } from 'react-query';
 import { createClient } from '@/utils/supabase/client';
 import { postAPI, postKeys } from '../queries';
 import usePagination from './usePagination';
+import { useState, useEffect } from 'react';
+import { CretePostSchemaType, type PostSchemaType } from '../schemas';
 
 const useLiveFeed = () => {
   const supaClient = createClient();
   const pagination = usePagination();
+
+  // save posts that have already been retrieved
+  const [allPostData, setAllPostData] = useState<PostSchemaType>([]);
 
   // useQuery
   const queryPostInfo = useQuery(
@@ -29,6 +34,9 @@ const useLiveFeed = () => {
           console.error('No data found on posts.');
           return [];
         }
+
+        // append new query into saved post data
+        setAllPostData((prevData) => [...prevData, ...postData]);
       },
       onError: (error) => {
         console.error('Error:', error);
@@ -39,6 +47,7 @@ const useLiveFeed = () => {
   return {
     queryPostInfo,
     pagination,
+    allPostData,
   };
 };
 
