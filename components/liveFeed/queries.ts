@@ -29,46 +29,8 @@ export const postAPI = {
           User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
         `,
       )
+      .filter('is_visible', 'eq', true)
       .in('User.UserType.name', ['Moderator', 'Influencer', 'Prophetic Organization'])
-      .range(from, pageSize)
-      .order('created_at', { ascending: false });
-
-    const response = (await query).data;
-
-    const parsedSchema = PostSchema.safeParse(response);
-
-    if (!parsedSchema.success) {
-      console.error('Error parsing schema:', parsedSchema.error);
-    }
-
-    return {
-      ...response,
-      data: parsedSchema.success ? parsedSchema.data : null,
-    };
-  },
-  getInfluencerOrModeratorPosts: async (params: {
-    supaClient: SupabaseClient<Database>;
-    from: number;
-    pageSize: number;
-  }) => {
-    const { supaClient, from, pageSize } = params;
-
-    const query = supaClient
-      .from('Post')
-      .select(
-        `
-          *,
-          Activity(id, name),
-          Category(id, name),
-          Tag(id, name),
-          Sentiment(id, type),
-          Keywords(id, words, frequency),
-          Event(id, name),
-          MediaType(id, type),
-          User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
-        `,
-      )
-      .in('User.UserType.name', ['Moderator', 'Influencer'])
       .range(from, pageSize)
       .order('created_at', { ascending: false });
 
@@ -104,6 +66,7 @@ export const postAPI = {
           User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
         `,
       )
+      .filter('is_visible', 'eq', true)
       .range(from, pageSize)
       .in('User.UserType.name', ['Registered']) // add more types here?
       .order('created_at', { ascending: false });
@@ -121,14 +84,13 @@ export const postAPI = {
       data: parsedSchema.success ? parsedSchema.data : null,
     };
   },
-  getPostData: async (params: {
-    supaClient: SupabaseClient<Database>;
-}) => {
+  getPostData: async (params: { supaClient: SupabaseClient<Database> }) => {
     const { supaClient } = params;
 
     const query = supaClient
-    .from("Post")
-    .select(`
+      .from('Post')
+      .select(
+        `
       *,
       Activity(id, name),
       Category(id, name),
@@ -138,21 +100,23 @@ export const postAPI = {
       Event(id, name),
       MediaType(id, type),
       User(id, username, UserType:UserType(id, name), Location:Location(id, city, country, latitude, longitude))
-    `).limit(100)
-    .order('created_at', { ascending: false });
-  
+    `,
+      )
+      .filter('is_visible', 'eq', true)
+      .limit(100)
+      .order('created_at', { ascending: false });
+
     const response = (await query).data;
 
     const parsedSchema = PostSchema.safeParse(response);
-    
 
     if (!parsedSchema.success) {
-        console.error("Error parsing schema:", parsedSchema.error);
-      }
+      console.error('Error parsing schema:', parsedSchema.error);
+    }
 
     return {
-        ...response,
-        data: parsedSchema.success ? parsedSchema.data : null,
-      };
-}
+      ...response,
+      data: parsedSchema.success ? parsedSchema.data : null,
+    };
+  },
 };

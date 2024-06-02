@@ -25,7 +25,7 @@ export const fetchUserId = async () => {
     return response.data.userId ?? null;
   } catch (error) {
     console.error('Failed to fetch user ID:', error);
-    return "";
+    return '';
   }
 };
 
@@ -76,12 +76,16 @@ export const LiveFeed: React.FC<Props> = ({
   };
 
   if (loading) {
-    return <div><Loading /></div>; 
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
-    <div className='w-[100%] h-[100%] space-y-8'>
-      <MessageSection
+<div className={`w-full h-[100vh] space-y-5 p-5 border-4 border-grey-500 rounded-xl`}>
+        <MessageSection
         className={className}
         ModeratorImage={ModeratorImage}
         profilePictureClassName={profilePictureClassName}
@@ -96,12 +100,7 @@ export const LiveFeed: React.FC<Props> = ({
         paginationOther={paginationOther}
       />
       {userAuth ? (
-        <CommentSection
-          property1='default'
-          refetch={refetch}
-          frame={'/frame-163422.svg'}
-          userPhoto={'/Image-7.png'}
-        />
+        <CommentSection property1='default' refetch={refetch} frame={'/frame-163422.svg'} userPhoto={'/Image-7.png'} />
       ) : (
         <div className='flex w-[370.94px] h-[46.15px] items-center justify-center gap-[10px] relative bg-white rounded-[4px] border border-solid border-black'>
           <div className='relative w-[187px] h-[24px]' onClick={handleRedirect} style={{ cursor: 'pointer' }}>
