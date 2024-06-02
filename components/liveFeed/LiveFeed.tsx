@@ -24,9 +24,24 @@ export const LiveFeed: React.FC<Props> = ({
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
 }) => {
-  const { queryPostInfo, queryInfluencerOrModeratorPostInfo, queryOtherPostInfo, pagination } = useLiveFeed();
+  const {
+    queryPostInfo,
+    queryInfluencerOrModeratorPostInfo,
+    queryOtherPostInfo,
+    pagination,
+    paginationInfluencerOrModerator,
+    paginationOther,
+  } = useLiveFeed();
 
   const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
+    ...post,
+    tag_id: post.tag_id ?? null,
+  }));
+  const sanitizedInfluencerOrModeratorPosts = (queryInfluencerOrModeratorPostInfo?.data ?? []).map((post) => ({
+    ...post,
+    tag_id: post.tag_id ?? null,
+  }));
+  const sanitizedOtherPosts = (queryOtherPostInfo?.data ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
@@ -41,7 +56,11 @@ export const LiveFeed: React.FC<Props> = ({
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
         posts={sanitizedPosts as any}
+        InfluencerOrModeratorPosts={sanitizedInfluencerOrModeratorPosts as any}
+        registeredPosts={sanitizedOtherPosts as any}
         pagination={pagination}
+        paginationInfluencerOrModerator={paginationInfluencerOrModerator}
+        paginationOther={paginationOther}
       />
       <CommentSection
         property1='default'

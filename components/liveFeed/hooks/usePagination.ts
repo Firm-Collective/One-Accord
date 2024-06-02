@@ -22,11 +22,16 @@ const usePagination = (initialFrom = 0, initialPageSize = 10) => {
     }
   }, [pagination.pageSize, getMaxPageSize]);
 
+  const resetPagination = useCallback(() => {
+    setPagination({ from: initialFrom, pageSize: initialPageSize });
+  }, [initialFrom, initialPageSize]);
+
   return {
     pagination,
     setPagination,
     incrementPagination,
     getMaxPageSize,
+    resetPagination,
   };
 };
 

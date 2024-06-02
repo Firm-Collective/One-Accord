@@ -1,10 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 
-const useScrollToBottom = (
-  dependency: any,
-  incrementPagination: any,
-  getMaxPageSize: any,
-): React.MutableRefObject<HTMLDivElement | null> => {
+const useScroll = (dependency: any, pagination: any): React.MutableRefObject<HTMLDivElement | null> => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
@@ -24,7 +20,7 @@ const useScrollToBottom = (
     const onScroll = () => {
       if (container?.scrollTop === 0) {
         setPrevScrollHeight(container.scrollHeight);
-        incrementPagination();
+        pagination?.incrementPagination();
       }
     };
 
@@ -42,7 +38,7 @@ const useScrollToBottom = (
   // Restore the scroll position after new data is fetched and rendered
   useEffect(() => {
     const handleScroll = async () => {
-      const maxPageSize = await getMaxPageSize();
+      const maxPageSize = await pagination?.getMaxPageSize();
       const container = containerRef.current;
 
       // scroll to bottom if new post has been made
@@ -60,9 +56,9 @@ const useScrollToBottom = (
     };
 
     handleScroll();
-  }, [dependency, prevScrollHeight, getMaxPageSize, prevMaxPageSize]);
+  }, [dependency, prevScrollHeight, pagination, prevMaxPageSize]);
 
   return containerRef;
 };
 
-export default useScrollToBottom;
+export default useScroll;

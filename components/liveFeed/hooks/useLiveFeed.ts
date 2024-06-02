@@ -6,10 +6,12 @@ import usePagination from './usePagination';
 const useLiveFeed = () => {
   const supaClient = createClient();
   const pagination = usePagination();
+  const paginationInfluencerOrModerator = usePagination();
+  const paginationOther = usePagination();
 
   // useQuery
   const queryPostInfo = useQuery(
-    [...postKeys.lists(), pagination],
+    [...postKeys.lists(), 'generalPosts', pagination],
     async () => {
       try {
         const postData = await postAPI.getPostData({
@@ -37,13 +39,13 @@ const useLiveFeed = () => {
   );
 
   const queryInfluencerOrModeratorPostInfo = useQuery(
-    [...postKeys.lists(), pagination],
+    [...postKeys.lists(), 'influencerOrModeratorPosts', paginationInfluencerOrModerator],
     async () => {
       try {
         const postData = await postAPI.getInfluencerOrModeratorPosts({
           supaClient,
-          from: pagination.pagination.from,
-          pageSize: pagination.pagination.pageSize,
+          from: paginationInfluencerOrModerator.pagination.from,
+          pageSize: paginationInfluencerOrModerator.pagination.pageSize,
         });
         return postData?.data;
       } catch (error) {
@@ -65,13 +67,13 @@ const useLiveFeed = () => {
   );
 
   const queryOtherPostInfo = useQuery(
-    [...postKeys.lists(), pagination],
+    [...postKeys.lists(), 'otherPosts', paginationOther],
     async () => {
       try {
         const postData = await postAPI.getOtherPosts({
           supaClient,
-          from: pagination.pagination.from,
-          pageSize: pagination.pagination.pageSize,
+          from: paginationOther.pagination.from,
+          pageSize: paginationOther.pagination.pageSize,
         });
         return postData?.data;
       } catch (error) {
@@ -97,6 +99,8 @@ const useLiveFeed = () => {
     queryInfluencerOrModeratorPostInfo,
     queryOtherPostInfo,
     pagination,
+    paginationInfluencerOrModerator,
+    paginationOther,
   };
 };
 
