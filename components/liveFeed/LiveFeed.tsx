@@ -32,7 +32,7 @@ export const LiveFeed: React.FC<Props> = ({
   }));
 
   return (
-    <div className='w-[100%] h-[281px] space-y-8'>
+    <div className='w-[100%] h-[100%] space-y-8'>
       <MessageSection
         className={className}
         ModeratorImage={ModeratorImage}

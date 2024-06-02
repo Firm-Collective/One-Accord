@@ -22,13 +22,15 @@ const MessageSection: React.FC<Props> = ({
   posts,
 }: Props): JSX.Element => {
   const { moderatorOrInfluencerPosts, otherPosts, formatDate } = useMessageSection({ posts });
+
   const containerModeratorOrInfluencerRef = useScrollToBottom(posts);
   const containerOtherRef = useScrollToBottom(posts);
 
   return (
     <>
-      <div className={`inline-flex flex-col items-start relative ${className} h-[150px]`}>
+      <div className={`inline-flex flex-col items-start relative ${className} h-[100%]`}>
         {/* Render moderator/influencer posts */}
+        {moderatorOrInfluencerPosts.length > 0 && (
         <div
           className={`flex flex-col items-start gap-[5px] relative ${className} flex-grow-0 overflow-y-auto max-h-[35%]`}
           ref={containerModeratorOrInfluencerRef}
@@ -50,10 +52,10 @@ const MessageSection: React.FC<Props> = ({
               </p>
             </div>
           ))}
-        </div>
+        </div>)}
         {/* Render normal posts */}
         <div
-          className={`flex flex-col items-start gap-[5px] relative ${className} flex-grow-0 overflow-y-auto max-h-[65%]`}
+          className={`flex flex-col items-start gap-[5px] relative ${className} flex-grow-0 overflow-y-auto `}
           ref={containerOtherRef}
         >
           {otherPosts?.map((post, idx) => (
