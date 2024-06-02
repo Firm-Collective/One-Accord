@@ -55,7 +55,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: true, data });
     }
 
-    return NextResponse.redirect(requestUrl.origin + '/live');
+    return NextResponse.redirect(requestUrl.origin + '/profile');
 
   } catch (error) {
     console.error('Error handling signup request:', error);

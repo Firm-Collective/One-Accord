@@ -13,7 +13,7 @@ export default function Signup() {
         <div className='flex flex-col'>
           <Title text='Create an Account' />
           <SignUpForm />
-          <SocialAuth />
+          <SocialAuth isRegistration={true}/>
         </div>
       </div>
     </main>

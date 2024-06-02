@@ -37,6 +37,7 @@ export default function RegisterForm() {
           <div className='relative w-full h-10'>
             <TextField
               control={form.control}
+              isPassword={true}
               label={
                 <span>
                   Password <span className='text-red-500 ml-1'>*</span>
@@ -56,7 +57,7 @@ export default function RegisterForm() {
         </div>
       </div>
       {signInMutation.isError && <p className='text-red-500 text-sm'>An error occurred during signup.</p>}
-      <p className='text-gray-700 text-sm md:text-xs mt-6'>
+      <p className='text-gray-700 text-sm md:text-xs mt-10'>
         By tapping Sign Up & Accept, you acknowledge that you have read the{' '}
         <span className='cursor-pointer text-blue-500 hover:text-blue-600  font-semibold'>Privacy Policy</span> and
         agree to the{' '}
