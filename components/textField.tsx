@@ -10,7 +10,9 @@ type ControllerType<TFieldValues extends FieldValues, TNames> = {
   name: TNames;
 };
 
-type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps;
+type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps & {
+  isPassword?: boolean
+};
 
 type ExtendedFieldError = FieldError & {
   birth_year: {
@@ -23,6 +25,7 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
   name,
   helperText,
   className,
+  isPassword,
   ...textFieldProps
 }: Props<TFieldValues, TNames>) {
   const baseStyles =
@@ -39,9 +42,10 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
       render={({ field, fieldState }) => (
         <TextFieldMui
           {...field}
-          multiline
+          multiline={!isPassword}
           InputProps={{
             className: 'MuiInputBase-input',
+            ...textFieldProps.InputProps,
           }}
           className={baseStyles}
           onChange={(e) => {
@@ -64,6 +68,7 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
             shrink: true,
           }}
           {...restTextFieldProps}
+
         />
       )}
     />
