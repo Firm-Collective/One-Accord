@@ -111,7 +111,7 @@ export default function RegisterForm() {
       </div>
       <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>
         Skip to{' '}
-        <a className='mt-5 text-center text-sm text-blue-600 hover:text-gray-900' href='/livestream'>
+        <a className='mt-5 text-center text-sm text-blue-600 hover:text-gray-900' href='/live'>
           Live Stream
         </a>
       </p>

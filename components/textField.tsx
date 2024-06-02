@@ -39,6 +39,7 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
       render={({ field, fieldState }) => (
         <TextFieldMui
           {...field}
+          multiline
           InputProps={{
             className: 'MuiInputBase-input',
           }}
