@@ -72,10 +72,8 @@ export const userAPI = {
       .single()
 
       const response = (await query).data;
-      console.log("🚀 ~ response:", response?.UserType)
 
       const parsedSchema = UserType.safeParse(response?.UserType);
-      console.log("🚀 ~ parsedSchema:", parsedSchema)
       
 
       if (!parsedSchema.success) {

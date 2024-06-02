@@ -39,7 +39,6 @@ export const LiveFeed: React.FC<Props> = ({
   uilExit
 }) => {
   const [userAuth, setUserAuth] = useState();
-  console.log("🚀 ~ userAuth:", userAuth)
   const { queryPostInfo } = useLiveFeed();
   const router = useRouter();
   const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
