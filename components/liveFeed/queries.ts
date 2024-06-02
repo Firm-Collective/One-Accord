@@ -34,6 +34,7 @@ export const postAPI = {
       .order('created_at', { ascending: false });
 
     const response = (await query).data;
+    console.log(response);
 
     const parsedSchema = PostSchema.safeParse(response);
 
@@ -85,6 +86,7 @@ export const postAPI = {
       data: parsedSchema.success ? parsedSchema.data : null,
     };
   },
+
   getOtherPosts: async (params: { supaClient: SupabaseClient<Database>; from: number; pageSize: number }) => {
     const { supaClient, from, pageSize } = params;
 
