@@ -19,6 +19,8 @@ export const UserType = z.object({
   name: z.string()
 })
 
+export const UserTypeArr = z.array(UserType)
+
 export const ProfileSchema = z.object({
   username: z.string().min(4),
   user_type_id: UserType.shape.id,
@@ -44,9 +46,31 @@ export const ProfileSchema = z.object({
   })
 });
 
-export const UserTypeArr = z.array(UserType)
+// Location Schema
+const LocationSchema = z.object({
+  id: z.string().uuid(),
+  city: z.string(),
+  country: z.string()
+}).nullish();
 
+// UserType Schema
+const UserTypeSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string()
+}).nullish();
 
+// User Schema
+export const UserSchema = z.object({
+  id: z.string().uuid(),
+  username: z.string().nullish(),
+  birth_year: z.string().refine(dateString => {
+    return !isNaN(Date.parse(dateString));
+  }, {
+    message: "Invalid date format"
+  }),
+  UserType: UserTypeSchema,
+  Location: LocationSchema
+});
 
 export type LoginSchemaType = z.input<typeof LoginSchema>;
 export type SignUpSchemaType = z.input<typeof SignUpSchema>;

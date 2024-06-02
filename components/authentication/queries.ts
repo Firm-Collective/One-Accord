@@ -1,9 +1,41 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/utils/supabase/database.types";
-import { UserTypeArr } from "./schemas";
+import { UserTypeArr, UserSchema } from "./schemas";
 
+export const userKeys = {
+    all: ["users"] as const,
+    lists: () => [...userKeys.all, "list"] as const,
+    list: (filters: string) => [...userKeys.lists(), { filters }] as const,
+    details: () => [...userKeys.all, "detail"] as const,
+    detail: (id: string) => [...userKeys.details(), id] as const,
+  };
 
 export const userAPI = {
+    getUserData: async (params: {
+        supaClient: SupabaseClient<Database>;
+        userId: string
+    }) => {
+        const { supaClient, userId } = params;
+
+        const query = supaClient
+        .from("User")
+        .select("id, username, birth_year, UserType(id, name), Location(id, city, country)")   
+        .eq("id", userId)
+        .single()
+
+        const response = (await query).data;
+
+        const parsedSchema = UserSchema.safeParse(response);        
+
+        if (!parsedSchema.success) {
+            console.error("Error parsing User schema:", parsedSchema.error);
+          }
+
+        return {
+            ...response,
+            data: parsedSchema.success ? parsedSchema.data : null,
+          };
+    },
     getUserTypeData: async (params: {
         supaClient: SupabaseClient<Database>;
     }) => {
