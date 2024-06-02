@@ -2,10 +2,22 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { CretePostSchemaType, type PostSchemaType } from './schemas';
 import useMessageSection from './hooks/useMessageSection';
-import useScrollToBottom from './hooks/useScrollToBottom';
 import axios from 'axios';
 import { Badge } from './ui/badge';
 import Loading from '@/app/loading';
+import useScroll from './hooks/useScroll';
+
+type Pagination = {
+  from: number;
+  pageSize: number;
+};
+
+type UsePaginationReturn = {
+  pagination: Pagination;
+  setPagination: React.Dispatch<React.SetStateAction<Pagination>>;
+  incrementPagination: () => void;
+  getMaxPageSize: () => void;
+};
 
 type Props = {
   className: string;
@@ -15,8 +27,12 @@ type Props = {
   rectangle?: string;
   image1?: string;
   unsplashIfgrcqhznqg?: string;
-  posts: CretePostSchemaType[] | [];
-  queryPostInfo: any
+  pinnedPosts: CretePostSchemaType[] | [];
+  registeredPosts: CretePostSchemaType[] | [];
+  paginationPinned: UsePaginationReturn;
+  paginationOther: UsePaginationReturn;
+  queryPinnedPosts: any;
+  queryOtherPosts: any;
 };
 
 export const fetchUserId = async () => {
@@ -33,13 +49,14 @@ const MessageSection: React.FC<Props> = ({
   className,
   ModeratorImage,
   profilePictureClassName,
-  posts,
-  queryPostInfo
+  pinnedPosts,
+  registeredPosts,
+  paginationPinned,
+  paginationOther,
+  queryPinnedPosts,
+  queryOtherPosts,
 }: Props): JSX.Element => {
   const [userId, setUserId] = useState("");
-  const containerModeratorOrInfluencerRef = useScrollToBottom(posts);
-  const containerOtherRef = useScrollToBottom(posts);
-  
   
   useEffect(() => {
     const fetchAndSetUserId = async () => {
@@ -50,16 +67,24 @@ const MessageSection: React.FC<Props> = ({
     fetchAndSetUserId();
   }, []); 
   
-  const { moderatorOrInfluencerPosts, otherPosts, formatDate, queryUserTypeInfo } = useMessageSection({ posts, userId });
+
+  const { moderatorOrInfluencerPosts, otherPosts, formatDate, queryUserTypeInfo } = useMessageSection({
+    pinnedPosts,
+    registeredPosts,
+    userId,
+  });
+
+  const containerModeratorOrInfluencerRef = useScroll(pinnedPosts, paginationPinned);
+  const containerOtherRef = useScroll(registeredPosts, paginationOther);
 
   const showBadgeForUserType = (userType: string) => {
     const validUserTypes = ["Moderator", "Influencer", "Prophetic Organization"];
     return validUserTypes.includes(userType);
   };
-
+  
   return (
     <>
-      {queryPostInfo.isLoading ? (
+      {queryPinnedPosts.isLoading || queryOtherPosts.isLoading ? (
         <div role="status" className="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
           {[...Array(5)].map((_, i) => (
             <div key={i} className="flex items-center justify-between pt-4">

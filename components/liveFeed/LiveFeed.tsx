@@ -37,14 +37,26 @@ export const LiveFeed: React.FC<Props> = ({
   rectangle = 'rectangle.png',
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
-  uilExit
+  uilExit,
 }) => {
   const [userAuth, setUserAuth] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const { queryPostInfo } = useLiveFeed();
   const router = useRouter();
+  const {
+    queryPinnedPostInfo,
+    queryOtherPostInfo,
+    pinnedPostData,
+    otherPostData,
+    paginationPinned,
+    paginationOther,
+    refetch,
+  } = useLiveFeed();
 
-  const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
+  const sanitizedPinnedPosts = (pinnedPostData ?? []).map((post: any) => ({
+    ...post,
+    tag_id: post.tag_id ?? null,
+  }));
+  const sanitizedOtherPosts = (otherPostData ?? []).map((post: any) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
@@ -67,6 +79,7 @@ export const LiveFeed: React.FC<Props> = ({
     return <div><Loading /></div>; 
   }
 
+
   return (
     <div className='w-[100%] h-[100%] space-y-8'>
       <MessageSection
@@ -76,14 +89,18 @@ export const LiveFeed: React.FC<Props> = ({
         image1={image1}
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
-        posts={sanitizedPosts as any}
-        queryPostInfo={queryPostInfo as any}
+        pinnedPosts={sanitizedPinnedPosts as any}
+        registeredPosts={sanitizedOtherPosts as any}
+        queryPinnedPosts={queryPinnedPostInfo}
+        queryOtherPosts={queryOtherPostInfo}
+        paginationPinned={paginationPinned}
+        paginationOther={paginationOther}
       />
 
       {userAuth ? (
         <CommentSection
           property1='default'
-          refetch={queryPostInfo.refetch}
+          refetch={refetch}
           frame={'/frame-163422.svg'}
           userPhoto={'/Image-7.png'}
         />
