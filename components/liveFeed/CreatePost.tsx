@@ -25,7 +25,7 @@ export const CreatePost = ({ refetch }: Props) => {
         }}
       />
 
-      <button type='submit'>
+      <button type='submit' disabled={form.formState.isSubmitSuccessful}>
         <SendVector className={`w-[18px] top-[32px] h-[18px] absolute left-[351px]`} color='#898A8D' />
       </button>
     </form>

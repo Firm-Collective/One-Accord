@@ -69,6 +69,7 @@ export const LiveFeed: React.FC<Props> = ({
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
         posts={sanitizedPosts as any}
+        queryPostInfo={queryPostInfo as any}
       />
 
       {userAuth ? (

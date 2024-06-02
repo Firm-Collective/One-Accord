@@ -28,7 +28,7 @@ export const postAPI = {
           Event(id, name),
           MediaType(id, type),
           User(id, username, UserType:UserType(id, name), Location:Location(id, city, country, latitude, longitude))
-        `).limit(50)
+        `).limit(100)
         .order('created_at', { ascending: false });
       
         const response = (await query).data;
