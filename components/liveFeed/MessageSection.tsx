@@ -2,7 +2,19 @@ import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { CretePostSchemaType, type PostSchemaType } from './schemas';
 import useMessageSection from './hooks/useMessageSection';
-import useScrollToBottom from './hooks/useScrollToBottom';
+import useScroll from './hooks/useScroll';
+
+type Pagination = {
+  from: number;
+  pageSize: number;
+};
+
+type UsePaginationReturn = {
+  pagination: Pagination;
+  setPagination: React.Dispatch<React.SetStateAction<Pagination>>;
+  incrementPagination: () => void;
+  getMaxPageSize: () => void;
+};
 
 type Props = {
   className: string;
@@ -13,6 +25,7 @@ type Props = {
   image1?: string;
   unsplashIfgrcqhznqg?: string;
   posts: CretePostSchemaType[] | [];
+  pagination: UsePaginationReturn;
 };
 
 const MessageSection: React.FC<Props> = ({
@@ -20,10 +33,15 @@ const MessageSection: React.FC<Props> = ({
   ModeratorImage,
   profilePictureClassName,
   posts,
+  pagination,
 }: Props): JSX.Element => {
   const { moderatorOrInfluencerPosts, otherPosts, formatDate } = useMessageSection({ posts });
-  const containerModeratorOrInfluencerRef = useScrollToBottom(posts);
-  const containerOtherRef = useScrollToBottom(posts);
+  const containerModeratorOrInfluencerRef = useScroll(
+    moderatorOrInfluencerPosts,
+    pagination.incrementPagination,
+    pagination.getMaxPageSize,
+  );
+  const containerOtherRef = useScroll(otherPosts, pagination.incrementPagination, pagination.getMaxPageSize);
 
   return (
     <>

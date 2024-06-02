@@ -1,34 +1,103 @@
 import { useQuery } from 'react-query';
 import { createClient } from '@/utils/supabase/client';
 import { postAPI, postKeys } from '../queries';
+import usePagination from './usePagination';
 
 const useLiveFeed = () => {
-    const supaClient = createClient();
+  const supaClient = createClient();
+  const pagination = usePagination();
 
-    // useQuery
-  const queryPostInfo = useQuery([...postKeys.lists()], async () => {
-    try {
-      const postData = await postAPI.getPostData({ supaClient });
-      return postData?.data;
-    } catch (error) {
-      console.error("Error fetching post data:", error);
-      throw error;
-    }
-  }, {
-    onSuccess: (postData) => {
-      if (!postData) {
-        console.error("No data found on posts.");
-        return [];
+  // useQuery
+  const queryPostInfo = useQuery(
+    [...postKeys.lists(), pagination],
+    async () => {
+      try {
+        const postData = await postAPI.getPostData({
+          supaClient,
+          from: pagination.pagination.from,
+          pageSize: pagination.pagination.pageSize,
+        });
+        return postData?.data;
+      } catch (error) {
+        console.error('Error fetching post data:', error);
+        throw error;
       }
     },
-    onError: (error) => {
-      console.error("Error:", error);
+    {
+      onSuccess: (postData) => {
+        if (!postData) {
+          console.error('No data found on posts.');
+          return [];
+        }
+      },
+      onError: (error) => {
+        console.error('Error:', error);
+      },
     },
-  });
+  );
 
-    return {
-      queryPostInfo
-    }
-}
+  const queryInfluencerOrModeratorPostInfo = useQuery(
+    [...postKeys.lists(), pagination],
+    async () => {
+      try {
+        const postData = await postAPI.getInfluencerOrModeratorPosts({
+          supaClient,
+          from: pagination.pagination.from,
+          pageSize: pagination.pagination.pageSize,
+        });
+        return postData?.data;
+      } catch (error) {
+        console.error('Error fetching post data:', error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: (postData) => {
+        if (!postData) {
+          console.error('No data found on posts.');
+          return [];
+        }
+      },
+      onError: (error) => {
+        console.error('Error:', error);
+      },
+    },
+  );
+
+  const queryOtherPostInfo = useQuery(
+    [...postKeys.lists(), pagination],
+    async () => {
+      try {
+        const postData = await postAPI.getOtherPosts({
+          supaClient,
+          from: pagination.pagination.from,
+          pageSize: pagination.pagination.pageSize,
+        });
+        return postData?.data;
+      } catch (error) {
+        console.error('Error fetching post data:', error);
+        throw error;
+      }
+    },
+    {
+      onSuccess: (postData) => {
+        if (!postData) {
+          console.error('No data found on posts.');
+          return [];
+        }
+      },
+      onError: (error) => {
+        console.error('Error:', error);
+      },
+    },
+  );
+
+  return {
+    queryPostInfo,
+    queryInfluencerOrModeratorPostInfo,
+    queryOtherPostInfo,
+    pagination,
+  };
+};
 
 export default useLiveFeed;
