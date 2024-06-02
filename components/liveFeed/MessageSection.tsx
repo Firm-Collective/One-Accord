@@ -22,9 +22,8 @@ type UsePaginationReturn = {
 type Props = {
   className: string;
   ModeratorImage: string;
-  img?: string;
-  profilePictureClassName: string;
   rectangle?: string;
+  profilePictureClassName: string;
   image1?: string;
   unsplashIfgrcqhznqg?: string;
   pinnedPosts: CretePostSchemaType[] | [];
@@ -43,6 +42,7 @@ export const fetchUserId = async () => {
     console.error('Failed to fetch user ID:', error);
     return "";
   }
+
 };
 
 const MessageSection: React.FC<Props> = ({
@@ -58,6 +58,15 @@ const MessageSection: React.FC<Props> = ({
 }: Props): JSX.Element => {
   const [userId, setUserId] = useState("");
   
+
+  const { moderatorOrInfluencerPosts, otherPosts, formatDate, queryUserTypeInfo } = useMessageSection({
+    pinnedPosts,
+    registeredPosts,
+    userId,
+  });  
+  const containerModeratorOrInfluencerRef = useScroll(pinnedPosts, paginationPinned);
+  const containerOtherRef = useScroll(registeredPosts, paginationOther);
+
   useEffect(() => {
     const fetchAndSetUserId = async () => {
       const id = await fetchUserId();
@@ -66,16 +75,6 @@ const MessageSection: React.FC<Props> = ({
     
     fetchAndSetUserId();
   }, []); 
-  
-
-  const { moderatorOrInfluencerPosts, otherPosts, formatDate, queryUserTypeInfo } = useMessageSection({
-    pinnedPosts,
-    registeredPosts,
-    userId,
-  });
-
-  const containerModeratorOrInfluencerRef = useScroll(pinnedPosts, paginationPinned);
-  const containerOtherRef = useScroll(registeredPosts, paginationOther);
 
   const showBadgeForUserType = (userType: string) => {
     const validUserTypes = ["Moderator", "Influencer", "Prophetic Organization"];

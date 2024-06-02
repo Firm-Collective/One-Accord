@@ -95,7 +95,6 @@ export const LiveFeed: React.FC<Props> = ({
         paginationPinned={paginationPinned}
         paginationOther={paginationOther}
       />
-
       {userAuth ? (
         <CommentSection
           property1='default'
