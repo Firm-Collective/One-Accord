@@ -31,16 +31,6 @@ export const LiveFeed: React.FC<Props> = ({
     tag_id: post.tag_id ?? null,
   }));
 
-  const sanitizedInfluencerOrModeratorPosts = (queryInfluencerOrModeratorPostInfo?.data ?? []).map((post) => ({
-    ...post,
-    tag_id: post.tag_id ?? null,
-  }));
-
-  const sanitizedOtherPosts = (queryOtherPostInfo?.data ?? []).map((post) => ({
-    ...post,
-    tag_id: post.tag_id ?? null,
-  }));
-
   return (
     <div className='w-[100%] h-[281px] space-y-8'>
       <MessageSection
@@ -51,8 +41,6 @@ export const LiveFeed: React.FC<Props> = ({
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
         posts={sanitizedPosts as any}
-        moderatorOrInfluencerPosts={sanitizedInfluencerOrModeratorPosts as any}
-        otherPosts={sanitizedOtherPosts as any}
         pagination={pagination}
       />
       <CommentSection
