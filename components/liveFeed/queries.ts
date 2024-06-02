@@ -34,7 +34,6 @@ export const postAPI = {
       .order('created_at', { ascending: false });
 
     const response = (await query).data;
-    console.log(response);
 
     const parsedSchema = PostSchema.safeParse(response);
 
@@ -70,7 +69,7 @@ export const postAPI = {
         `,
       )
       .in('User.UserType.name', ['Moderator', 'Influencer'])
-      .range(0, pageSize)
+      .range(from, pageSize)
       .order('created_at', { ascending: false });
 
     const response = (await query).data;
