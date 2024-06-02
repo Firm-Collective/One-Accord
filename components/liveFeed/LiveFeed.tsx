@@ -79,7 +79,6 @@ export const LiveFeed: React.FC<Props> = ({
     return <div><Loading /></div>; 
   }
 
-
   return (
     <div className='w-[100%] h-[100%] space-y-8'>
       <MessageSection
