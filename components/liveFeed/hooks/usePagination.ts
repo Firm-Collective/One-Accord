@@ -17,6 +17,7 @@ const usePagination = (initialFrom = 0, initialPageSize = 10) => {
     if (pagination.pageSize < maxPageSize - 1) {
       setPagination((prev) => ({
         ...prev,
+        from: prev.pageSize + 1,
         pageSize: prev.pageSize + 10,
       }));
     }

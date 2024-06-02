@@ -2,12 +2,18 @@ import { useQuery } from 'react-query';
 import { createClient } from '@/utils/supabase/client';
 import { postAPI, postKeys } from '../queries';
 import usePagination from './usePagination';
+import { useState } from 'react';
+import { type PostSchemaType } from '../schemas';
 
 const useLiveFeed = () => {
   const supaClient = createClient();
   const pagination = usePagination();
   const paginationInfluencerOrModerator = usePagination();
   const paginationOther = usePagination();
+
+  const [allPostData, setAllPostData] = useState<PostSchemaType>([]);
+  const [influencerOrModeratorPostData, setInfluencerOrModeratorPostData] = useState<PostSchemaType>([]);
+  const [otherPostData, setOtherPostData] = useState<PostSchemaType>([]);
 
   // useQuery
   const queryPostInfo = useQuery(
@@ -31,6 +37,8 @@ const useLiveFeed = () => {
           console.error('No data found on posts.');
           return [];
         }
+
+        setAllPostData((prev) => [...prev, ...postData]);
       },
       onError: (error) => {
         console.error('Error:', error);
@@ -59,6 +67,7 @@ const useLiveFeed = () => {
           console.error('No data found on posts.');
           return [];
         }
+        setInfluencerOrModeratorPostData((prev) => [...prev, ...postData]);
       },
       onError: (error) => {
         console.error('Error:', error);
@@ -87,6 +96,8 @@ const useLiveFeed = () => {
           console.error('No data found on posts.');
           return [];
         }
+
+        setOtherPostData((prev) => [...prev, ...postData]);
       },
       onError: (error) => {
         console.error('Error:', error);
@@ -96,9 +107,8 @@ const useLiveFeed = () => {
 
   return {
     queryPostInfo,
-    queryInfluencerOrModeratorPostInfo,
-    queryOtherPostInfo,
-    pagination,
+    influencerOrModeratorPostData,
+    otherPostData,
     paginationInfluencerOrModerator,
     paginationOther,
   };

@@ -26,22 +26,17 @@ export const LiveFeed: React.FC<Props> = ({
 }) => {
   const {
     queryPostInfo,
-    queryInfluencerOrModeratorPostInfo,
-    queryOtherPostInfo,
-    pagination,
     paginationInfluencerOrModerator,
     paginationOther,
+    influencerOrModeratorPostData,
+    otherPostData,
   } = useLiveFeed();
 
-  const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
+  const sanitizedInfluencerOrModeratorPosts = (influencerOrModeratorPostData ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
-  const sanitizedInfluencerOrModeratorPosts = (queryInfluencerOrModeratorPostInfo?.data ?? []).map((post) => ({
-    ...post,
-    tag_id: post.tag_id ?? null,
-  }));
-  const sanitizedOtherPosts = (queryOtherPostInfo?.data ?? []).map((post) => ({
+  const sanitizedOtherPosts = (otherPostData ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
@@ -55,10 +50,8 @@ export const LiveFeed: React.FC<Props> = ({
         image1={image1}
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
-        posts={sanitizedPosts as any}
         InfluencerOrModeratorPosts={sanitizedInfluencerOrModeratorPosts as any}
         registeredPosts={sanitizedOtherPosts as any}
-        pagination={pagination}
         paginationInfluencerOrModerator={paginationInfluencerOrModerator}
         paginationOther={paginationOther}
       />
