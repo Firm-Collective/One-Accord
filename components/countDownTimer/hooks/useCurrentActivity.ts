@@ -18,10 +18,10 @@ type Time = {
 
 const useCurrentActivity = ({ timeLeft }: Props) => {
   const activities: Activity[] = [
-    { id: 1, name: 'Worship', icon: '/worship-icon.svg', timeLeft: 0 },
-    { id: 2, name: 'Prayer', icon: '/praying-icon.svg', timeLeft: 0 },
-    { id: 3, name: 'Communion', icon: '/Communion-icon.svg', timeLeft: 0 },
-    { id: 4, name: 'Shofar', icon: '/shofar-icon.svg', timeLeft: 0 },
+    { id: 1, name: 'Worship', icon: '/worship-icon.png', timeLeft: 0 },
+    { id: 2, name: 'Prayer', icon: '/praying-icon.png', timeLeft: 0 },
+    { id: 3, name: 'Communion', icon: '/Communion-icon.png', timeLeft: 0 },
+    { id: 4, name: 'Shofar', icon: '/shofar-icon.png', timeLeft: 0 },
   ];
 
 
