@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { CretePostSchemaType, type PostSchemaType } from './schemas';
 import useMessageSection from './hooks/useMessageSection';
 import useScrollToBottom from './hooks/useScrollToBottom';
+import axios from 'axios';
+import { Badge } from './ui/badge';
 
 type Props = {
   className: string;
@@ -15,21 +17,49 @@ type Props = {
   posts: CretePostSchemaType[] | [];
 };
 
+export const fetchUserId = async () => {
+  try {
+    const response = await axios.get('/api/user/getUserId'); 
+    return response.data.userId ?? "";
+  } catch (error) {
+    console.error('Failed to fetch user ID:', error);
+    return "";
+  }
+};
+
 const MessageSection: React.FC<Props> = ({
   className,
   ModeratorImage,
   profilePictureClassName,
   posts,
 }: Props): JSX.Element => {
-  const { moderatorOrInfluencerPosts, otherPosts, formatDate } = useMessageSection({ posts });
-
+  const [userId, setUserId] = useState("");
   const containerModeratorOrInfluencerRef = useScrollToBottom(posts);
   const containerOtherRef = useScrollToBottom(posts);
+  
+  
+  useEffect(() => {
+    const fetchAndSetUserId = async () => {
+      const id = await fetchUserId();
+      setUserId(id);
+    };
+    
+    fetchAndSetUserId();
+  }, []); 
+  
+  const { moderatorOrInfluencerPosts, otherPosts, formatDate, queryUserTypeInfo } = useMessageSection({ posts, userId });
 
+  const showBadgeForUserType = (userType: string) => {
+    const validUserTypes = ["Moderator", "Influencer", "Prophetic Organization"];
+    return validUserTypes.includes(userType);
+  };
+  
   return (
     <>
       <div className={`inline-flex flex-col items-start relative ${className} h-[100%]`}>
-        {/* Render moderator/influencer posts */}
+      {queryUserTypeInfo?.data?.name && showBadgeForUserType(queryUserTypeInfo.data.name) && (
+          <Badge userType={queryUserTypeInfo.data.name} className="self-end mb-2" />
+        )}        {/* Render moderator/influencer posts */}
         {moderatorOrInfluencerPosts.length > 0 && (
         <div
           className={`flex flex-col items-start gap-[5px] relative ${className} flex-grow-0 overflow-y-auto max-h-[35%]`}

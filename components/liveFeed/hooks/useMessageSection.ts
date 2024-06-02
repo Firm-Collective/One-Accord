@@ -1,10 +1,16 @@
+import { useQuery } from 'react-query';
 import { CretePostSchemaType } from '../schemas';
+import { userAPI } from '@/components/authentication/queries';
+import { createClient } from '@/utils/supabase/client';
 
 type Props = {
   posts: CretePostSchemaType[] | [];
+  userId: string
 };
 
-const useMessageSection = ({ posts } : Props) => {
+const useMessageSection = ({ posts, userId } : Props) => {
+  const supaClient = createClient();
+
 
   const moderatorOrInfluencerPosts = posts?.filter(
     (post) =>
@@ -41,10 +47,33 @@ const useMessageSection = ({ posts } : Props) => {
 };
 
 
+  const queryUserTypeInfo = useQuery('userTypeData', async () => {
+    try {
+      const userTypeData = await userAPI.getUserTypeByIdData({ supaClient, userId });
+      return userTypeData?.data;
+    } catch (error) {
+      console.error("Error fetching userType data:", error);
+      throw error;
+    }
+  }, {
+    onSuccess: (postData) => {
+      if (!postData) {
+        console.error("No userType was found.");
+        return [];
+      }
+    },
+    onError: (error) => {
+      console.error("Error:", error);
+    },
+    enabled: !!userId
+  });
+
+
     return {
       moderatorOrInfluencerPosts,
       otherPosts,
-      formatDate
+      formatDate,
+      queryUserTypeInfo
 
     }
 }
