@@ -63,7 +63,6 @@ export const userAPI = {
       userId: string
   }) => {
       const { supaClient, userId } = params;
-      console.log("🚀 ~ userId endpoint:", userId)
 
       const query = await supaClient
       .from("User")
