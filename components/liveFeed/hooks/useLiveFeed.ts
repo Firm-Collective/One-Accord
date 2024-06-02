@@ -36,66 +36,8 @@ const useLiveFeed = () => {
     },
   );
 
-  const queryInfluencerOrModeratorPostInfo = useQuery(
-    [...postKeys.lists(), pagination],
-    async () => {
-      try {
-        const postData = await postAPI.getInfluencerOrModeratorPosts({
-          supaClient,
-          from: pagination.pagination.from,
-          pageSize: pagination.pagination.pageSize,
-        });
-        return postData?.data;
-      } catch (error) {
-        console.error('Error fetching post data:', error);
-        throw error;
-      }
-    },
-    {
-      onSuccess: (postData) => {
-        if (!postData) {
-          console.error('No data found on posts.');
-          return [];
-        }
-      },
-      onError: (error) => {
-        console.error('Error:', error);
-      },
-    },
-  );
-
-  const queryOtherPostInfo = useQuery(
-    [...postKeys.lists(), pagination],
-    async () => {
-      try {
-        const postData = await postAPI.getOtherPosts({
-          supaClient,
-          from: pagination.pagination.from,
-          pageSize: pagination.pagination.pageSize,
-        });
-        return postData?.data;
-      } catch (error) {
-        console.error('Error fetching post data:', error);
-        throw error;
-      }
-    },
-    {
-      onSuccess: (postData) => {
-        if (!postData) {
-          console.error('No data found on posts.');
-          return [];
-        }
-      },
-      onError: (error) => {
-        console.error('Error:', error);
-      },
-    },
-  );
-
   return {
     queryPostInfo,
-    queryInfluencerOrModeratorPostInfo,
-    queryOtherPostInfo,
     pagination,
   };
 };

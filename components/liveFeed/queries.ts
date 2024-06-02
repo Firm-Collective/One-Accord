@@ -29,86 +29,10 @@ export const postAPI = {
           User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
         `,
       )
-      .range(0, pageSize)
+      .range(from, pageSize)
       .order('created_at', { ascending: false });
 
     const response = (await query).data;
-
-    const parsedSchema = PostSchema.safeParse(response);
-
-    if (!parsedSchema.success) {
-      console.error('Error parsing schema:', parsedSchema.error);
-    }
-
-    return {
-      ...response,
-      data: parsedSchema.success ? parsedSchema.data : null,
-    };
-  },
-  getInfluencerOrModeratorPosts: async (params: {
-    supaClient: SupabaseClient<Database>;
-    from: number;
-    pageSize: number;
-  }) => {
-    const { supaClient, from, pageSize } = params;
-
-    const query = supaClient
-      .from('Post')
-      .select(
-        `
-          *,
-          Activity(id, name),
-          Category(id, name),
-          Tag(id, name),
-          Sentiment(id, type),
-          Keywords(id, words, frequency),
-          Event(id, name),
-          MediaType(id, type),
-          User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
-        `,
-      )
-      .in('User.UserType.name', ['Moderator', 'Influencer'])
-      .range(0, pageSize)
-      .order('created_at', { ascending: false });
-
-    const response = (await query).data;
-    console.log(response);
-
-    const parsedSchema = PostSchema.safeParse(response);
-
-    if (!parsedSchema.success) {
-      console.error('Error parsing schema:', parsedSchema.error);
-    }
-
-    return {
-      ...response,
-      data: parsedSchema.success ? parsedSchema.data : null,
-    };
-  },
-  getOtherPosts: async (params: { supaClient: SupabaseClient<Database>; from: number; pageSize: number }) => {
-    const { supaClient, from, pageSize } = params;
-
-    const query = supaClient
-      .from('Post')
-      .select(
-        `
-          *,
-          Activity(id, name),
-          Category(id, name),
-          Tag(id, name),
-          Sentiment(id, type),
-          Keywords(id, words, frequency),
-          Event(id, name),
-          MediaType(id, type),
-          User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
-        `,
-      )
-      .range(0, pageSize)
-      .in('User.UserType.name', ['Registered'])
-      .order('created_at', { ascending: false });
-
-    const response = (await query).data;
-    console.log(response);
 
     const parsedSchema = PostSchema.safeParse(response);
 
