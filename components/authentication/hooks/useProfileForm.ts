@@ -75,7 +75,12 @@ const useProfileForm = () => {
 
   const updatedProfileMutation = useMutation({
     mutationFn: async (profileData: ProfileSchemaType) => {
-      return axios.post('/api/auth/profile', profileData);
+      return axios.post('/api/auth/profile', JSON.stringify(profileData), {
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+      });
     },
     onSuccess: () => {
       router.push('/live');
@@ -87,7 +92,13 @@ const useProfileForm = () => {
       });
     },
     onError: (error) => {
-      console.error('error', error);
+      console.error('Error updating profile:', error);
+      toast({
+        title: 'Profile update failed',
+        description: 'There was an error updating your profile. Please try again.',
+        variant: 'destructive',
+        duration: 5000,
+      });
     },
   });
 
@@ -101,7 +112,7 @@ const useProfileForm = () => {
       );
       return;
     }
-    updatedProfileMutation.mutate(data);
+    updatedProfileMutation.mutate(parsedValues.data);
   }
 
   const onInvalid = (errors: Partial<FieldErrorsImpl<ProfileSchemaType>>) => {
