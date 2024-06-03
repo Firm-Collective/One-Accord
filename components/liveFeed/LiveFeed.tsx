@@ -6,6 +6,7 @@ import MessageSection from './MessageSection';
 import useLiveFeed from './hooks/useLiveFeed';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Loading from '@/app/loading';
 
 type Props = {
   className: string;
@@ -20,7 +21,7 @@ type Props = {
 
 export const fetchUserId = async () => {
   try {
-    const response = await axios.get('/api/user/getUserId'); 
+    const response = await axios.get('/api/user/getUserId');
     return response.data.userId ?? null;
   } catch (error) {
     console.error('Failed to fetch user ID:', error);
@@ -38,7 +39,8 @@ export const LiveFeed: React.FC<Props> = ({
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
   uilExit
 }) => {
-  const [userAuth, setUserAuth] = useState();
+  const [userAuth, setUserAuth] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const { queryPostInfo } = useLiveFeed();
   const router = useRouter();
 
@@ -51,14 +53,19 @@ export const LiveFeed: React.FC<Props> = ({
     const fetchAndSetUserId = async () => {
       const userId = await fetchUserId();
       setUserAuth(userId);
+      setLoading(false);
     };
-    
+
     fetchAndSetUserId();
-  }, []); 
+  }, []);
 
   const handleRedirect = () => {
-    router.push('/login'); 
+    router.push('/login');
   };
+
+  if (loading) {
+    return <div><Loading /></div>; 
+  }
 
   return (
     <div className='w-[100%] h-[100%] space-y-8'>
@@ -74,14 +81,12 @@ export const LiveFeed: React.FC<Props> = ({
       />
 
       {userAuth ? (
-        <>
-          <CommentSection
-            property1='default'
-            refetch={queryPostInfo.refetch}
-            frame={'/frame-163422.svg'}
-            userPhoto={'/Image-7.png'}
-          />
-        </>
+        <CommentSection
+          property1='default'
+          refetch={queryPostInfo.refetch}
+          frame={'/frame-163422.svg'}
+          userPhoto={'/Image-7.png'}
+        />
       ) : (
         <div className='flex w-[370.94px] h-[46.15px] items-center justify-center gap-[10px] relative bg-white rounded-[4px] border border-solid border-black'>
           <div className='relative w-[187px] h-[24px]' onClick={handleRedirect} style={{ cursor: 'pointer' }}>
