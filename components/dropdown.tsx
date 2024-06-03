@@ -14,6 +14,7 @@ type DropdownProps<TFieldValues extends FieldValues, TNames> = ControllerType<TF
   className?: string;
   helperText?: string;
   label?: React.ReactNode;
+  onSelect?: (value: string | number) => void;
 };
 
 function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldValues> = Path<TFieldValues>>({
@@ -23,11 +24,11 @@ function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldVa
   className,
   helperText,
   label,
+  onSelect,
   ...textFieldProps
 }: DropdownProps<TFieldValues, TNames>) {
   useScrollDisabled();
 
-  
   return (
     <Controller
       control={control}
@@ -38,9 +39,14 @@ function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldVa
           <Select
             {...field}
             label={label}
-            displayEmpty  
+            displayEmpty
             {...textFieldProps}
-           
+            onChange={(event) => {
+              field.onChange(event);
+              if (onSelect) {
+                onSelect(event.target.value as string | number);
+              }
+            }}
           >
             {options.map((option) => (
               <MenuItem key={option.value} value={option.value}>
@@ -49,11 +55,7 @@ function Dropdown<TFieldValues extends FieldValues, TNames extends Path<TFieldVa
             ))}
           </Select>
           {helperText && (
-            <MuiTextField
-              helperText={helperText}
-              error={!!fieldState.error}
-              style={{ display: 'none' }}
-            />
+            <MuiTextField helperText={helperText} error={!!fieldState.error} style={{ display: 'none' }} />
           )}
         </FormControl>
       )}

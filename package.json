@@ -28,6 +28,7 @@
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
+    "country-state-city": "^3.2.1",
     "dotenv": "^16.4.5",
     "geolib": "^3.3.4",
     "lucide-react": "^0.378.0",
