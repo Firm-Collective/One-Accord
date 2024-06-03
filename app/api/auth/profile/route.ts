@@ -11,6 +11,7 @@ type BoundingBox = {
 type Memo = {
   [key: string]: BoundingBox;
 };
+type Location = {id: string, city: string, country: string, latitude: string, longitude: string}
 
 // memoization for api calls
 const memo: Memo = {};
@@ -36,8 +37,8 @@ const insertUserLocation = async (supabase: any, userData: ProfileSchemaType, la
     .insert({
       country: userData.country,
       city: userData.city,
-      latitude: latitude, // Update with userData.latitude
-      longitude: longitude, // Update with userData.longitude
+      latitude: latitude,
+      longitude: longitude,
     })
     .select();
 
@@ -46,21 +47,23 @@ const insertUserLocation = async (supabase: any, userData: ProfileSchemaType, la
     throw new Error('An error occurred during location insertion.');
   }
 
-  return data;
+  return data[0];
 };
 
-const updateUser = async (supabase: any, userData: ProfileSchemaType, user: string, location: string) => {
+const updateUser = async (supabase: any, userData: ProfileSchemaType, userId: string, locationId: string) => {
+  
   const { data, error } = await supabase
     .from('User')
     .update({
       username: userData.username,
       user_type_id: userData.user_type_id,
       birth_year: userData.birth_year,
-      user_location_id: location,
+      user_location_id: locationId,
       updated_at: new Date(),
     })
-    .eq('id', user)
+    .eq('id', userId)
     .select();
+  
 
   if (error) {
     console.error('Error updating user:', error);
@@ -70,7 +73,7 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, user: stri
   return data;
 };
 
-const getRandomCoordinates = async (country: String, city: String) => {
+const getRandomCoordinates = async (country: string, city: string) => {
   let boundingBox: BoundingBox = {
     // place holder bounding box
     northeast: { lat: -96.66886389924726, lng: 53.487091209273714 },
@@ -109,12 +112,12 @@ const getRandomCoordinates = async (country: String, city: String) => {
 
 export async function POST(request: Request) {
   const supabase = createClient();
-  const userData = await request.json();
+  const userData: ProfileSchemaType = await request.json();
 
   const location = await getRandomCoordinates(userData.country, userData.city);
 
-  const latitude = location.latitude; // Update with userData.latitude
-  const longitude = location.longitude; // Update with userData.longitude
+  const latitude = location.latitude;
+  const longitude = location.longitude;
 
   try {
     const user = await getUser();
@@ -124,17 +127,16 @@ export async function POST(request: Request) {
     }
 
     // Check if the latitude & longitude exist before
-    const locationExisted = await fetchLocation(supabase, latitude, longitude);
+    let locationRecord = await fetchLocation(supabase, latitude, longitude);
 
-    if (!locationExisted) {
+    if (!locationRecord) {
       console.log('Location not found, inserting new location...');
-      const location = await insertUserLocation(supabase, userData, latitude, longitude);
-      const data = await updateUser(supabase, userData, user.id, location.id);
-      return NextResponse.json({ success: true, data });
+      locationRecord = await insertUserLocation(supabase, userData, latitude, longitude);
     }
 
     console.log('Location found, updating user...');
-    const data = await updateUser(supabase, userData, user.id, locationExisted.id);
+    const data = await updateUser(supabase, userData, user.id, locationRecord.id);
+
     return NextResponse.json({ success: true, data });
   } catch (error) {
     console.error('Error updating user:', error);
