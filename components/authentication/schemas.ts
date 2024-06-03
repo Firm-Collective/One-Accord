@@ -22,10 +22,11 @@ export const UserType = z.object({
 export const UserTypeArr = z.array(UserType)
 
 export const ProfileSchema = z.object({
-  username: z.string().min(4),
-  user_type_id: UserType.shape.id,
-  country: z.string().min(2),
-  city: z.string().min(2),
+  username: z.string().min(4).nullish(),
+  user_type_code: z.string(),
+  user_type_id: UserType.shape.id.nullish(),
+  country: z.string().min(2).nullish(),
+  city: z.string().min(2).nullish(),
   birth_year: z.string().nullable().refine((value) => {
     if (!value) return true;
   

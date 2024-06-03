@@ -3,12 +3,26 @@ import axios from 'axios';
 import { useForm, FieldErrorsImpl } from 'react-hook-form';
 import { z } from 'zod';
 import { ProfileSchema, type ProfileSchemaType } from '@/components/authentication/schemas';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/utils/supabase/client';
 import { useToast } from "@/hooks/use-toast";
 import { userAPI, userKeys } from '../queries';
 import { useEffect, useState } from 'react';
+
+
+type UserTypesIds = {
+  influencerId: string 
+  moderatorId: string 
+  propheticOrganizationId: string 
+  registeredId: string
+}
+
+const userCodes = {
+  influencer: 'inf123',
+  moderator: 'mod456',
+  propheticOrganization: 'pro789',
+};
 
 export const fetchUserId = async () => {
   try {
@@ -18,6 +32,20 @@ export const fetchUserId = async () => {
     console.error('Failed to fetch user ID:', error);
     return "";
   }
+}
+
+const determineUserTypeFromPath = (code: string, userTypeIds: UserTypesIds) => {
+  const { influencerId, moderatorId, propheticOrganizationId, registeredId } = userTypeIds;
+  switch (code) {
+    case userCodes.influencer:
+      return influencerId;
+    case userCodes.moderator:
+      return moderatorId;
+    case userCodes.propheticOrganization:
+      return propheticOrganizationId;
+    default:
+      return registeredId;
+  }
 };
 
 const useProfileForm = () => {
@@ -25,11 +53,11 @@ const useProfileForm = () => {
   const supaClient = createClient();
   const router = useRouter();
   const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   const form = useForm<z.infer<typeof ProfileSchema>>({
     resolver: zodResolver(ProfileSchema),
     defaultValues: {
+      user_type_code: '',
       username: '',
       user_type_id: '',
       country: '',
@@ -73,9 +101,46 @@ const useProfileForm = () => {
     enabled: !!userId, 
   });
 
+  const queryUserTypeInfo = useQuery('userTypeData', async () => {
+    try {
+      const userTypeData = await userAPI.getUserTypeData({ supaClient });
+      return userTypeData?.data;
+    } catch (error) {
+      console.error("Error fetching userType data:", error);
+      throw error;
+    }
+  }, {
+    onSuccess: (postData) => {
+      if (!postData) {
+        console.error("No userType was found.");
+        return [];
+      }
+    },
+    onError: (error) => {
+      console.error("Error:", error);
+    },
+  });
+
   const updatedProfileMutation = useMutation({
     mutationFn: async (profileData: ProfileSchemaType) => {
-      return axios.post('/api/auth/profile', JSON.stringify(profileData), {
+
+      const userTypeIds = {
+        influencerId: queryUserTypeInfo?.data?.find(type => type.name === 'Influencer')?.id ?? '',
+        moderatorId: queryUserTypeInfo?.data?.find(type => type.name === 'Moderator')?.id ?? '',
+        propheticOrganizationId: queryUserTypeInfo?.data?.find(type => type.name === 'Prophetic Organization')?.id ?? '',
+        registeredId: queryUserTypeInfo?.data?.find(type => type.name === 'Registered')?.id ?? '',
+      };
+
+      const registrationCode = profileData?.user_type_code ?? "";
+
+      const userTypeId = determineUserTypeFromPath(registrationCode, userTypeIds);
+
+      const profileDataWithUserType = {
+        ...profileData,
+        user_type_id: userTypeId
+      };
+
+      return axios.post('/api/auth/profile', JSON.stringify(profileDataWithUserType), {
         headers: {
           'Accept': 'application/json, text/plain, */*',
           'Content-Type': 'application/json'
@@ -112,32 +177,23 @@ const useProfileForm = () => {
       );
       return;
     }
+
+    if (form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length === 0) {
+      toast({
+        title: 'No changes detected',
+        description: 'No updates were made as there were no changes detected.',
+        variant: 'default',
+        duration: 5000,
+      });
+      return;
+    }
+
     updatedProfileMutation.mutate(parsedValues.data);
   }
 
   const onInvalid = (errors: Partial<FieldErrorsImpl<ProfileSchemaType>>) => {
     console.error("onInvalid", errors);
   };
-
-  const queryUserTypeInfo = useQuery('userTypeData', async () => {
-    try {
-      const userTypeData = await userAPI.getUserTypeData({ supaClient });
-      return userTypeData?.data;
-    } catch (error) {
-      console.error("Error fetching userType data:", error);
-      throw error;
-    }
-  }, {
-    onSuccess: (postData) => {
-      if (!postData) {
-        console.error("No userType was found.");
-        return [];
-      }
-    },
-    onError: (error) => {
-      console.error("Error:", error);
-    },
-  });
 
   return {
     form,
