@@ -50,7 +50,7 @@ const MapGL = () => {
         </div>
       ) : (<ReactMapGL
         mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-        mapStyle='mapbox://styles/drekinsey/clvftd1nu02g401pef7u0ampk'
+        mapStyle='mapbox://styles/firmcollective/clwz4ftkv01bf01pp06wl1wl9'
         initialViewState={viewPort}
         onMove={(evt) => setViewport(evt.viewState)}
         maxZoom={20}
