@@ -23,7 +23,7 @@ export const fetchUserId = async () => {
   try {
     const response = await axios.get('/api/user/getUserId'); 
     return response.data.userId ?? "";
-  } catch (error) {
+  } catch (error) {AC
     console.error('Failed to fetch user ID:', error);
     return "";
   }

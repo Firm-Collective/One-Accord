@@ -41,6 +41,7 @@ export const LiveFeed: React.FC<Props> = ({
   const [userAuth, setUserAuth] = useState();
   const { queryPostInfo } = useLiveFeed();
   const router = useRouter();
+
   const sanitizedPosts = (queryPostInfo?.data ?? []).map((post) => ({
     ...post,
     tag_id: post.tag_id ?? null,
