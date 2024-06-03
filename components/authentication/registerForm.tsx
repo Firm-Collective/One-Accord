@@ -37,7 +37,7 @@ export default function RegisterForm() {
           <div className='relative w-full h-10'>
             <TextField
               control={form.control}
-              isPassword={true}
+              isMultiline={false}
               label={
                 <span>
                   Password <span className='text-red-500 ml-1'>*</span>

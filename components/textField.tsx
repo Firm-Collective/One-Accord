@@ -14,7 +14,7 @@ type ControllerType<TFieldValues extends FieldValues, TNames> = {
 };
 
 type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps & {
-  isPassword?: boolean
+  isMultiline?: boolean
   isLoading?: boolean
 
 };
@@ -30,7 +30,7 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
   name,
   helperText,
   className,
-  isPassword,
+  isMultiline,
   isLoading,
   ...textFieldProps
 }: Props<TFieldValues, TNames>) {
@@ -47,8 +47,8 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
       name={name}
       render={({ field, fieldState }) => (
         <TextFieldMui
-          {...field}
-          multiline={!isPassword}
+          {...field}  
+          multiline={isMultiline}
           className={baseStyles}
           onChange={(e) => {
             let value: number | string = e.target.value;

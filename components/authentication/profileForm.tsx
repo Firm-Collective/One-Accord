@@ -90,6 +90,7 @@ export default function RegisterForm() {
           <TextField
             control={form.control}
             name='birth_year'
+            isMultiline={false}
             label={
               <span>
                 Birth Year <span className='text-red-500 ml-1'>*</span>

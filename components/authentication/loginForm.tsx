@@ -36,7 +36,7 @@ export default function LoginForm() {
         <div className='mt-4'>
           <div className='relative w-full h-10'>
             <TextField
-              isPassword={true}
+              isMultiline={false}
               control={form.control}
               label={
                 <span>
