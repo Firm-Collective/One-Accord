@@ -1,12 +1,30 @@
+'use client';
+import React from 'react';
+import { createClient } from '@/utils/supabase/client';
 import Button from '../button';
 import useSocialAuth from './hooks/useSocialAuth';
 
 type Props = {
-  isRegistration?: boolean
-}
+  isRegistration?: boolean;
+};
 
-export default function SocialAuth({isRegistration}: Props) {
-  const { loginWithGoogle, signUpWithGoogle, loginWithFacebook, loginWithApple } = useSocialAuth();
+export default function SocialAuth({ isRegistration }: Props) {
+  // const { loginWithGoogle, signUpWithGoogle, loginWithFacebook, loginWithApple } = useSocialAuth();
+
+  const supabase = createClient();
+
+  const loginWithGoogle = () => {
+    supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        queryParams: {
+          access_type: 'offline',
+          prompt: 'consent',
+        },
+        redirectTo: `${location.origin}/api/auth/signup/callback/`,
+      },
+    });
+  };
 
   return (
     <div>
@@ -21,7 +39,8 @@ export default function SocialAuth({isRegistration}: Props) {
           imageUrl='/google.svg'
           text={'Continue with Google'}
           type='submit'
-          onClick={!isRegistration ? loginWithGoogle: signUpWithGoogle}
+          // onClick={!isRegistration ? loginWithGoogle : signUpWithGoogle}
+          onClick={loginWithGoogle}
         />
         {/* <Button
           variant='third'

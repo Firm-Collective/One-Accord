@@ -20,11 +20,11 @@ type Props = {
 
 export const fetchUserId = async () => {
   try {
-    const response = await axios.get('/api/user/getUserId'); 
+    const response = await axios.get('/api/user/getUserId');
     return response.data.userId ?? null;
   } catch (error) {
     console.error('Failed to fetch user ID:', error);
-    return "";
+    return '';
   }
 };
 
@@ -36,7 +36,7 @@ export const LiveFeed: React.FC<Props> = ({
   rectangle = 'rectangle.png',
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
-  uilExit
+  uilExit,
 }) => {
   const [userAuth, setUserAuth] = useState();
   const { queryPostInfo } = useLiveFeed();
@@ -51,12 +51,12 @@ export const LiveFeed: React.FC<Props> = ({
       const userId = await fetchUserId();
       setUserAuth(userId);
     };
-    
+
     fetchAndSetUserId();
-  }, []); 
+  }, []);
 
   const handleRedirect = () => {
-    router.push('/login'); 
+    router.push('/login');
   };
 
   return (
