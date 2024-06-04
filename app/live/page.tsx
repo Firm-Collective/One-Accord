@@ -8,35 +8,57 @@ import logo from '../../public/one-accord.webp';
 import CountDownTimer from '@/components/countDownTimer';
 import FeedPosts from '@/components/liveFeed/FeedPosts';
 import { Loading } from '@/components/loading';
+import { AppContextProvider, useAppContext } from '@/context/AppContextProvider';
+import DetailActivityTimer from '@/components/DetailActivity';
 
 export default function Home() {
   return (
     <>
-      <div>
-        <main className='w-[100%] h-[100vh] flex flex-col'>
-          <section className='w-[100%] h-50vh'>
+      <AppContextProvider>
+        <main className='w-full h-screen flex flex-col'>
+          <section className='relative w-full h-1/2'>
             {/* Map Component */}
-            {/* TODO: Optimaze the component & style the map & connect with user*/}
             <Suspense fallback={<Loading />}>
-              <MapGL />
+              <MapOrDetailActivity />
             </Suspense>
           </section>
 
-          <section className='w-screen h-10vh'>
+          <section className='w-full h-1/6'>
             {/* Timer Component */}
             <Suspense fallback={<Loading />}>
               <CountDownTimer />
             </Suspense>
           </section>
 
-          <section className='w-screen h-40vh mt-5 mb-5 '>
+          <section className='w-full h-2/6 mt-5 mb-5'>
             {/* Feed Component */}
             <Suspense fallback={<Loading />}>
               <FeedPosts />
             </Suspense>
           </section>
         </main>
-      </div>
+      </AppContextProvider>
     </>
   );
 }
+
+const MapOrDetailActivity = () => {
+  const { isMapVisible, timeLeft, currentActivityIndex, activities } = useAppContext();
+
+  return (
+    <div className="relative w-full h-full">
+      <div
+        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-100' : 'opacity-0'}`}
+        style={{ pointerEvents: isMapVisible ? 'auto' : 'none' }}
+      >
+        <MapGL />
+      </div>
+      <div
+        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100'}`}
+        style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
+      >
+        <DetailActivityTimer currentActivityIndex={currentActivityIndex} />
+      </div>
+    </div>
+  );
+};
