@@ -47,6 +47,8 @@ const useLiveFeed = () => {
   };
 
   return {
+    queryOtherPostInfo,
+    queryPinnedPostInfo,
     pinnedPostData,
     otherPostData,
     paginationPinned,

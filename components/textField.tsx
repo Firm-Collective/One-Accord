@@ -4,13 +4,20 @@ import classNames from 'classnames';
 import type { TextFieldProps } from '@mui/material/TextField';
 import TextFieldMui from '@mui/material/TextField';
 import { useScrollDisabled } from '@/components/hooks';
+import {
+  CircularProgress,
+} from "@mui/material";
 
 type ControllerType<TFieldValues extends FieldValues, TNames> = {
   control: Control<TFieldValues>;
   name: TNames;
 };
 
-type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps;
+type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps & {
+  isMultiline?: boolean
+  isLoading?: boolean
+
+};
 
 type ExtendedFieldError = FieldError & {
   birth_year: {
@@ -23,6 +30,8 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
   name,
   helperText,
   className,
+  isMultiline,
+  isLoading,
   ...textFieldProps
 }: Props<TFieldValues, TNames>) {
   const baseStyles =
@@ -38,10 +47,8 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
       name={name}
       render={({ field, fieldState }) => (
         <TextFieldMui
-          {...field}
-          InputProps={{
-            className: 'MuiInputBase-input',
-          }}
+          {...field}  
+          multiline={isMultiline}
           className={baseStyles}
           onChange={(e) => {
             let value: number | string = e.target.value;
@@ -62,7 +69,38 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
             ...InputLabelProps,
             shrink: true,
           }}
+          InputProps={{
+            ...textFieldProps.InputProps,
+            color: "primary",
+            sx: {
+              display: "flex",
+              alignItems: "center",
+            },
+            endAdornment: (
+              <React.Fragment>
+                {isLoading ? (
+                  <div style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                    <div style={{
+                      position: 'absolute',
+                      width: 20,
+                      height: 20,
+                      borderRadius: '50%',
+                      background: 'linear-gradient(180deg, rgb(242,163,116) 0%, rgb(154,191,228) 28.5%, rgb(237,147,133) 52.5%, rgb(241,162,117) 68%, rgb(239,159,123) 78%, rgb(236,136,132) 91%)',
+                    }} />
+                    <CircularProgress size={20} style={{ color: 'transparent' }} />
+                  </div>
+                ) : null}
+                {textFieldProps.InputProps?.endAdornment}
+              </React.Fragment>
+            ),
+          }}
           {...restTextFieldProps}
+
         />
       )}
     />

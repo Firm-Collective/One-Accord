@@ -1,8 +1,12 @@
 import Button from '../button';
 import useSocialAuth from './hooks/useSocialAuth';
 
-export default function SocialAuth() {
-  const { loginWithGoogle, loginWithFacebook, loginWithApple } = useSocialAuth();
+type Props = {
+  isRegistration?: boolean
+}
+
+export default function SocialAuth({isRegistration}: Props) {
+  const { loginWithGoogle, signUpWithGoogle, loginWithFacebook, loginWithApple } = useSocialAuth();
 
   return (
     <div>
@@ -17,7 +21,7 @@ export default function SocialAuth() {
           imageUrl='/google.svg'
           text={'Continue with Google'}
           type='submit'
-          onClick={loginWithGoogle}
+          onClick={!isRegistration ? loginWithGoogle: signUpWithGoogle}
         />
         {/* <Button
           variant='third'

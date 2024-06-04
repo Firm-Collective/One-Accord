@@ -28,6 +28,22 @@ export default function RegisterForm() {
         <div className='mt-4'>
           <TextField
             control={form.control}
+            name='user_type_code'
+            label={
+              <span>
+                User ID for Influencers, Moderators and Prophetic Org (Optional)<span className='text-red-500 ml-1'>*</span>
+              </span>
+            }
+            type='text'
+            placeholder='ID-'
+          />
+        </div>
+      </div>
+      <div>
+        <div className='flex items-center justify-between'></div>
+        <div className='mt-4'>
+          <TextField
+            control={form.control}
             name='username'
             label={
               <span>
@@ -38,7 +54,7 @@ export default function RegisterForm() {
           />
         </div>
       </div>
-      <div>
+      {/* <div>
         <div className='flex items-center justify-between'></div>
         <div className='mt-4 ml-3 pr-3'>
           <Dropdown
@@ -52,7 +68,7 @@ export default function RegisterForm() {
             }
           />
         </div>
-      </div>
+      </div> */}
       <div>
         <div className='flex items-center justify-between'></div>
         <div className='mt-4 ml-3 pr-3'>
@@ -90,6 +106,7 @@ export default function RegisterForm() {
           <TextField
             control={form.control}
             name='birth_year'
+            isMultiline={false}
             label={
               <span>
                 Birth Year <span className='text-red-500 ml-1'>*</span>
@@ -111,7 +128,7 @@ export default function RegisterForm() {
       </div>
       <p className='mt-5 text-center text-sm text-gray-600 hover:text-gray-900'>
         Skip to{' '}
-        <a className='mt-5 text-center text-sm text-blue-600 hover:text-gray-900' href='/livestream'>
+        <a className='mt-5 text-center text-sm text-blue-600 hover:text-gray-900' href='/live'>
           Live Stream
         </a>
       </p>

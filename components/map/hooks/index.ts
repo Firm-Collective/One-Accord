@@ -36,7 +36,7 @@ const useMapGL = () => {
   const mapRef = useRef<MapRef | null>(null);
 
   // DB request with useQuery
-  const { data: points, isFetching } = useQuery([...mapKeys.lists()], async () => {
+  const { data: points, isFetching, isLoading } = useQuery([...mapKeys.lists()], async () => {
     const mapData = await mapAPI.getMapData({ supaClient });
     return mapData?.data?.map((item: any) => ({
       type: "Feature",
@@ -117,6 +117,7 @@ const useMapGL = () => {
     setViewport,
     handleMarkerClick,
     points,
+    isLoading,
   };
 };
 

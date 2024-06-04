@@ -2,6 +2,21 @@ import { createClient } from '@/utils/supabase/client';
 
 const useSocialAuth = () => {
     const supabase = createClient()
+
+    
+
+    const signUpWithGoogle = () => {
+      supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+          redirectTo: `${location.origin}/api/auth/signup/callback/`,
+        },
+      });
+    };
     
       const loginWithGoogle = () => {
         supabase.auth.signInWithOAuth({
@@ -43,6 +58,7 @@ const useSocialAuth = () => {
       };
 
       return {
+        signUpWithGoogle,
         loginWithGoogle, 
         loginWithFacebook, 
         loginWithApple

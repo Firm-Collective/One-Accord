@@ -6,7 +6,7 @@ import MapGL from '@/components/map';
 import Image from 'next/image';
 import logo from '../../public/one-accord.webp';
 import CountDownTimer from '@/components/countDownTimer';
-import LiveFeed from '@/components/liveFeed/FeedPosts';
+import FeedPosts from '@/components/liveFeed/FeedPosts';
 import { Loading } from '@/components/loading';
 
 export default function Home() {
@@ -32,7 +32,7 @@ export default function Home() {
           <section className='w-screen h-40vh mt-5 mb-5 '>
             {/* Feed Component */}
             <Suspense fallback={<Loading />}>
-              <LiveFeed />
+              <FeedPosts />
             </Suspense>
           </section>
         </main>

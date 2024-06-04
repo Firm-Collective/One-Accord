@@ -5,9 +5,12 @@ import { z } from 'zod';
 import { LoginSchema, type LoginSchemaType } from '@/components/authentication/schemas';
 import { useMutation } from 'react-query';
 import { useRouter } from 'next/navigation';
+import { useToast } from "@/hooks/use-toast";
 
 const useLoginForm = () => {
     const router = useRouter();
+    const { toast } = useToast();
+
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
         defaultValues: {
@@ -22,11 +25,24 @@ const useLoginForm = () => {
         },
         onSuccess: () => {
           router.push('/live');
+          toast({
+            title: 'Login successful!',
+            description: 'You have successfully logged in.',
+            variant: 'success',
+            duration: 5000,
+          });
         },
         onError: (error) => {
           console.log('error', error);
+          toast({
+            title: 'Login failed',
+            description: 'There was an error logging in. Please try again.',
+            variant: 'destructive',
+            duration: 5000,
+          });
         },
       });
+      
     
       const onValid = async (data: LoginSchemaType) => {
       const parsedValues = LoginSchema.safeParse(data);

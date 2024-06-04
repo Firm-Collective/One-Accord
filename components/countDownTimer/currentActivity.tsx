@@ -12,10 +12,10 @@ export default function CurrentActivity({ timeLeft, currentActivityIndex }: Prop
   const { circumference, offset, activities } = useCurrentActivity({ timeLeft });
 
   return (
-    <div className=' items-center gap-[4px] pt-[2px] pb-0 px-0 inline-flex flex-col  flex-[0_0_auto]'>
-      <div className='inline-flex items-start gap-[10px] bg-white rounded-[99px] border-2 border-solid border-transparent '>
+    <div className=' items-center gap-[4px]  pb-6 px-0 inline-flex flex-col  flex-[0_0_auto]'>
+      <div className='inline-flex items-start gap-[10px] bg-white rounded-[99px] border-1 border-solid border-transparent p-1'>
         <svg
-          className='inset-0 rounded-[99px] border-transparent  [background:linear-gradient(180deg,rgb(242,163,116)_0%,rgb(154,191,228)_28.5%,rgb(237,147,133)_52.5%,rgb(241,162,117)_68%,rgb(239,159,123)_78%,rgb(236,136,132)_91%)] '
+          className='inset-0 rounded-[99px] border-transparent  '
           width='44'
           height='44'
           viewBox='0 0 48 48'

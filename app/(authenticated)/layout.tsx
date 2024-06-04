@@ -8,6 +8,9 @@ export default async function DefaultLayout({ children }: { children: React.Reac
     redirect('login');
   }
 
-  return <>{children}</>;
+  return <><div>
+    {/* <Header /> */}
+    {children}
+    </div></>;
 }
 
