@@ -91,7 +91,7 @@ const usePagination = (containerName: string, initialFrom = 0, initialPageSize =
       return {
         ...prev,
         from: 0,
-        pageSize: 10,
+        pageSize: prev.pageSize,
       };
     });
   }, []);
