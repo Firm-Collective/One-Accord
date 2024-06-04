@@ -24,11 +24,9 @@ type Props = {
   rectangle?: string;
   image1?: string;
   unsplashIfgrcqhznqg?: string;
-  posts: CretePostSchemaType[] | [];
-  InfluencerOrModeratorPosts: CretePostSchemaType[] | [];
+  pinnedPosts: CretePostSchemaType[] | [];
   registeredPosts: CretePostSchemaType[] | [];
-  pagination: UsePaginationReturn;
-  paginationInfluencerOrModerator: UsePaginationReturn;
+  paginationPinned: UsePaginationReturn;
   paginationOther: UsePaginationReturn;
 };
 
@@ -36,16 +34,14 @@ const MessageSection: React.FC<Props> = ({
   className,
   ModeratorImage,
   profilePictureClassName,
-  posts,
-  InfluencerOrModeratorPosts,
+  pinnedPosts,
   registeredPosts,
-  pagination,
-  paginationInfluencerOrModerator,
+  paginationPinned,
   paginationOther,
 }: Props): JSX.Element => {
-  const { moderatorOrInfluencerPosts, formatDate } = useMessageSection({ posts: InfluencerOrModeratorPosts });
+  const { moderatorOrInfluencerPosts, formatDate } = useMessageSection({ posts: pinnedPosts });
   const { otherPosts } = useMessageSection({ posts: registeredPosts });
-  const containerModeratorOrInfluencerRef = useScroll(InfluencerOrModeratorPosts, paginationInfluencerOrModerator);
+  const containerModeratorOrInfluencerRef = useScroll(pinnedPosts, paginationPinned);
   const containerOtherRef = useScroll(registeredPosts, paginationOther);
 
   return (

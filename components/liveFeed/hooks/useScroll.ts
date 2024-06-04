@@ -6,7 +6,9 @@ const useScroll = (dependency: any, pagination: any): React.MutableRefObject<HTM
   const [prevScrollHeight, setPrevScrollHeight] = useState(0);
   const [prevMaxPageSize, setPrevMaxPageSize] = useState(0);
 
-  // scroll to when the component mounts
+  /**
+   * Scroll to bottom of container when component mounts
+   */
   useEffect(() => {
     const container = containerRef.current;
     if (container) {
@@ -14,12 +16,18 @@ const useScroll = (dependency: any, pagination: any): React.MutableRefObject<HTM
     }
   }, []);
 
-  // logic when user scrolls to top of page
+  /**
+   * Logic when user scrolls to top of container
+   * When user scrolls to top of container, load more posts.
+   */
   useEffect(() => {
     const container = containerRef.current;
     const onScroll = () => {
+      // if user scrolls to top of container
       if (container?.scrollTop === 0) {
+        // save prev scroll height to return to it after new posts are added
         setPrevScrollHeight(container.scrollHeight);
+        // load more posts by incrementing pagination
         pagination?.incrementPagination();
       }
     };
@@ -35,7 +43,9 @@ const useScroll = (dependency: any, pagination: any): React.MutableRefObject<HTM
     };
   });
 
-  // Restore the scroll position after new data is fetched and rendered
+  /**
+   * Logic when new posts are rendered to the page
+   */
   useEffect(() => {
     const handleScroll = async () => {
       const maxPageSize = await pagination?.getMaxPageSize();

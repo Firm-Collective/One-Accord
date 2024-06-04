@@ -24,19 +24,13 @@ export const LiveFeed: React.FC<Props> = ({
   image1 = 'image-3.png',
   unsplashIfgrcqhznqg = 'unsplash-ifgrcqhznqg.png',
 }) => {
-  const {
-    queryPostInfo,
-    paginationInfluencerOrModerator,
-    paginationOther,
-    influencerOrModeratorPostData,
-    otherPostData,
-  } = useLiveFeed();
+  const { pinnedPostData, otherPostData, paginationPinned, paginationOther, refetch } = useLiveFeed();
 
-  const sanitizedInfluencerOrModeratorPosts = (influencerOrModeratorPostData ?? []).map((post) => ({
+  const sanitizedPinnedPosts = (pinnedPostData ?? []).map((post: any) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
-  const sanitizedOtherPosts = (otherPostData ?? []).map((post) => ({
+  const sanitizedOtherPosts = (otherPostData ?? []).map((post: any) => ({
     ...post,
     tag_id: post.tag_id ?? null,
   }));
@@ -50,17 +44,12 @@ export const LiveFeed: React.FC<Props> = ({
         image1={image1}
         rectangle={rectangle}
         unsplashIfgrcqhznqg={unsplashIfgrcqhznqg}
-        InfluencerOrModeratorPosts={sanitizedInfluencerOrModeratorPosts as any}
+        pinnedPosts={sanitizedPinnedPosts as any}
         registeredPosts={sanitizedOtherPosts as any}
-        paginationInfluencerOrModerator={paginationInfluencerOrModerator}
+        paginationPinned={paginationPinned}
         paginationOther={paginationOther}
       />
-      <CommentSection
-        property1='default'
-        refetch={queryPostInfo.refetch}
-        frame={'/frame-163422.svg'}
-        userPhoto={'/Image-7.png'}
-      />
+      <CommentSection property1='default' refetch={refetch} frame={'/frame-163422.svg'} userPhoto={'/Image-7.png'} />
     </div>
   );
 };
