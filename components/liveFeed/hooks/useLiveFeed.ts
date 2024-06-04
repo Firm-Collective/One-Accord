@@ -56,5 +56,3 @@ const useLiveFeed = () => {
     refetch,
   };
 };
-
-export default useLiveFeed;

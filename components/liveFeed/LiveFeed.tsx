@@ -25,7 +25,7 @@ export const fetchUserId = async () => {
     return response.data.userId ?? null;
   } catch (error) {
     console.error('Failed to fetch user ID:', error);
-    return "";
+    return '';
   }
 };
 
@@ -76,7 +76,11 @@ export const LiveFeed: React.FC<Props> = ({
   };
 
   if (loading) {
-    return <div><Loading /></div>; 
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
