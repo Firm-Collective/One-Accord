@@ -13,8 +13,8 @@ const useDetailActivityTimer = ({currentActivityIndex}: Props) => {
     const getRandomQuestionIndex = () => {
       let randomIndex;
       do {
-        randomIndex = Math.floor(Math.random() * activity.questions!.length);
-      } while (shownQuestions.includes(randomIndex) && shownQuestions.length < activity.questions!.length);
+        randomIndex = Math.floor(Math.random() * activity.questions!?.length);
+      } while (shownQuestions.includes(randomIndex) && shownQuestions.length < activity.questions!?.length);
   
       return randomIndex;
     };
@@ -22,7 +22,7 @@ const useDetailActivityTimer = ({currentActivityIndex}: Props) => {
     useEffect(() => {
       if (activity.name === 'Reflection' && activity.questions) {
         const interval = setInterval(() => {
-          if (shownQuestions.length === activity.questions!.length) {
+          if (shownQuestions.length === activity.questions!?.length) {
             setShownQuestions([]);
           } else {
             const newIndex = getRandomQuestionIndex();
