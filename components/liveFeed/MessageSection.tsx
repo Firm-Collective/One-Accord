@@ -36,11 +36,11 @@ type Props = {
 
 export const fetchUserId = async () => {
   try {
-    const response = await axios.get('/api/user/getUserId'); 
-    return response.data.userId ?? "";
+    const response = await axios.get('/api/user/getUserId');
+    return response.data.userId ?? '';
   } catch (error) {
     console.error('Failed to fetch user ID:', error);
-    return "";
+    return '';
   }
 
 };
@@ -72,12 +72,12 @@ const MessageSection: React.FC<Props> = ({
       const id = await fetchUserId();
       setUserId(id);
     };
-    
+
     fetchAndSetUserId();
   }, []); 
 
   const showBadgeForUserType = (userType: string) => {
-    const validUserTypes = ["Moderator", "Influencer", "Prophetic Organization"];
+    const validUserTypes = ['Moderator', 'Influencer', 'Prophetic Organization'];
     return validUserTypes.includes(userType);
   };
   
@@ -86,19 +86,19 @@ const MessageSection: React.FC<Props> = ({
       {queryPinnedPosts.isLoading || queryOtherPosts.isLoading ? (
         <div role="status" className="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
           {[...Array(5)].map((_, i) => (
-            <div key={i} className="flex items-center justify-between pt-4">
+            <div key={i} className='flex items-center justify-between pt-4'>
               <div>
-                <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5"></div>
-                <div className="w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                <div className='h-2.5 bg-gray-300 rounded-full dark:bg-gray-600 w-24 mb-2.5'></div>
+                <div className='w-32 h-2 bg-gray-200 rounded-full dark:bg-gray-700'></div>
               </div>
             </div>
           ))}
-          <span className="sr-only">Loading...</span>
+          <span className='sr-only'>Loading...</span>
         </div>
       ) : (
         <div className={`inline-flex flex-col items-start relative ${className} h-[100%]`}>
           {queryUserTypeInfo?.data?.name && showBadgeForUserType(queryUserTypeInfo.data.name) && (
-            <Badge userType={queryUserTypeInfo.data.name} className="self-end mb-2" />
+            <Badge userType={queryUserTypeInfo.data.name} className='self-end mb-2' />
           )}
           {/* Render moderator/influencer posts */}
           {moderatorOrInfluencerPosts.length > 0 && (
@@ -111,7 +111,13 @@ const MessageSection: React.FC<Props> = ({
                   key={`${post.user_id}-${idx}`}
                   className='bg-[#d9d9d9] flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'
                 >
-                  <Image className='relative w-[28px] h-[28px]' alt='Image' src={ModeratorImage} width={28} height={28} />
+                  <Image
+                    className='relative w-[28px] h-[28px]'
+                    alt='Image'
+                    src={ModeratorImage}
+                    width={28}
+                    height={28}
+                  />
                   <p className="relative w-[300px] mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
                     <span className='font-semibold'>{post.User.UserType.name}</span>
                     <span className="[font-family:'Poppins-Regular',Helvetica]">&nbsp;</span>
