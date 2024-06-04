@@ -114,7 +114,7 @@ export async function POST(request: Request) {
   const supabase = createClient();
   const userData: ProfileSchemaType = await request.json();
 
-  const location = await getRandomCoordinates(userData.country, userData.city);
+  const location = await getRandomCoordinates(userData?.country, userData?.city);
 
   const latitude = location.latitude;
   const longitude = location.longitude;

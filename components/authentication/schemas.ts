@@ -25,8 +25,8 @@ export const ProfileSchema = z.object({
   username: z.string().min(4).nullish(),
   user_type_code: z.string(),
   user_type_id: UserType.shape.id.nullish(),
-  country: z.string().min(2).nullish(),
-  city: z.string().min(2).nullish(),
+  country: z.string(),
+  city: z.string(),
   birth_year: z.string().nullable().refine((value) => {
     if (!value) return true;
   
