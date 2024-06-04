@@ -84,6 +84,8 @@ const MessageSection: React.FC<Props> = ({
   return (
     <>
       {queryPinnedPosts.isLoading || queryOtherPosts.isLoading ? (
+        // 1. First load show the  layout 
+        // 2. Refetch shoe the Loading
         // <div role="status" className="max-w-md p-4 space-y-4 border border-gray-200 divide-y divide-gray-200 rounded shadow animate-pulse dark:divide-gray-700 md:p-6 dark:border-gray-700">
         //   {[...Array(5)].map((_, i) => (
         //     <div key={i} className='flex items-center justify-between pt-4'>
