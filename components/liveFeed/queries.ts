@@ -29,7 +29,7 @@ export const postAPI = {
           User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
         `,
       )
-      .in('User.UserType.name', ['Moderator', 'Influencer'])
+      .in('User.UserType.name', ['Moderator', 'Influencer', 'Prophetic Organization'])
       .range(from, pageSize)
       .order('created_at', { ascending: false });
 

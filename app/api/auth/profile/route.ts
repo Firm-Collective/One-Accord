@@ -11,7 +11,7 @@ type BoundingBox = {
 type Memo = {
   [key: string]: BoundingBox;
 };
-type Location = {id: string, city: string, country: string, latitude: string, longitude: string}
+type Location = { id: string; city: string; country: string; latitude: string; longitude: string };
 
 // memoization for api calls
 const memo: Memo = {};
@@ -51,7 +51,6 @@ const insertUserLocation = async (supabase: any, userData: ProfileSchemaType, la
 };
 
 const updateUser = async (supabase: any, userData: ProfileSchemaType, userId: string, locationId: string) => {
-  
   const { data, error } = await supabase
     .from('User')
     .update({
@@ -63,7 +62,6 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, userId: st
     })
     .eq('id', userId)
     .select();
-  
 
   if (error) {
     console.error('Error updating user:', error);
@@ -114,7 +112,7 @@ export async function POST(request: Request) {
   const supabase = createClient();
   const userData: ProfileSchemaType = await request.json();
 
-  const location = await getRandomCoordinates(userData.country, userData.city);
+  const location = await getRandomCoordinates(userData.country || 'unknown', userData.city || 'unknown');
 
   const latitude = location.latitude;
   const longitude = location.longitude;
