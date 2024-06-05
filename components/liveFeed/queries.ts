@@ -102,6 +102,7 @@ export const postAPI = {
       User(id, username, UserType:UserType(id, name), Location:Location(id, city, country, latitude, longitude))
     `,
       )
+      .filter('is_visible', 'eq', true)
       .limit(100)
       .order('created_at', { ascending: false });
 
