@@ -29,10 +29,12 @@ export const postAPI = {
           User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
         `,
       )
+      .filter('is_visible', 'eq', true)
       .in('User.UserType.name', ['Moderator', 'Influencer', 'Prophetic Organization'])
       .range(from, pageSize)
       .order('created_at', { ascending: false });
 
+    console.log(await query);
     const response = (await query).data;
 
     const parsedSchema = PostSchema.safeParse(response);
@@ -65,6 +67,7 @@ export const postAPI = {
           User!inner(id, username, UserType:UserType!inner(id, name), Location:Location(id, city, country, latitude, longitude))
         `,
       )
+      .filter('is_visible', 'eq', true)
       .range(from, pageSize)
       .in('User.UserType.name', ['Registered']) // add more types here?
       .order('created_at', { ascending: false });
