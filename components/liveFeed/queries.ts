@@ -34,6 +34,7 @@ export const postAPI = {
       .range(from, pageSize)
       .order('created_at', { ascending: false });
 
+    console.log(await query);
     const response = (await query).data;
 
     const parsedSchema = PostSchema.safeParse(response);
