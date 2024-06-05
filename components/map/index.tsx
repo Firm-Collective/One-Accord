@@ -54,7 +54,7 @@ const MapGL = () => {
       ) : (
         <ReactMapGL
           mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-          mapStyle={`https://api.mapbox.com/styles/v1/firmcollective/clwz4ftkv01bf01pp06wl1wl9?sdk=js-3.3.0&access_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh3YWFlZHhjZWJ6dWNhcHVtenNtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIxMDU1MTAsImV4cCI6MjAyNzY4MTUxMH0.Wuc0v_qU6yyW8ayJeWApJ0om9w9hvxgQJshMFPxnPjs`}
+          mapStyle={`/api/map`}
           initialViewState={viewPort}
           onMove={(evt) => setViewport(evt.viewState)}
           maxZoom={20}
