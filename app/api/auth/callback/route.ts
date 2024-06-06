@@ -9,6 +9,7 @@ export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
     const { searchParams } = requestUrl;
     const code = searchParams.get('code');
+    console.log(requestUrl);
 
     if (!code) {
       return NextResponse.redirect('/auth/auth-code-error');
