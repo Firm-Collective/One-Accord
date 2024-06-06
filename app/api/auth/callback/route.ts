@@ -7,7 +7,6 @@ export async function GET(request: Request) {
     const supabaseServerClient = createServerClient();
     const supabaseClient = createClient();
     const requestUrl = new URL(request.url);
-    console.log(requestUrl);
     const { searchParams } = requestUrl;
     const code = searchParams.get('code');
 
@@ -49,7 +48,7 @@ export async function GET(request: Request) {
       return NextResponse.json({ success: true, data });
     }
 
-    return NextResponse.redirect(requestUrl.origin + '/live');
+    return NextResponse.redirect(process.env.NEXT_PUBLIC_URL + '/live');
   } catch (error) {
     console.error('Error handling signup request:', error);
     return NextResponse.json({ error: 'An internal server error occurred.' }, { status: 500 });
