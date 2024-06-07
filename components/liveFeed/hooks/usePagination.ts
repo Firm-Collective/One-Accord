@@ -4,7 +4,7 @@
 
 import { useState, useCallback } from 'react';
 import { createClient } from '@/utils/supabase/client';
-const usePagination = (containerName: string, initialFrom = 0, initialPageSize = 10) => {
+const usePagination = (containerName: string, initialFrom = 0, initialPageSize = 20) => {
   const [pagination, setPagination] = useState({ from: initialFrom, pageSize: initialPageSize });
   const supaClient = createClient();
 

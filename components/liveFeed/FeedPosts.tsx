@@ -7,7 +7,7 @@ export default async function FeedPosts() {
       <div className='container mx-auto px-4'>
         <Suspense fallback={'loading..'}>
           <LiveFeed
-            className='h-[353.39px] sm:h-[820px]'
+            className='h-[353.39px] sm:h-[800px] w-full'
             ModeratorImage='/moderator-image.png'
             image1='/image-3-2.png'
             img='image-7-3.png'

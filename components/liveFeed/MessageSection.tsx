@@ -96,7 +96,7 @@ const MessageSection: React.FC<Props> = ({
               {moderatorOrInfluencerPosts?.map((post, idx) => (
                 <div
                   key={`${post.user_id}-${idx}`}
-                  className='bg-[#d9d9d9] flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'
+                  className='bg-[#d9d9d9] flex w-[369px] sm:w-full items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] mb-1'
                 >
                   <Image
                     className='relative w-[28px] h-[28px]'
@@ -105,7 +105,7 @@ const MessageSection: React.FC<Props> = ({
                     width={28}
                     height={28}
                   />
-                  <p className="relative w-[300px] mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
+                  <p className="relative w-[200px] sm:w-full mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
                     <span className='font-semibold'>{post.User.UserType.name}</span>
                     <span className="[font-family:'Poppins-Regular',Helvetica]">&nbsp;</span>
                     <span className="[font-family:'Poppins-Light',Helvetica] font-light text-[11px]">
@@ -130,12 +130,12 @@ const MessageSection: React.FC<Props> = ({
             {otherPosts?.map((post, idx) => (
               <div
                 key={`${post.user_id}-${idx}`}
-                className='bg-white flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px]'
+                className='bg-white flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] w-[100%]'
               >
                 <div
                   className={`relative w-[28px] h-[28px] bg-[url(/profile-pic.png)] bg-[100%_100%] ${profilePictureClassName}`}
                 />
-                <p className="relative w-[300px] mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
+                <p className="relative w-[200px] sm:w-full mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
                   <span className='font-semibold'>{post.User.username}</span>
                   <span className="[font-family:'Poppins-Regular',Helvetica]">&nbsp;</span>
                   <span className="[font-family:'Poppins-Light',Helvetica] font-light text-[11px]">
