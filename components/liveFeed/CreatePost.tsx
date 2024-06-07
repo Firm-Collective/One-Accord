@@ -6,8 +6,8 @@ type Props = {
   refetch: () => void;
 };
 
-export const CreatePost =  ({ refetch }: Props) => {
-  const { onValid, onInvalid, form } = useCreatePost({ refetch});
+export const CreatePost = ({ refetch }: Props) => {
+  const { onValid, onInvalid, form } = useCreatePost({ refetch });
 
   return (
     <form
@@ -25,7 +25,7 @@ export const CreatePost =  ({ refetch }: Props) => {
         }}
       />
       <button type='submit' disabled={form.formState.isSubmitSuccessful}>
-        <SendVector className={`w-[18px] top-[32px] h-[18px] absolute left-[351px]`} color='#898A8D' />
+        <SendVector className={`relative right-8`} color='#898A8D' />
       </button>
     </form>
   );
