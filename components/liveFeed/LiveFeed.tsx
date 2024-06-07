@@ -84,7 +84,7 @@ export const LiveFeed: React.FC<Props> = ({
   }
 
   return (
-    <div className='w-[100%] h-[100%] space-y-8'>
+    <div className='w-[100%] h-[100%] space-y-5'>
       <MessageSection
         className={className}
         ModeratorImage={ModeratorImage}
@@ -100,12 +100,7 @@ export const LiveFeed: React.FC<Props> = ({
         paginationOther={paginationOther}
       />
       {userAuth ? (
-        <CommentSection
-          property1='default'
-          refetch={refetch}
-          frame={'/frame-163422.svg'}
-          userPhoto={'/Image-7.png'}
-        />
+        <CommentSection property1='default' refetch={refetch} frame={'/frame-163422.svg'} userPhoto={'/Image-7.png'} />
       ) : (
         <div className='flex w-[370.94px] h-[46.15px] items-center justify-center gap-[10px] relative bg-white rounded-[4px] border border-solid border-black'>
           <div className='relative w-[187px] h-[24px]' onClick={handleRedirect} style={{ cursor: 'pointer' }}>

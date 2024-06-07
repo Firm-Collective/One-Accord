@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <>
       <AppContextProvider>
-        <main className='w-full h-screen flex flex-col'>
-          <section className='relative w-full h-1/2'>
+        <main className='w-full h-screen flex flex-col sm:flex-row'>
+          <section className='relative w-full h-1/2 sm:h-screen'>
             {/* Map Component */}
             <Suspense fallback={<Loading />}>
               <MapOrDetailActivity />
@@ -30,7 +30,7 @@ export default function Home() {
             </Suspense>
           </section>
 
-          <section className='w-full h-2/6 mt-5 mb-5'>
+          <section className='w-full h-2/6 mt-3 mb-5'>
             {/* Feed Component */}
             <Suspense fallback={<Loading />}>
               <FeedPosts />
@@ -46,15 +46,15 @@ const MapOrDetailActivity = () => {
   const { isMapVisible, timeLeft, currentActivityIndex, activities } = useAppContext();
 
   return (
-    <div className="relative w-full h-full">
+    <div className='relative w-full h-full'>
       <div
-        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-100' : 'opacity-0'}`}
+        className={`absolute inset-0 transition-opacity duration-500 ${!isMapVisible ? 'opacity-100' : 'opacity-0'}`}
         style={{ pointerEvents: isMapVisible ? 'auto' : 'none' }}
       >
         <MapGL />
       </div>
       <div
-        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100'}`}
+        className={`absolute inset-0 transition-opacity duration-500 ${!isMapVisible ? 'opacity-0' : 'opacity-100'}`}
         style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
       >
         <DetailActivityTimer currentActivityIndex={currentActivityIndex} />
