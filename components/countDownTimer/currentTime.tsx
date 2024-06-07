@@ -1,20 +1,19 @@
 import React, { useState } from 'react';
 import useCurrentTime from './hooks/useCurrentTime';
-import { Switch } from "@/components/switch";
+import { Switch } from '@/components/switch';
 import { useAppContext } from '@/context/AppContextProvider';
 
 type Props = {
   timeLeft: number;
 };
 
-export default function CurrentTime({ timeLeft}: Props) {
+export default function CurrentTime({ timeLeft }: Props) {
   const { currentTime, currentTimeLeft } = useCurrentTime({ timeLeft });
   const { isMapVisible, setIsMapVisible } = useAppContext();
 
-
   return (
-    <div className='mb-2 items-start pt-[5px] pb-[10px] px-[20px] bg-transparent flex flex-col'>
-      <div className="flex items-center space-x-2 mb-2">
+    <div className='mb-2 items-start pt-[5px] pb-[10px] px-[0px] bg-transparent flex flex-col'>
+      <div className='flex items-center space-x-2 mb-2'>
         <Switch checked={isMapVisible} onCheckedChange={(checked) => setIsMapVisible(checked)} />
         {!isMapVisible ? (
           <div className='text-[12px] w-[auto]'>Visualize Map</div>

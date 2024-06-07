@@ -23,14 +23,14 @@ export default function Home() {
             </Suspense>
           </section>
 
-          <section className='w-full h-1/6'>
+          <section className='w-full h-1/6 sm:absolute sm:bottom-0 inset-x-0 sm:w-[200px] sm:ml-3 md:w-[320px] lg:w-[50%]'>
             {/* Timer Component */}
             <Suspense fallback={<Loading />}>
               <CountDownTimer />
             </Suspense>
           </section>
 
-          <section className='w-full h-2/6 mt-3 mb-5'>
+          <section className='w-full sm:w-3/6 h-2/6 mt-3 mb-5 sm:h-screen'>
             {/* Feed Component */}
             <Suspense fallback={<Loading />}>
               <FeedPosts />
