@@ -38,7 +38,7 @@ const MapGL = () => {
   };
 
   return (
-    <div className='w-[100%] h-[281px]'>
+    <div className='w-[100%] h-[281px] sm:h-full'>
       {isLoading ? (
         <div
           role='status'
