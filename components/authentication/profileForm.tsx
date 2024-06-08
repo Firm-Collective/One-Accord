@@ -5,17 +5,16 @@ import useProfileForm from './hooks/useProfileForm';
 import { countries } from '@/utils/data/countries';
 import Dropdown from '@/components/dropdown';
 import { UserTypeType } from "./schemas";
-
-
+import { Typography } from '@mui/material';
+import InfoTooltip from './InfoTooltip';
 
 export default function RegisterForm() {
-  const { onValid, onInvalid, updatedProfileMutation, form,queryUserTypeInfo } = useProfileForm();
+  const { onValid, onInvalid, updatedProfileMutation, form, queryUserTypeInfo } = useProfileForm();
   const allCountries = Object.entries(countries).map(([code, name]) => ({ value: name, label: name }));
   const allUserTypes = queryUserTypeInfo?.data?.map((userType: UserTypeType) => ({
     value: userType.id,
     label: userType.name
   })) ?? [];
-  
 
   return (
     <form className='my-4' onSubmit={form.handleSubmit(onValid, onInvalid)}>
@@ -54,32 +53,17 @@ export default function RegisterForm() {
           />
         </div>
       </div>
-      {/* <div>
-        <div className='flex items-center justify-between'></div>
-        <div className='mt-4 ml-3 pr-3'>
-          <Dropdown
-            control={form.control}
-            name='user_type_id'
-            options={allUserTypes}
-            label={
-              <span>
-                User Type <span className='text-red-500 ml-1'>*</span>
-              </span>
-            }
-          />
-        </div>
-      </div> */}
       <div>
         <div className='flex items-center justify-between'></div>
         <div className='mt-4 ml-3 pr-3'>
-          {/* TODO: API for country and then city*/}
           <Dropdown
             control={form.control}
             name='country'
             options={allCountries}
             label={
               <span>
-                Country <span className='text-red-500 ml-1'>*</span>
+                Country <span className='text-red-500 ml-1'>* </span>
+                <InfoTooltip title="Enter your country to have your general location anonymously shown on a map of participating users." />
               </span>
             }
           />
@@ -94,6 +78,8 @@ export default function RegisterForm() {
             label={
               <span>
                 City <span className='text-red-500 ml-1'>*</span>
+                <InfoTooltip title="Enter your city to have your general location anonymously shown on a map of participating users." />
+
               </span>
             }
             type='text'
@@ -117,7 +103,8 @@ export default function RegisterForm() {
         </div>
       </div>
       {updatedProfileMutation.isError && <p className='text-red-500 text-sm'>An error occurred during updating.</p>}
-      <p className='text-gray-700 text-base lg:text-sm text-center mt-8'>Join us in lighting up the world!</p>
+     
+            <p className='text-gray-700 text-base lg:text-sm text-center mt-8'>Join us in lighting up the world!</p>
       <div className='mt-6'>
         <Button
           variant='primary'
