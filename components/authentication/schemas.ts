@@ -12,6 +12,15 @@ export const ResetPasswordSchema = z.object({
 
 })
 
+export const ChangePasswordSchema = z.object({
+  newPassword: z.string().min(8, {
+    message: 'More than 8 characters.',
+  }),
+  confirmPassword: z.string().min(8, {
+    message: 'Please confirm password.',
+  })
+
+})
 
 export const SignUpSchema = z.object({email: z.string().email(),
   password: z.string().min(8, {
@@ -81,6 +90,7 @@ export const UserSchema = z.object({
 
 export type LoginSchemaType = z.input<typeof LoginSchema>;
 export type ResetPasswordSchemaType = z.input<typeof ResetPasswordSchema>;
+export type ChangePasswordSchemaType = z.input<typeof ChangePasswordSchema>;
 export type SignUpSchemaType = z.input<typeof SignUpSchema>;
 export type ProfileSchemaType = z.input<typeof ProfileSchema>;
 export type UserTypeType = z.input<typeof UserType>;

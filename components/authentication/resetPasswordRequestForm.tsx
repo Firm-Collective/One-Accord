@@ -3,9 +3,12 @@ import Button from '@/components/button';
 import TextField from '@/components/textField';
 import { useForm } from 'react-hook-form'; // Assuming you're using react-hook-form for form handling
 import { useRouter } from 'next/navigation';
+import useResetPasswordRequestForm from './hooks/useResetPasswordRequestForm';
 
 export default function ResetPasswordRequestForm() {
-  const { control, handleSubmit } = useForm(); // Using control instead of register
+  const { onValid, onInvalid, form } = useResetPasswordRequestForm(); // Using control instead of register
+  
+  
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,7 +32,7 @@ export default function ResetPasswordRequestForm() {
   };
 
   return (
-    <form className='my-4' onSubmit={handleSubmit(onSubmit)}>
+    <form className='my-4' onSubmit={form.handleSubmit(onValid, onInvalid)}>
       <legend className='text-xs text-right text-gray-700'>
         <span className='text-red-500 mr-1'>*</span>
         indicates required
@@ -37,7 +40,7 @@ export default function ResetPasswordRequestForm() {
       <div>
         <div className='mt-4'>
           <TextField
-            control={control} // Pass control object from react-hook-form
+            control={form.control} // Pass control object from react-hook-form
             name='email'
             label={
               <span>
