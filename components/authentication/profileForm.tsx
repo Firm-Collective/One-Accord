@@ -63,8 +63,8 @@ export default function RegisterForm() {
             label={
               <span>
                 Country <span className='text-red-500 ml-1'>* </span>
-                <InfoTooltip title="Enter your country to have your general location anonymously shown on a map of participating users." />
-              </span>
+                <InfoTooltip title="Enter your country to have your general location anonymously shown on a map of participating users. If you do not wish to share this information, you can leave this field empty." />
+                </span>
             }
           />
         </div>
@@ -78,7 +78,7 @@ export default function RegisterForm() {
             label={
               <span>
                 City <span className='text-red-500 ml-1'>*</span>
-                <InfoTooltip title="Enter your city to have your general location anonymously shown on a map of participating users." />
+                <InfoTooltip title="Enter your city to have your general location anonymously shown on a map of participating users. If you do not wish to share this information, you can leave this field empty." />
 
               </span>
             }
