@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'; // Assuming you're using react-hook-f
 import { useRouter } from 'next/navigation';
 import useResetPasswordRequestForm from './hooks/useResetPasswordRequestForm';
 
-export default function ResetPasswordRequestForm() {
+export default function ResetPasswordRequestForm({ token }: { token: string }) {
   const { onValid, onInvalid, form } = useResetPasswordRequestForm(); // Using control instead of register
   
   

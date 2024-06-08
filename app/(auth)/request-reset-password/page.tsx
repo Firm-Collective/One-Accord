@@ -6,7 +6,7 @@ import Header from '@/components/header';
 import ResetPasswordRequestForm from '@/components/authentication/resetPasswordRequestForm';
 import { Title } from '@/components/authentication/title';
 
-const ResetPassword = () => {
+const RequestResetPassword = () => {
   // Assume token is obtained from useResetPasswordRequestForm hook
   const token = 'your-token-value'; // Replace with actual token value
 
@@ -21,5 +21,5 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default RequestResetPassword;
 
