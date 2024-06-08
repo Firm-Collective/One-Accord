@@ -182,7 +182,7 @@ const useProfileForm = () => {
       toast({
         title: 'No changes detected',
         description: 'No updates were made as there were no changes detected.',
-        variant: 'default',
+        variant: 'destructive',
         duration: 5000,
       });
       return;
