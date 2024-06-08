@@ -21,10 +21,10 @@ const usePasswordResetForm = () => {
 
   const resetPasswordMutation = useMutation({
     mutationFn: (resetData: ResetPasswordSchemaType) => {
-      return axios.post('/api/reset-password', resetData);
+      return axios.post('/api/request-reset-password', resetData);
     },
     onSuccess: () => {
-      router.push('/reset-password/success');
+      router.push('/request-reset-password/success');
       toast({
         title: 'Password reset link sent!',
         description: 'Please check your email for further instructions.',

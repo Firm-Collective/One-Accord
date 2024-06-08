@@ -12,23 +12,29 @@ export default function ResetPasswordRequestForm({ token }: { token: string }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: { email: string }) => {
     setIsSubmitting(true);
-    // Send password reset request with the email
     try {
-      // Example: Send request to backend API to initiate password reset process
-      await fetch('/api/reset-password', {
+      const response = await fetch('/api/request-reset-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data), // Assuming data contains the email
+        body: JSON.stringify(data),
       });
-      router.push('/reset-password/success'); // Redirect to success page
+
+      const result = await response.json();
+
+      if (response.ok) {
+        router.push('/reset-password/success'); // Redirect to success page
+      } else {
+        console.error('Error:', result.error);
+      }
     } catch (error) {
       console.error('Error initiating password reset:', error);
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (
