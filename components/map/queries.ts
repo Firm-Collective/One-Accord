@@ -20,23 +20,48 @@ export const mapAPI = {
 
         const response = (await query).data;
 
-        const parsedSchema = TransformedSchema.safeParse(response?.map((item: any) => ({
-            type: "Feature",
-            properties: {
-                cluster: false,
-                geojsonId: item.id,
-                name: item.User?.username || "",
-                continent: item.User?.Location?.country || "",
-                activity: item.Activity?.name || "",
-            },
-            geometry: {
-                type: "Point",
-                coordinates: [
-                    parseFloat(item.User?.Location?.latitude || "0"),
-                    parseFloat(item.User?.Location?.longitude || "0")
-                ],
-            },
-        })));
+        const parsedSchema = TransformedSchema.safeParse(
+            response?.map((item: any) => {
+              const latitude = parseFloat(item.User?.Location?.latitude);
+              const longitude = parseFloat(item.User?.Location?.longitude);
+          
+              // Check for valid latitude and longitude range
+              if (
+                isNaN(latitude) || isNaN(longitude) ||
+                latitude < -90 || latitude > 90 ||
+                longitude < -180 || longitude > 180
+              ) {
+                console.warn(`Invalid coordinates for item: ${item.id}, latitude: ${latitude}, longitude: ${longitude}`);
+                return null; 
+              }
+          
+              return {
+                type: "Feature",
+                properties: {
+                  cluster: false,
+                  geojsonId: item.id,
+                  name: item.User?.username || "",
+                  country: item.User?.Location?.country || "",
+                  city: item.User?.Location?.city || "",
+                  activity: item.Activity?.name || "",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [longitude, latitude],
+                },
+              };
+            }).filter(Boolean) 
+          );
+          
+          if (!parsedSchema.success) {
+            console.error("Error parsing schema:", parsedSchema.error);
+          }
+          
+          
+          if (!parsedSchema.success) {
+            console.error("Error parsing schema:", parsedSchema.error);
+          }
+          
         
 
         if (!parsedSchema.success) {

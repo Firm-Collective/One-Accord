@@ -5,8 +5,8 @@ const LocationSchema = z.object({
   id: z.string().uuid(),
   city: z.string(),
   country: z.string(),
-  latitude: z.string(),
-  longitude: z.string()
+  latitude: z.number(),
+  longitude: z.number()
 }).nullish();
 
 // UserType Schema
