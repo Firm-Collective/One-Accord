@@ -66,14 +66,8 @@ const useMapGL = () => {
     []
   );
 
-  // console.log("🚀 ~ useMapGL ~ mockPoints:", mockPoints)
-  console.log("🚀 ~ useMapGL ~ points:", points)
-  
-  const finalPoints = useMockData ? mockPoints : points;
 
-  useEffect(() => {
-    console.log("Final points being used:", finalPoints);
-  }, [finalPoints]);
+  const finalPoints = useMockData ? mockPoints : points;
 
   const coordinates = useMemo(
     () =>
