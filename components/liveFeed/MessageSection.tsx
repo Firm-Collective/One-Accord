@@ -130,7 +130,7 @@ const MessageSection: React.FC<Props> = ({
             {otherPosts?.map((post, idx) => (
               <div
                 key={`${post.user_id}-${idx}`}
-                className='bg-white flex w-[369px] items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] w-[100%]'
+                className='bg-white flex items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] w-[100%]'
               >
                 <div
                   className={`relative w-[28px] h-[28px] bg-[url(/profile-pic.png)] bg-[100%_100%] ${profilePictureClassName}`}

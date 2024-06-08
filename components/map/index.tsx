@@ -66,7 +66,7 @@ const MapGL = () => {
             const { cluster: isCluster, point_count: pointCount } = cluster.properties;
 
             if (isCluster) {
-              const size = 20 + (pointCount / points.length) * 50;
+              const size = 10 + (pointCount / points.length) * 50;
 
               return (
                 <Marker
