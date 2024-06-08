@@ -1,5 +1,4 @@
-"use client";
-
+'use client';
 import { useState, useRef, useMemo, useEffect } from "react";
 import useSuperCluster from "use-supercluster";
 import getCenter from "geolib/es/getCenter";
@@ -86,7 +85,7 @@ const useMapGL = () => {
   const [viewPort, setViewport] = useState({
     latitude: center ? center.latitude : defaultLatitude,
     longitude: center ? center.longitude : defaultLongitude,
-    zoom: 1,
+    zoom: 5,
   });
 
   useEffect(() => {
@@ -98,6 +97,10 @@ const useMapGL = () => {
 
   const [mapBounds, setMapBounds] = useState<BBox | undefined>(undefined);
 
+<<<<<<< HEAD
+=======
+  // get clusters
+>>>>>>> 8850b42 (looking into map feature now - look into api/user/getUserId for userAuth)
   const { clusters, supercluster } = useSuperCluster({
     points: finalPoints || [],
     zoom: viewPort.zoom,
