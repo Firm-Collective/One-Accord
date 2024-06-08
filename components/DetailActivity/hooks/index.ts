@@ -6,15 +6,15 @@ type Props = {
   };
 
 const useDetailActivityTimer = ({currentActivityIndex}: Props) => {
-    const activity = activities[3]; 
+    const activity = activities[currentActivityIndex]; 
     const [questionIndex, setQuestionIndex] = useState(0);
     const [shownQuestions, setShownQuestions] = useState<number[]>([]);
   
     const getRandomQuestionIndex = () => {
       let randomIndex;
       do {
-        randomIndex = Math.floor(Math.random() * activity.questions!.length);
-      } while (shownQuestions.includes(randomIndex) && shownQuestions.length < activity.questions!.length);
+        randomIndex = Math.floor(Math.random() * activity.questions!?.length);
+      } while (shownQuestions.includes(randomIndex) && shownQuestions.length < activity.questions!?.length);
   
       return randomIndex;
     };
