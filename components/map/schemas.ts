@@ -5,8 +5,8 @@ const LocationSchema = z.object({
     id: z.string(),
     city: z.string(),
     country: z.string(),
-    latitude: z.string(),
-    longitude: z.string(),
+    latitude: z.number(),
+    longitude: z.number(),
 });
 
 // Define el esquema para la actividad
@@ -37,7 +37,8 @@ export const TransformedSchema = z.array(
             cluster: z.boolean(),
             geojsonId: z.string(),
             name: z.string(),
-            continent: z.string(),
+            country: z.string(),
+            city: z.string(),
             activity: z.string(),
         }),
         geometry: z.object({

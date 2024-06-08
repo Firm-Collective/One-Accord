@@ -3,11 +3,11 @@
 import { useState, useRef, useMemo, useEffect } from "react";
 import useSuperCluster from "use-supercluster";
 import getCenter from "geolib/es/getCenter";
-import { createClient } from '@/utils/supabase/client'
+import { createClient } from '@/utils/supabase/client';
 import { useQuery } from "react-query";
-import { mapAPI, mapKeys} from "../queries"
+import { mapAPI, mapKeys } from "../queries";
 import { MapRef } from 'react-map-gl';
-// import mockDataGeoContinents from "@/utils/data/mockDataGeoContinents.json";
+import mockData from "@/utils/data/mockDataGeoContinents.json";
 
 type User = {
   type: string;
@@ -31,51 +31,69 @@ type GeolibInputCoordinates = {
 type BBox = [number, number, number, number];
 
 const useMapGL = () => {
-  const supaClient = createClient()
+  const supaClient = createClient();
   const [selectedUser, setSelectedUser] = useState<User | null>();
   const mapRef = useRef<MapRef | null>(null);
 
-  // DB request with useQuery
-  const { data: points, isFetching, isLoading } = useQuery([...mapKeys.lists()], async () => {
-    const mapData = await mapAPI.getMapData({ supaClient });
-    return mapData?.data?.map((item: any) => ({
-      type: "Feature",
-      properties: {
-        cluster: false,
-        geojsonId: item.id,
-        name: item.User?.username || "",
-        country: item.User?.Location?.country || "",
-        city: item.User?.Location?.city || "",
-        activity: item.Activity?.name || "",
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [
-          parseFloat(item.User?.Location?.latitude || "0"),
-          parseFloat(item.User?.Location?.longitude || "0")
-        ],
-      },
-    })) || [];
-  });
+  const useMockData = false; 
+
+  const { data: points, isFetching, isLoading } = useQuery(
+    [...mapKeys.lists()],
+    async () => {
+      const mapData = await mapAPI.getMapData({ supaClient });
+      console.log("Raw map data from database:", mapData);
+      return mapData?.data || [];
+    }
+  );
+
+  const mockPoints = useMemo(
+    () =>
+      mockData.features.map((item) => ({
+        type: "Feature",
+        properties: {
+          cluster: false,
+          geojsonId: item.properties.geojsonId,
+          name: item.properties.name,
+          country: "", 
+          city: "", 
+          activity: item.properties.activity,
+        },
+        geometry: {
+          type: "Point",
+          coordinates: item.geometry.coordinates,
+        },
+      })),
+    []
+  );
+
+  // console.log("🚀 ~ useMapGL ~ mockPoints:", mockPoints)
+  console.log("🚀 ~ useMapGL ~ points:", points)
   
-  // Implement useMemo
-  const coordinates = useMemo(() => points?.map((user) => ({
-    longitude: user?.geometry?.coordinates[0],
-    latitude: user?.geometry?.coordinates[1]
-  })), [points]) || [];
-  
+  const finalPoints = useMockData ? mockPoints : points;
+
+  useEffect(() => {
+    console.log("Final points being used:", finalPoints);
+  }, [finalPoints]);
+
+  const coordinates = useMemo(
+    () =>
+      finalPoints?.map((user) => ({
+        longitude: user?.geometry?.coordinates[0],
+        latitude: user?.geometry?.coordinates[1],
+      })) || [],
+    [finalPoints]
+  );
 
   const center = getCenter(coordinates as GeolibInputCoordinates[]);
-  
-  const defaultLatitude = 0; 
-  const defaultLongitude = 0; 
+
+  const defaultLatitude = 0;
+  const defaultLongitude = 0;
 
   const [viewPort, setViewport] = useState({
     latitude: center ? center.latitude : defaultLatitude,
     longitude: center ? center.longitude : defaultLongitude,
     zoom: 1,
   });
-
 
   useEffect(() => {
     if (mapRef.current) {
@@ -86,19 +104,20 @@ const useMapGL = () => {
 
   const [mapBounds, setMapBounds] = useState<BBox | undefined>(undefined);
 
-
-  // get clusters
   const { clusters, supercluster } = useSuperCluster({
-    points: points || [],
+    points: finalPoints || [],
     zoom: viewPort.zoom,
     bounds: mapBounds,
     options: { radius: 75, maxZoom: 20 },
-    disableRefresh: isFetching
+    disableRefresh: isFetching,
   });
 
   const handleMarkerClick = (cluster: any) => {
     if (supercluster && cluster.properties && cluster.properties.cluster_id) {
-      const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.properties.cluster_id), 20);
+      const expansionZoom = Math.min(
+        supercluster.getClusterExpansionZoom(cluster.properties.cluster_id),
+        20
+      );
       setViewport({
         ...viewPort,
         latitude: cluster.geometry.coordinates[1],
@@ -116,8 +135,8 @@ const useMapGL = () => {
     viewPort,
     setViewport,
     handleMarkerClick,
-    points,
-    isLoading,
+    points: finalPoints,
+    isLoading: useMockData ? false : isLoading,
   };
 };
 
