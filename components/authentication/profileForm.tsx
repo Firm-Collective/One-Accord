@@ -9,12 +9,8 @@ import { Typography } from '@mui/material';
 import InfoTooltip from './InfoTooltip';
 
 export default function RegisterForm() {
-  const { onValid, onInvalid, updatedProfileMutation, form, queryUserTypeInfo } = useProfileForm();
+  const { onValid, onInvalid, updatedProfileMutation, form } = useProfileForm();
   const allCountries = Object.entries(countries).map(([code, name]) => ({ value: name, label: name }));
-  const allUserTypes = queryUserTypeInfo?.data?.map((userType: UserTypeType) => ({
-    value: userType.id,
-    label: userType.name
-  })) ?? [];
 
   return (
     <form className='my-4' onSubmit={form.handleSubmit(onValid, onInvalid)}>
