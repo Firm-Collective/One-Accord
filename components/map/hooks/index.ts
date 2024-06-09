@@ -1,12 +1,12 @@
 'use client';
-import { useState, useRef, useMemo, useEffect } from "react";
-import useSuperCluster from "use-supercluster";
-import getCenter from "geolib/es/getCenter";
+import { useState, useRef, useMemo, useEffect } from 'react';
+import useSuperCluster from 'use-supercluster';
+import getCenter from 'geolib/es/getCenter';
 import { createClient } from '@/utils/supabase/client';
-import { useQuery } from "react-query";
-import { mapAPI, mapKeys } from "../queries";
+import { useQuery } from 'react-query';
+import { mapAPI, mapKeys } from '../queries';
 import { MapRef } from 'react-map-gl';
-import mockData from "@/utils/data/mockDataGeoContinents.json";
+import mockData from '@/utils/data/mockDataGeoContinents.json';
 
 type User = {
   type: string;
@@ -34,37 +34,37 @@ const useMapGL = () => {
   const [selectedUser, setSelectedUser] = useState<User | null>();
   const mapRef = useRef<MapRef | null>(null);
 
-  const useMockData = false; 
+  const useMockData = false;
 
-  const { data: points, isFetching, isLoading } = useQuery(
-    [...mapKeys.lists()],
-    async () => {
-      const mapData = await mapAPI.getMapData({ supaClient });
-      console.log("Raw map data from database:", mapData);
-      return mapData?.data || [];
-    }
-  );
+  const {
+    data: points,
+    isFetching,
+    isLoading,
+  } = useQuery([...mapKeys.lists()], async () => {
+    const mapData = await mapAPI.getMapData({ supaClient });
+    console.log('Raw map data from database:', mapData);
+    return mapData?.data || [];
+  });
 
   const mockPoints = useMemo(
     () =>
       mockData.features.map((item) => ({
-        type: "Feature",
+        type: 'Feature',
         properties: {
           cluster: false,
           geojsonId: item.properties.geojsonId,
           name: item.properties.name,
-          country: "", 
-          city: "", 
+          country: '',
+          city: '',
           activity: item.properties.activity,
         },
         geometry: {
-          type: "Point",
+          type: 'Point',
           coordinates: item.geometry.coordinates,
         },
       })),
-    []
+    [],
   );
-
 
   const finalPoints = useMockData ? mockPoints : points;
 
@@ -74,7 +74,7 @@ const useMapGL = () => {
         longitude: user?.geometry?.coordinates[0],
         latitude: user?.geometry?.coordinates[1],
       })) || [],
-    [finalPoints]
+    [finalPoints],
   );
 
   const center = getCenter(coordinates as GeolibInputCoordinates[]);
@@ -97,10 +97,6 @@ const useMapGL = () => {
 
   const [mapBounds, setMapBounds] = useState<BBox | undefined>(undefined);
 
-<<<<<<< HEAD
-=======
-  // get clusters
->>>>>>> 8850b42 (looking into map feature now - look into api/user/getUserId for userAuth)
   const { clusters, supercluster } = useSuperCluster({
     points: finalPoints || [],
     zoom: viewPort.zoom,
@@ -111,10 +107,7 @@ const useMapGL = () => {
 
   const handleMarkerClick = (cluster: any) => {
     if (supercluster && cluster.properties && cluster.properties.cluster_id) {
-      const expansionZoom = Math.min(
-        supercluster.getClusterExpansionZoom(cluster.properties.cluster_id),
-        20
-      );
+      const expansionZoom = Math.min(supercluster.getClusterExpansionZoom(cluster.properties.cluster_id), 20);
       setViewport({
         ...viewPort,
         latitude: cluster.geometry.coordinates[1],
