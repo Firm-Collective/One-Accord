@@ -19,6 +19,7 @@ const ActivitySchema = z.object({
 const UserSchema = z.object({
     id: z.string(),
     username: z.string(),
+    user_location_id: z.string().optional(),
     Location: LocationSchema,
 });
 

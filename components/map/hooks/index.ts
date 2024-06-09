@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import useSuperCluster from "use-supercluster";
 import getCenter from "geolib/es/getCenter";
 import { createClient } from '@/utils/supabase/client';
@@ -8,6 +8,7 @@ import { useQuery } from "react-query";
 import { mapAPI, mapKeys } from "../queries";
 import { MapRef } from 'react-map-gl';
 import mockData from "@/utils/data/mockDataGeoContinents.json";
+import debounce from "lodash.debounce";
 
 type User = {
   type: string;
@@ -32,17 +33,30 @@ type BBox = [number, number, number, number];
 
 const useMapGL = () => {
   const supaClient = createClient();
-  const [selectedUser, setSelectedUser] = useState<User | null>();
+  const [selectedUser, setSelectedUser] = useState<User | null>(null);
   const mapRef = useRef<MapRef | null>(null);
+  const [isMapReady, setIsMapReady] = useState(false);
+  const [initialRender, setInitialRender] = useState(true);
+  const [bounds, setBounds] = useState<{ ne: [number, number]; sw: [number, number] }>({
+    ne: [-50, 60],  // North-East corner (longitude, latitude)
+    sw: [-140, 15], // South-West corner (longitude, latitude)
+  });
 
-  const useMockData = false; 
+  const useMockData = false;
+
+  const fetchMapData = async (bounds: { ne: [number, number]; sw: [number, number] }) => {
+    if (!bounds) return [];
+    const mapData = await mapAPI.getMapData({ supaClient, bounds });
+    console.log("Raw map data from database:", mapData);
+    return mapData?.data || [];
+  };
 
   const { data: points, isFetching, isLoading } = useQuery(
-    [...mapKeys.lists()],
-    async () => {
-      const mapData = await mapAPI.getMapData({ supaClient });
-      console.log("Raw map data from database:", mapData);
-      return mapData?.data || [];
+    [...mapKeys.lists(), bounds], // Unique key for this query with the current bounds (bounds)
+    () => fetchMapData(bounds),
+    {
+      enabled: !useMockData,
+      onSuccess: () => setInitialRender(false),
     }
   );
 
@@ -54,8 +68,8 @@ const useMapGL = () => {
           cluster: false,
           geojsonId: item.properties.geojsonId,
           name: item.properties.name,
-          country: "", 
-          city: "", 
+          country: "",
+          city: "",
           activity: item.properties.activity,
         },
         geometry: {
@@ -65,7 +79,6 @@ const useMapGL = () => {
       })),
     []
   );
-
 
   const finalPoints = useMockData ? mockPoints : points;
 
@@ -78,7 +91,13 @@ const useMapGL = () => {
     [finalPoints]
   );
 
-  const center = getCenter(coordinates as GeolibInputCoordinates[]);
+  const center = useMemo(() => {
+    if (coordinates.length > 0) {
+      return getCenter(coordinates as GeolibInputCoordinates[]);
+    } else {
+      return { latitude: 0, longitude: 0 }; // Default center
+    }
+  }, [coordinates]);
 
   const defaultLatitude = 0;
   const defaultLongitude = 0;
@@ -89,14 +108,53 @@ const useMapGL = () => {
     zoom: 1,
   });
 
+  const updateBounds = useCallback(() => {
+    console.log("🚀 ~ updateBounds ~ mapRef:", mapRef);
+
+    if (mapRef.current) {
+      const bounds = mapRef.current.getMap().getBounds();
+      console.log("🚀 ~ updateBounds ~ bounds:", bounds);
+      setBounds({
+        ne: [bounds.getNorthEast().lng, bounds.getNorthEast().lat],
+        sw: [bounds.getSouthWest().lng, bounds.getSouthWest().lat],
+      });
+      console.log("🚀 ~ useMapGL ~ updateBounds ~ updated bounds:", {
+        ne: [bounds.getNorthEast().lng, bounds.getNorthEast().lat],
+        sw: [bounds.getSouthWest().lng, bounds.getSouthWest().lat],
+      });
+    }
+  }, [mapRef]);
+
+  const debouncedUpdateBounds = useMemo(() => debounce(updateBounds, 500), [updateBounds]);
+
+  useEffect(() => {
+    if (!mapRef.current) return; // Wait until mapRef is initialized
+
+    const map = mapRef.current.getMap();
+    map.on("moveend", debouncedUpdateBounds);
+    if (initialRender) {
+      updateBounds(); // Initial load
+    }
+
+    return () => {
+      map.off("moveend", debouncedUpdateBounds);
+    };
+  }, [mapRef.current, isMapReady, debouncedUpdateBounds, updateBounds, initialRender]);
+
+  const [mapBounds, setMapBounds] = useState<BBox | undefined>([
+    bounds.sw[0], bounds.sw[1], bounds.ne[0], bounds.ne[1],
+  ]);
+
+  useEffect(() => {
+    console.log("Setting mapBounds:", bounds);
+    setMapBounds([bounds.sw[0], bounds.sw[1], bounds.ne[0], bounds.ne[1]]);
+  }, [bounds]);
+
   useEffect(() => {
     if (mapRef.current) {
-      const bounds = mapRef.current.getMap().getBounds().toArray().flat();
-      setMapBounds(bounds as BBox);
+      setIsMapReady(true);
     }
-  }, [mapRef, viewPort]);
-
-  const [mapBounds, setMapBounds] = useState<BBox | undefined>(undefined);
+  }, [mapRef.current]);
 
   const { clusters, supercluster } = useSuperCluster({
     points: finalPoints || [],

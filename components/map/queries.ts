@@ -1,76 +1,52 @@
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/utils/supabase/database.types";
-import { TransformedSchema, type TransformedSchemaType } from "./schemas";
+import { TransformedSchema } from "./schemas";
 
 export const mapKeys = {
-    all: ["map"] as const,
-    lists: () => [...mapKeys.all, "list"] as const,
-    list: (filters: string) => [...mapKeys.lists(), { filters }] as const,
-    details: () => [...mapKeys.all, "detail"] as const,
-    detail: (id: string) => [...mapKeys.details(), id] as const,
-  };
+  all: ["map"] as const,
+  lists: () => [...mapKeys.all, "list"] as const,
+  list: (filters: string) => [...mapKeys.lists(), { filters }] as const,
+  details: () => [...mapKeys.all, "detail"] as const,
+  detail: (id: string) => [...mapKeys.details(), id] as const,
+};
 
 export const mapAPI = {
-    getMapData: async (params: {
-        supaClient: SupabaseClient<Database>;
-    }) => {
-        const { supaClient } = params;
+  getMapData: async (params: {
+    supaClient: SupabaseClient<Database>;
+    bounds: { ne: [number, number]; sw: [number, number] }; // north-east and south-west bounds
+  }) => {
+    const { supaClient, bounds } = params;
 
-        const query = supaClient.from("Post").select("id, Activity(id, name), User(id, username, Location(id, city, country, latitude, longitude)))");
+    const { ne, sw } = bounds;
+    const { data, error } = await supaClient
+      .rpc("get_filtered_user_in_map", {
+        ne_latitude: ne[1],
+        ne_longitude: ne[0],
+        sw_latitude: sw[1],
+        sw_longitude: sw[0]
+      });
 
-        const response = (await query).data;
+    if (error) {
+      console.error("Error fetching filtered posts:", error);
+      return {
+        data: null,
+        error
+      };
+    } else {
+      const parsedSchema = TransformedSchema.safeParse(data);
 
-        const parsedSchema = TransformedSchema.safeParse(
-            response?.map((item: any) => {
-              const latitude = parseFloat(item.User?.Location?.latitude);
-              const longitude = parseFloat(item.User?.Location?.longitude);
-          
-              // Check for valid latitude and longitude range
-              if (
-                isNaN(latitude) || isNaN(longitude) ||
-                latitude < -90 || latitude > 90 ||
-                longitude < -180 || longitude > 180
-              ) {
-                console.warn(`Invalid coordinates for item: ${item.id}, latitude: ${latitude}, longitude: ${longitude}`);
-                return null; 
-              }
-          
-              return {
-                type: "Feature",
-                properties: {
-                  cluster: false,
-                  geojsonId: item.id,
-                  name: item.User?.username || "",
-                  country: item.User?.Location?.country || "",
-                  city: item.User?.Location?.city || "",
-                  activity: item.Activity?.name || "",
-                },
-                geometry: {
-                  type: "Point",
-                  coordinates: [longitude, latitude],
-                },
-              };
-            }).filter(Boolean) 
-          );
-          
-          if (!parsedSchema.success) {
-            console.error("Error parsing schema:", parsedSchema.error);
-          }
-          
-          
-          if (!parsedSchema.success) {
-            console.error("Error parsing schema:", parsedSchema.error);
-          }
-          
-        
-
-        if (!parsedSchema.success) {
-            console.error("Error parsing schema:", parsedSchema.error);
-          }
-
+      if (!parsedSchema.success) {
+        console.error("Error parsing schema:", parsedSchema.error);
         return {
-            ...response,
-            data: parsedSchema.success ? parsedSchema.data : null,
-          };
+          data: null,
+          error: parsedSchema.error
+        };
+      }
+
+      return {
+        data: parsedSchema.data,
+        error: null
+      };
     }
-}
+  }
+};
