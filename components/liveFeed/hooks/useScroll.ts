@@ -58,7 +58,7 @@ const useScroll = (dependency: any, pagination: any): React.MutableRefObject<HTM
         }
         setPrevMaxPageSize(maxPageSize);
         setPrevScrollHeight(0);
-      } else if (container && prevScrollHeight > 0) {
+      } else if (container && prevScrollHeight > 0 && container.scrollTop === 0) {
         // scroll to previous scroll height if scrolling up
         const newScrollHeight = container.scrollHeight;
         container.scrollTop = newScrollHeight - prevScrollHeight;
