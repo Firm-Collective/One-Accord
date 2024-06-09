@@ -9,7 +9,6 @@ export async function GET(request: Request) {
     return NextResponse.json(response.data);
   } catch (error) {
     console.error('There was an error grabbing your mapbox styles: ' + error);
+    return NextResponse.json({ error: 'Could not get styles from mapbox', status: '401' });
   }
-
-  return NextResponse.json({ success: 'nice' });
 }
