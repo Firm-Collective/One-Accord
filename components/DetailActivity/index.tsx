@@ -23,10 +23,11 @@ const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
                 </div>
             )}
             {activity.videoUrl && (
-                <div className='relative w-full bg-gray-200 rounded shadow overflow-hidden p-4' style={{ height: '100%' }}>
+                <div className='relative w-full h-full bg-gray-200 rounded shadow overflow-hidden p-4' style={{ height: '100%' }}>
                     <iframe
-                        className='absolute top-0 left-0 w-full h-full rounded-lg'
-                        src={`${activity.videoUrl}?autoplay=1`}
+                        width="560" height="315"
+                        className='absolute top-0 left-0 rounded-lg w-full h-full'
+                        src={`${activity.videoUrl}`}
                         frameBorder='0'
                         allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
                         referrerPolicy='strict-origin-when-cross-origin'
