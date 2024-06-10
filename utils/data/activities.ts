@@ -12,28 +12,28 @@ export const activities: Activity[] = [
   {
     id: 1,
     name: 'Worship',
-    icon: '/worship-icon.png',
+    icon: '/worship-activity.svg',
     timeLeft: 0,
     videoUrl: 'https://www.youtube.com/embed/CMVZ9Vat_w8?si=ncY_sIswjabMm9rb&autoplay=1'
   },
   {
     id: 2,
     name: 'Prayer',
-    icon: '/praying-icon.png',
+    icon: '/prayer-activity.svg',
     timeLeft: 0,
     videoUrl: 'https://www.youtube.com/embed/N6RkBTJXGE4?si=k98yMFWCH9tPMGCT&autoplay=1'
   },
   {
     id: 3,
     name: 'Communion',
-    icon: '/communion-icon.png',
+    icon: '/communion-activity.svg',
     timeLeft: 0,
      videoUrl: 'https://www.youtube.com/embed/ifXtTSdVxrU?si=P0uwEfxmbcffVc9X&autoplay=1'
   },
   {
       id: 4,
       name: 'Reflection',
-      icon: '/shofar-icon.png',
+      icon: '/god-voice-activity.svg',
       timeLeft: 0,
       questions: [
         'What is the Lord saying to you about the future of your country?',

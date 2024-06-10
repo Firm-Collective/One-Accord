@@ -135,9 +135,9 @@ const MessageSection: React.FC<Props> = ({
                  <Image
                   alt='Profile Image'
                   src={post.picture_post || profilePictureClassName}
-                  width={40}
-                  height={40}
-                  className='bg-white rounded-full w-[28px] h-[28px] sm:w-[35px] sm:h-[35px] md:w-[45px] md:h-[45px] relative z-10'
+                  width={28}
+                  height={28}
+                  className='bg-white rounded-full relative w-[28px] h-[28px]'
                 />
                 <p className="relative w-[200px] sm:w-full mt-[-1.00px] mr-[-25.00px] [font-family:'Poppins-SemiBold',Helvetica] font-normal text-[#171a1f] text-[12px] tracking-[0] leading-[15px]">
                   <span className='font-semibold'>{post.User.username}</span>

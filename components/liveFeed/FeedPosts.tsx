@@ -14,7 +14,7 @@ export default function FeedPosts() {
           ModeratorImage='/moderator-image.png'
           image1='/image-3-2.png'
           img='image-7-3.png'
-          profilePictureClassName={'/default-profile-user.png'}
+          profilePictureClassName={'/user-profile-default.svg'}
           rectangle='/rectangle.png'
           unsplashIfgrcqhznqg='/unsplash-iFgRcqHznqg.png'
           uilExit='/uil_exit.svg'
