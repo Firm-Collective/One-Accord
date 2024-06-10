@@ -65,11 +65,11 @@ export default function LoginForm() {
           type='submit'
         />
       </div>
-      {/* <Link href='/send-reset-password' className='cursor-pointer'>
+      <Link href='/send-reset-password' className='cursor-pointer'>
         <p className='text-gray-700 text-base lg:text-sm text-center mt-8    hover:text-blue-500'>
           Forgot Password?
         </p>
-      </Link> */}
+      </Link>
     </form>
   );
 }
