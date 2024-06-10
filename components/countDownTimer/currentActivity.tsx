@@ -44,12 +44,12 @@ export default function CurrentActivity({ timeLeft, currentActivityIndex }: Prop
             strokeDashoffset={offset}
             transform='rotate(-90 24 24)'
           />
-          <image
+         <image
             href={activities[currentActivityIndex].icon}
-            x='2'
-            y='2'
-            width='44'
-            height='44'
+            x='4'  // Adjusted x to move the icon it was 2
+            y='4'  // Adjusted y to move the icon it was 2
+            width='40'  // Adjusted width to provide space it was 44
+            height='40'  // Adjusted height to provide space it was 44
             clipPath='url(#circleView)'
             style={{ filter: '#gradient' }}
           />
