@@ -16,7 +16,7 @@ const useTokenVerificationForm = () => {
     resolver: zodResolver(TokenVerificationSchema),
     defaultValues: {
       email: '',
-      token: '',
+      reset_token: '',
     },
   });
 

@@ -24,7 +24,7 @@ export const ChangePasswordSchema = z.object({
 
 export const TokenVerificationSchema = z.object({
   email: z.string().email({ message: 'Invalid email address' }),
-  token: z.string().nonempty({ message: 'Token is required' }),
+  reset_token: z.string().min(1, { message: 'Token is required' }),
 });
 
 export const SignUpSchema = z.object({email: z.string().email(),

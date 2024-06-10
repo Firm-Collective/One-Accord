@@ -32,7 +32,7 @@ export default function TokenVerificationForm() {
         <div className='mt-4'>
           <TextField
             control={form.control}
-            name='token'
+            name='reset_token'
             label={
               <span>
                 Token <span className='text-red-500 ml-1'>*</span>
