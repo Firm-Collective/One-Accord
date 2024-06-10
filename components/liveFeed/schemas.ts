@@ -84,7 +84,8 @@ export const PostSchema = z.array(
     keywords_id: KeywordsSchema.shape.id,
     event_id: EventSchema.shape.id,
     media_type_id: MediaTypeSchema.shape.id,
-    created_at: z.string()
+    created_at: z.string(),
+    picture_post: z.string().nullish()
   })
 );
 
@@ -105,7 +106,8 @@ export const CretePostSchema = z.object({
     keywords_id: KeywordsSchema.shape.id,
     event_id: EventSchema.shape.id,
     media_type_id: MediaTypeSchema.shape.id,
-    created_at: z.string()
+    created_at: z.string(),
+    picture_post: z.string().nullish()
 })
 
 export const ParseCretePostSchema = z.object({
