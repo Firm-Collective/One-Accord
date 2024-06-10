@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { activities } from '@/utils/data/activities';
+
 interface Activity {
   id: number;
   name: string;
@@ -57,19 +58,6 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [timeLeft, setTimeLeft] = useState(0);
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [timerIsLoading, setTimerIsLoading] = useState(true);
-  const activities: Activity[] = [
-    { id: 1, name: 'Worship', icon: '/worship-icon.png', timeLeft: 0 },
-    {
-      id: 2,
-      name: 'Prayer',
-      icon: '/praying-icon.png',
-      timeLeft: 0,
-      text: `Heavenly Father,
-      We come before You today, seeking unity among us as Your children. As Psalm 133:1 declares, "How good and pleasant it is when God’s people live together in unity!" Lord, help us to embody this truth, living in harmony and love. Guide us to follow the words of Ephesians 4:3, making every effort to keep the unity of the Spirit through the bond of peace. May we be of one mind, as Christ prayed in John 17:21, that all of us may be one, just as You are in Him and He is in You. Bind us together with cords of love that cannot be broken, and may Your peace rule in our hearts, as members of one body, we were called to peace. In Jesus’ precious name, we pray. Amen.`,
-    },
-    { id: 3, name: 'Communion', icon: '/Communion-icon.png', timeLeft: 0 },
-    { id: 4, name: 'Shofar', icon: '/shofar-icon.png', timeLeft: 0 },
-  ];
 
   useEffect(() => {
     const { currentTimeLeft, currentActivityIndex } = calculateTimeLeftAndActivity();
