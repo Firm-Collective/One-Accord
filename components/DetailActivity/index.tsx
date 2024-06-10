@@ -12,7 +12,14 @@ const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
     return (
         <div className='w-full h-full flex flex-col items-center justify-center'>
             {activity.name == 'Reflection' && (
-                <h2 className='text-2xl font-bold mb-4'>{activity.name}</h2>
+                <>
+                <h2 className="text-3xl font-extrabold text-gray-800 mb-6 text-center">{activity.name}</h2>
+                <p className="text-base font-medium text-gray-600 mb-6 text-center">
+                  Ask this question in prayer and join the conversation to write what you hear in the comments.
+                </p>
+              </>
+              
+              
             )}
             {activity.text && (
                 <div className='p-4 bg-gray-200 rounded shadow max-w-lg overflow-y-auto ml-10 mr-10 text-[12px] italic' style={{ height: '200px' }}>
