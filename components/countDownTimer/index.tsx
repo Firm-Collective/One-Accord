@@ -5,7 +5,11 @@ import CurrentActivity from './currentActivity';
 import { useAppContext } from '@/context/AppContextProvider';
 
 const CountDownTimer: React.FC = () => {
-  const { timeLeft, currentActivityIndex } = useAppContext();
+  const { timeLeft, currentActivityIndex, timerIsLoading } = useAppContext();
+
+  if (timerIsLoading) {
+    return null;
+  }
 
   return (
     <div>

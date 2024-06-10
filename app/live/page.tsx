@@ -15,7 +15,7 @@ import { Header } from '@/components/liveFeed/ui/header';
 export default function Home() {
   return (
     <>
-     <Header />
+      <Header />
       <AppContextProvider>
         <main className='w-full h-screen flex flex-col sm:flex-row'>
           <section className='relative w-full h-1/2 sm:h-[98vh]'>
@@ -56,7 +56,7 @@ const MapOrDetailActivity = () => {
         <MapGL />
       </div>
       <div
-        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100' } `}
+        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100'} `}
         style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
     
       >
