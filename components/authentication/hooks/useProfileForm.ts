@@ -179,15 +179,15 @@ const useProfileForm = () => {
       return;
     }
 
-    if (form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length === 0) {
-      toast({
-        title: 'No changes detected',
-        description: 'No updates were made as there were no changes detected.',
-        variant: 'destructive',
-        duration: 5000,
-      });
-      return;
-    }
+    // if (form.formState.dirtyFields && Object.keys(form.formState.dirtyFields).length === 0) {
+    //   toast({
+    //     title: 'No changes detected',
+    //     description: 'No updates were made as there were no changes detected.',
+    //     variant: 'destructive',
+    //     duration: 5000,
+    //   });
+    //   return;
+    // }
 
     updatedProfileMutation.mutate(parsedValues.data);
   }
