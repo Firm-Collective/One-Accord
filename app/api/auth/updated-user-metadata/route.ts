@@ -22,7 +22,6 @@ export async function POST(request: Request) {
       .updateUserById(data.userId, {
           user_metadata: { ...data.userType },
       })
-  console.log("🚀 ~ POST ~ user:", user)
   
 
   if (error) {

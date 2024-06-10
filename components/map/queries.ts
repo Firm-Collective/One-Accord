@@ -31,7 +31,7 @@ export const mapAPI = {
                 latitude < -90 || latitude > 90 ||
                 longitude < -180 || longitude > 180
               ) {
-                console.warn(`Invalid coordinates for item: ${item.id}, latitude: ${latitude}, longitude: ${longitude}`);
+                // console.warn(`Invalid coordinates for item: ${item.id}, latitude: ${latitude}, longitude: ${longitude}`);
                 return null; 
               }
           

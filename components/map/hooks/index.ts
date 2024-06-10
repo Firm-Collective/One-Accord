@@ -42,7 +42,6 @@ const useMapGL = () => {
     isLoading,
   } = useQuery([...mapKeys.lists()], async () => {
     const mapData = await mapAPI.getMapData({ supaClient });
-    console.log('Raw map data from database:', mapData);
     return mapData?.data || [];
   });
 
@@ -85,7 +84,7 @@ const useMapGL = () => {
   const [viewPort, setViewport] = useState({
     latitude: center ? center.latitude : defaultLatitude,
     longitude: center ? center.longitude : defaultLongitude,
-    zoom: 5,
+    zoom: 1,
   });
 
   useEffect(() => {
