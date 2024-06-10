@@ -16,10 +16,10 @@ export default function CurrentTime({ timeLeft }: Props) {
       <div className='flex items-center space-x-2 mb-2'>
         <Switch checked={isMapVisible} onCheckedChange={(checked) => setIsMapVisible(checked)} />
         {isMapVisible ? (
-          <div className='text-[12px] w-[auto]'>Visualize Activity</div>
-
+           <div className='text-[12px] w-[auto]'>Visualize Map</div>
         ) : (
-          <div className='text-[12px] w-[auto]'>Visualize Map</div>
+         
+          <div className='text-[12px] w-[auto]'>Visualize Activity</div>
         )}
       </div>
       <p className="w-[auto] [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-[#272727] text-[16px] tracking-[0] leading-[1.2]">
