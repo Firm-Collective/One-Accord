@@ -86,7 +86,7 @@ const MessageSection: React.FC<Props> = ({
         )}
         {/* Render moderator/influencer posts */}
         {queryPinnedPosts.isLoading ? (
-         <LoadingPinnedPosts />
+          <LoadingPinnedPosts />
         ) : (
           moderatorOrInfluencerPosts?.length > 0 && (
             <div
@@ -96,7 +96,7 @@ const MessageSection: React.FC<Props> = ({
               {moderatorOrInfluencerPosts?.map((post, idx) => (
                 <div
                   key={`${post.user_id}-${idx}`}
-                  className='bg-[#d9d9d9] flex w-[369px] sm:w-full items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] mb-1'
+                  className='bg-[#d9d9d9] flex w-full items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] mb-1'
                 >
                   <Image
                     className='relative w-[28px] h-[28px]'
@@ -132,7 +132,7 @@ const MessageSection: React.FC<Props> = ({
                 key={`${post.user_id}-${idx}`}
                 className='bg-white flex items-start gap-[10px] pl-[10px] pr-[46px] py-[4px] relative flex-[0_0_auto] rounded-[10px] w-[100%]'
               >
-                 <Image
+                <Image
                   alt='Profile Image'
                   src={post.picture_post || profilePictureClassName}
                   width={28}
