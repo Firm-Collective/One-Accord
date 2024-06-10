@@ -18,8 +18,8 @@ export const CommentSection = ({
   refetch,
 }: Props): JSX.Element => {
   return (
-    <div className='w-full bg-white relative lg:absolute lg:bottom-0 lg:right-0 lg:w-[30%] mr-3'>
-      <div className='w-full h-auto rounded-lg bg-[#f1f1f1] relative mr-3'>
+    <div className='w-full bg-white'>
+      <div className='w-full  h-[auto] rounded-[8px] bg-[#f1f1f1] relative'>
         <CreatePost refetch={refetch} />
       </div>
     </div>

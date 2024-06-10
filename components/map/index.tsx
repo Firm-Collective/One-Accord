@@ -78,7 +78,7 @@ const MapGL = () => {
                       width: `${size}px`,
                       height: `${size}px`,
                       borderRadius: '50%',
-                      backgroundColor: '#ED9385', // Naranja más rojizo
+                      backgroundColor: '#008080', // Naranja más rojizo
                       color: '#FFF',
                       display: 'flex',
                       justifyContent: 'center',
