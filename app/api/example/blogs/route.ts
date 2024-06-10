@@ -15,7 +15,6 @@ const postSchema = z.object({
 export async function POST(request: Request) {
   const supabase = createClient();
   const data = await request.json();
-  console.log('calling function with data', data);
 
   try {
     const {
