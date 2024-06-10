@@ -53,7 +53,7 @@ const calculateTimeLeftAndActivity = () => {
 };
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
-  const [isMapVisible, setIsMapVisible] = useState(false);
+  const [isMapVisible, setIsMapVisible] = useState(true);
   const [timeLeft, setTimeLeft] = useState(0);
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [timerIsLoading, setTimerIsLoading] = useState(true);
