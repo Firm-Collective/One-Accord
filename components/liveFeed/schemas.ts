@@ -107,7 +107,9 @@ export const CretePostSchema = z.object({
     event_id: EventSchema.shape.id,
     media_type_id: MediaTypeSchema.shape.id,
     created_at: z.string(),
-    picture_post: z.string().nullish()
+    picture_post: z.string().nullish(),
+    question_index: z.number(),
+    question: z.string()
 })
 
 export const ParseCretePostSchema = z.object({
