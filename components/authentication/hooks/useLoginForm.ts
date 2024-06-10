@@ -43,8 +43,7 @@ const useLoginForm = () => {
         },
       });
       
-    
-      const onValid = async (data: LoginSchemaType) => {
+    const onValid = async (data: LoginSchemaType) => {
       const parsedValues = LoginSchema.safeParse(data);
 
       if (!parsedValues.success) {

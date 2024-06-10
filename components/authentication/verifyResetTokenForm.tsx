@@ -1,16 +1,14 @@
+// components/authentication/TokenVerificationForm.tsx
 import React, { useState } from 'react';
 import Button from '@/components/button';
 import TextField from '@/components/textField';
-import { useForm } from 'react-hook-form'; // Assuming you're using react-hook-form for form handling
-import { useRouter } from 'next/navigation';
-import useResetPasswordRequestForm from './hooks/useResetPasswordRequestForm';
 
-export default function ResetPasswordRequestForm({ token }: { token: string }) {
-  const { onValid, onInvalid, form } = useResetPasswordRequestForm(); // Using control instead of register
-  const router = useRouter();
+import useTokenVerificationForm from './hooks/useResetTokenForm';
+
+
+export default function TokenVerificationForm() {
+  const { onValid, onInvalid, form } = useTokenVerificationForm(); // Using the custom hook
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-
 
   return (
     <form className='my-4' onSubmit={form.handleSubmit(onValid, onInvalid)}>
@@ -31,11 +29,23 @@ export default function ResetPasswordRequestForm({ token }: { token: string }) {
             type='email'
           />
         </div>
+        <div className='mt-4'>
+          <TextField
+            control={form.control}
+            name='token'
+            label={
+              <span>
+                Token <span className='text-red-500 ml-1'>*</span>
+              </span>
+            }
+            type='text'
+          />
+        </div>
       </div>
       <div className='mt-20'>
         <Button
           variant='primary'
-          text={isSubmitting ? 'Submitting...' : 'Send Reset Link'}
+          text={isSubmitting ? 'Submitting...' : 'Verify Token'}
           disabled={isSubmitting}
           type='submit'
         />
@@ -43,8 +53,3 @@ export default function ResetPasswordRequestForm({ token }: { token: string }) {
     </form>
   );
 }
-
-
-
-
-

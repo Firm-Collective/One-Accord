@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
 import { ResetPasswordSchema, type ResetPasswordSchemaType } from '@/components/authentication/schemas';
 
-const usePasswordResetForm = () => {
+const useResetPasswordRequestForm = () => {
   const router = useRouter();
   const { toast } = useToast();
 
@@ -21,10 +21,10 @@ const usePasswordResetForm = () => {
 
   const resetPasswordMutation = useMutation({
     mutationFn: (resetData: ResetPasswordSchemaType) => {
-      return axios.post('/api/request-reset-password', resetData);
+      return axios.post('/api/auth/request-reset-password', resetData);
     },
     onSuccess: () => {
-      router.push('/request-reset-password/success');
+      router.push('/request-reset-password');
       toast({
         title: 'Password reset link sent!',
         description: 'Please check your email for further instructions.',
@@ -33,10 +33,10 @@ const usePasswordResetForm = () => {
       });
     },
     onError: (error) => {
-      console.error('Error sending password reset link:', error);
+      console.error('Error sending password reset token:', error);
       toast({
         title: 'Password reset link failed',
-        description: 'There was an error sending the password reset link. Please try again later.',
+        description: 'There was an error sending the password reset token. Please try again later.',
         variant: 'destructive',
         duration: 5000,
       });
@@ -67,4 +67,4 @@ const usePasswordResetForm = () => {
   };
 };
 
-export default usePasswordResetForm;
+export default useResetPasswordRequestForm;

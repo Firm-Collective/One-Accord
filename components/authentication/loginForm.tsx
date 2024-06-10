@@ -65,7 +65,7 @@ export default function LoginForm() {
           type='submit'
         />
       </div>
-      <Link href='/reset-password'>
+      <Link href='/request-reset-password'>
         <p className='text-gray-700 text-base lg:text-sm text-center mt-8'>Forgot Password?</p>
       </Link>
     </form>

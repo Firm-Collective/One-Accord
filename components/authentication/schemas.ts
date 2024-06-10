@@ -22,6 +22,11 @@ export const ChangePasswordSchema = z.object({
 
 })
 
+export const TokenVerificationSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+  token: z.string().nonempty({ message: 'Token is required' }),
+});
+
 export const SignUpSchema = z.object({email: z.string().email(),
   password: z.string().min(8, {
     message: 'Password is required.',
@@ -94,6 +99,7 @@ export type ChangePasswordSchemaType = z.input<typeof ChangePasswordSchema>;
 export type SignUpSchemaType = z.input<typeof SignUpSchema>;
 export type ProfileSchemaType = z.input<typeof ProfileSchema>;
 export type UserTypeType = z.input<typeof UserType>;
+export type TokenVerificationSchemaType = z.infer<typeof TokenVerificationSchema>;
 
 
 
