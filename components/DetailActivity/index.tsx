@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useDetailActivityTimer from './hooks';
+import { useGlobalStore } from '@/hooks/useGlobalStore';
 
 type Props = {
     currentActivityIndex: number;
@@ -7,7 +8,18 @@ type Props = {
 
 const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
     const { activity, questionIndex } = useDetailActivityTimer({ currentActivityIndex })
+    const setCurrentQuestion = useGlobalStore((state) => state.setCurrentQuestion);
 
+    useEffect(() => {
+        if (activity.questions && activity.indexQuestions) {
+          let adjustedQuestionIndex = questionIndex;
+          if (questionIndex >= 12) {
+            adjustedQuestionIndex = 0;
+          }
+          const currentQuestion = activity.indexQuestions[adjustedQuestionIndex][1];
+          setCurrentQuestion(adjustedQuestionIndex, currentQuestion);
+        }
+      }, [activity, questionIndex, setCurrentQuestion]);
 
     return (
         <div className='w-full h-full flex flex-col items-center justify-center'>
@@ -42,9 +54,10 @@ const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
                     ></iframe>
                 </div>
             )}
-            {activity.questions && (
+            {activity.questions && activity.indexQuestions && questionIndex < activity.questions.length && questionIndex < activity.indexQuestions.length && (
                 <div className='p-4 bg-gray-200 rounded shadow ml-10 mr-10 text-[12px] italic max-w-lg'>
-                    <p>{activity.questions[questionIndex]}</p>
+                    {/* <p>{activity.questions[questionIndex]}</p> */}
+                    <p>{activity.indexQuestions[questionIndex][1]}</p>
                 </div>
             )}
         </div>

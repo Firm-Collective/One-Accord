@@ -6,6 +6,7 @@ import { useMutation } from 'react-query';
 import { useRouter } from 'next/navigation';
 import { useToast } from "@/hooks/use-toast";
 import { CretePostSchema, CreteContentPostSchema, ParseCretePostSchema, type CretePostSchemaType, CreteContentPostSchemaType } from "../schemas";
+import { useGlobalStore } from '@/hooks/useGlobalStore'; 
 
 type Props = {
   refetch: () => void;
@@ -24,7 +25,9 @@ type CreatePostSchemaTypePick = Pick<CretePostSchemaType,
   'keywords_id' | 
   'media_type_id' | 
   'sentiment_id'  |
-  'picture_post' 
+  'picture_post' | 
+  'question_index' |
+  'question'
 >;
 
 
@@ -33,6 +36,11 @@ const useLiveFeed = ({ refetch, userPicture }: Props) => {
   const supaClient = createClient()
   const router = useRouter();
   const { toast } = useToast();
+
+  const { currentQuestion, currentQuestionIndex } = useGlobalStore(state => ({
+    currentQuestion: state.currentQuestion,
+    currentQuestionIndex: state.currentQuestionIndex
+  }));
 
   const activityMap = {
     '6e6a36da-06ed-426d-80cc-d1ff2276fb98': 'Worship',
@@ -79,6 +87,7 @@ const useLiveFeed = ({ refetch, userPicture }: Props) => {
   
     const createPostMutation = useMutation({
        mutationFn: async (postData: CreatePostSchemaTypePick) => {
+        console.log("🚀 ~ mutationFn: ~ postData:", postData)
         return await axios.post('/api/post', postData);
         
       },
@@ -129,15 +138,15 @@ const useLiveFeed = ({ refetch, userPicture }: Props) => {
     
   
     const onValid = async (data: CreteContentPostSchemaType) => {
-      console.log("🚀 ~ onValid ~ data:", data);
 
       const userId = await fetchUserId();
+      const activityId = getActivityIdBasedOnTime();
 
       const { label: postToxicity } = await handlePostToxicity.mutateAsync({ text: data.content });
       const isToxic = postToxicity === 'toxic';
       
-      const { label: postTopic } = await handlePostTopicClassification.mutateAsync({ text: data.content });
-      console.log("🚀 ~ onValid ~ postTopic:", postTopic)
+      // const { label: postTopic } = await handlePostTopicClassification.mutateAsync({ text: data.content });
+      // console.log("🚀 ~ onValid ~ postTopic:", postTopic)
 
       // const { predictions: postOffensiveness } = await handlePostOffensiveness.mutateAsync({ text: data.content });
       // const isOffensive = postOffensiveness[0].label === 'offensive';
@@ -147,7 +156,7 @@ const useLiveFeed = ({ refetch, userPicture }: Props) => {
       is_offensive: isToxic,
       is_visible: !isToxic,
       user_id: userId, // 'b5a363d5-3f29-4d23-9434-bef69618b5ef' 
-      activity_id: getActivityIdBasedOnTime(),
+      activity_id: activityId,
       content: data.content || '', // Ensure that content has a value
       event_id: getEventId(), // One Accord
       category_id: '2525edcc-b972-4a14-bfc5-66697a89b5bc',
@@ -156,6 +165,8 @@ const useLiveFeed = ({ refetch, userPicture }: Props) => {
       sentiment_id: '9f0d7f13-25d9-48cb-afcd-b1134a1a7f3a',
       picture_post: userPicture,
       created_at: new Date().toISOString(),
+      question_index: activityId === '8bde9d86-cb73-4f58-9a04-9fd3b74ed6a0' ? currentQuestionIndex : -1,
+      question: activityId === '8bde9d86-cb73-4f58-9a04-9fd3b74ed6a0' ? currentQuestion : "Video Activities"
     };
     
       // Validation of required fields
