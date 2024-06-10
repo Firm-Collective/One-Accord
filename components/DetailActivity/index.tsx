@@ -11,7 +11,7 @@ const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
 
     return (
         <div className='w-full h-full flex flex-col items-center justify-center'>
-            {activity.name !== 'Worship' && (
+            {activity.name == 'Reflection' && (
                 <h2 className='text-2xl font-bold mb-4'>{activity.name}</h2>
             )}
             {activity.text && (
