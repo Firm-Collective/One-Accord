@@ -22,6 +22,7 @@ const userCodes = {
   influencer: 'inf123',
   moderator: 'mod456',
   propheticOrganization: 'pro789',
+  registeredId: 'reg000'
 };
 
 export const fetchUserId = async () => {
@@ -199,7 +200,6 @@ const useProfileForm = () => {
     form,
     onValid,
     onInvalid,
-    queryUserTypeInfo,
     updatedProfileMutation,
     queryUserInfo,
   }

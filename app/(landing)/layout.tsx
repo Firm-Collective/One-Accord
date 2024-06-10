@@ -6,7 +6,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './css/style.css';
 
-import { Header } from '@/components/landing/ui/header';
+
 import Link from 'next/link';
 import Loading from './loading';
 
@@ -30,7 +30,6 @@ export default function DefaultLayout({ children }: { children: React.ReactNode 
 
   return (
     <>
-      {/* <Header /> */}
       <Suspense fallback={<Loading />}>
         <main className='grow'>{children}</main>
       </Suspense>

@@ -24,7 +24,7 @@ const useLoginForm = () => {
           return axios.post('/api/auth/login', loginData);
         },
         onSuccess: () => {
-          router.push('/live');
+          router.push('/profile');
           toast({
             title: 'Login successful!',
             description: 'You have successfully logged in.',
