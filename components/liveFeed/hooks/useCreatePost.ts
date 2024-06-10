@@ -87,7 +87,6 @@ const useLiveFeed = ({ refetch, userPicture }: Props) => {
   
     const createPostMutation = useMutation({
        mutationFn: async (postData: CreatePostSchemaTypePick) => {
-        console.log("🚀 ~ mutationFn: ~ postData:", postData)
         return await axios.post('/api/post', postData);
         
       },
