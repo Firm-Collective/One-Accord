@@ -90,7 +90,7 @@ const MessageSection: React.FC<Props> = ({
         ) : (
           moderatorOrInfluencerPosts?.length > 0 && (
             <div
-              className={`flex flex-col items-start relative ${className} flex-grow-0 overflow-y-auto max-h-[30%] mb-1.5 w-[100%]`}
+              className={`flex flex-col items-start relative ${className} flex-grow-0 overflow-y-auto max-h-[30%] mb-1.5 w-full`}
               ref={containerModeratorOrInfluencerRef}
             >
               {moderatorOrInfluencerPosts?.map((post, idx) => (
