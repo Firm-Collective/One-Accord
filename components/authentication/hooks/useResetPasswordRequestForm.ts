@@ -26,7 +26,7 @@ const useResetPasswordRequestForm = () => {
     onSuccess: () => {
       router.push('/request-reset-password');
       toast({
-        title: 'Password reset link sent!',
+        title: 'Password reset token sent!',
         description: 'Please check your email for further instructions.',
         variant: 'success',
         duration: 5000,
@@ -35,7 +35,7 @@ const useResetPasswordRequestForm = () => {
     onError: (error) => {
       console.error('Error sending password reset token:', error);
       toast({
-        title: 'Password reset link failed',
+        title: 'Password reset token failed',
         description: 'There was an error sending the password reset token. Please try again later.',
         variant: 'destructive',
         duration: 5000,

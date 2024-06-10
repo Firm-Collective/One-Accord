@@ -35,7 +35,7 @@ export default function ResetPasswordRequestForm({ token }: { token: string }) {
       <div className='mt-20'>
         <Button
           variant='primary'
-          text={isSubmitting ? 'Submitting...' : 'Send Reset Link'}
+          text={isSubmitting ? 'Submitting...' : 'Send Reset Token'}
           disabled={isSubmitting}
           type='submit'
         />

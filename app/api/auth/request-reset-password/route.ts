@@ -1,5 +1,5 @@
 // Import necessary dependencies
-import { NextApiRequest, NextApiResponse } from 'next';
+import {  NextResponse } from 'next/server';
 import { CourierClient } from '@trycourier/courier';
 import { createClient } from '@/utils/supabase/server';
 import { v4 as uuidv4 } from 'uuid'; // Import v4 from uuid
@@ -8,30 +8,32 @@ import { v4 as uuidv4 } from 'uuid'; // Import v4 from uuid
 const courier = new CourierClient({ authorizationToken: process.env.COURIER_AUTH_TOKEN });
 
 // Export the POST handler function for reset password
-export async function POST(request: NextApiRequest, response: NextApiResponse) {
+export async function POST(request: Request) {
   try {
     const supabase = createClient();
-    const { email } = request.body;
+    const { email } = await request.json();
 
     // Check if email is provided
     if (!email) {
-      return response.status(400).json({ error: 'Email is required' });
+      
+      return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
     // Generate a unique token
-    const token = uuidv4();
+    const reset_token = uuidv4();
     const tokenExpiry = new Date();
     tokenExpiry.setMinutes(tokenExpiry.getMinutes() + 10); // Token expires in 10 minutes
 
     // Store the token in Supabase
     const { data, error } = await supabase
       .from('reset_token') // Use the reset_tokens table
-      .insert([{ email, token, expires_at: tokenExpiry }]);
+      .insert([{ email, reset_token, expiration_date: tokenExpiry }]);
 
     // Handle any errors during the insert operation
     if (error) {
       console.error('Error storing token:', error);
-      return response.status(500).json({ error: 'Internal server error' });
+      
+      return NextResponse.json({ error: 'Internal server error' }, { status: 400 });
     }
 
     // Send the token via Courier
@@ -40,20 +42,22 @@ export async function POST(request: NextApiRequest, response: NextApiResponse) {
         to: { email },
         content: {
           title: 'Password Reset Token',
-          body: `Your password reset token is: ${token}`,
+          body: `Your password reset token is: ${reset_token}`,
         },
         data: {
-          token,
+          reset_token,
         },
       },
     });
 
     // Redirect the user to the token verification page
-    return response.status(200).json({ message: 'Password reset token sent', redirect: '/enter-token' });
+    
+    return NextResponse.json({ error: 'Password reset token sent', redirect: '/verify-reset-token'}, { status: 200 });
   } catch (error) {
     // Handle unexpected errors
     console.error('Error handling reset password request:', error);
-    return response.status(500).json({ error: 'Internal server error' });
+
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
 

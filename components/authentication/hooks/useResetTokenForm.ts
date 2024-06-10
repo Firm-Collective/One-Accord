@@ -22,7 +22,7 @@ const useTokenVerificationForm = () => {
 
   const verifyTokenMutation = useMutation({
     mutationFn: (verificationData: TokenVerificationSchemaType) => {
-      return axios.post('/api/verify-reset-token', verificationData);
+      return axios.post('/api/auth/verify-reset-token', verificationData);
     },
     onSuccess: (response) => {
       const { data } = response;
