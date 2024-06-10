@@ -56,7 +56,7 @@ export default function CurrentActivity({ timeLeft, currentActivityIndex }: Prop
         </svg>
       </div>
       <div className="relative w-fit [font-family:'Poppins-SemiBold',Helvetica] font-semibold text-[#ff755e] text-[10px] text-center tracking-[0] leading-[normal] whitespace-nowrap">
-        80k {activities[currentActivityIndex].name}
+        {activities[currentActivityIndex].name}
       </div>
     </div>
   );
