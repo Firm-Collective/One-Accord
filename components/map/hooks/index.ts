@@ -42,7 +42,6 @@ const useMapGL = () => {
     isLoading,
   } = useQuery([...mapKeys.lists()], async () => {
     const mapData = await mapAPI.getMapData({ supaClient });
-    console.log('Raw map data from database:', mapData);
     return mapData?.data || [];
   });
 

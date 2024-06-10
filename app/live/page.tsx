@@ -57,7 +57,7 @@ const MapOrDetailActivity = () => {
         className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100'}`}
         style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
       >
-        <DetailActivityTimer currentActivityIndex={currentActivityIndex} />
+        <DetailActivityTimer currentActivityIndex={currentActivityIndex} timeLeft={timeLeft}/>
       </div>
     </div>
   );

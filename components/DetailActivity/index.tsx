@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import useDetailActivityTimer from './hooks';
 
 type Props = {
     currentActivityIndex: number;
+    timeLeft: number;
 };
 
-const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
-    const { activity, questionIndex } = useDetailActivityTimer({ currentActivityIndex })
-
+const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex, timeLeft }) => {
+    const { activity, question } = useDetailActivityTimer({ currentActivityIndex, timeLeft });
 
     return (
         <div className='w-full h-full flex flex-col items-center justify-center'>
-            {activity.name !== 'Worship' && (
+            {activity.name === 'Reflection' && (
                 <h2 className='text-2xl font-bold mb-4'>{activity.name}</h2>
             )}
             {activity.text && (
@@ -34,9 +34,9 @@ const DetailActivityTimer: React.FC<Props> = ({ currentActivityIndex }) => {
                     ></iframe>
                 </div>
             )}
-            {activity.questions && (
+            {activity.name === 'Reflection' && question && (
                 <div className='p-4 bg-gray-200 rounded shadow ml-10 mr-10 text-[12px] italic max-w-lg'>
-                    <p>{activity.questions[questionIndex]}</p>
+                    <p>{question}</p>
                 </div>
             )}
         </div>

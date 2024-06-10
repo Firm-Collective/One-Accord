@@ -77,22 +77,22 @@ export type Database = {
           city: string
           country: string
           id: string
-          latitude: string
-          longitude: string
+          latitude: number
+          longitude: number
         }
         Insert: {
           city: string
           country: string
           id?: string
-          latitude: string
-          longitude: string
+          latitude: number
+          longitude: number
         }
         Update: {
           city?: string
           country?: string
           id?: string
-          latitude?: string
-          longitude?: string
+          latitude?: number
+          longitude?: number
         }
         Relationships: []
       }
@@ -161,7 +161,7 @@ export type Database = {
           activity_id: string
           category_id: string
           content: string
-          created_at: string
+          created_at?: string
           event_id: string
           id?: string
           is_offensive: boolean
@@ -246,6 +246,36 @@ export type Database = {
           },
         ]
       }
+      Questions: {
+        Row: {
+          id: number
+          name: string
+        }
+        Insert: {
+          id?: number
+          name: string
+        }
+        Update: {
+          id?: number
+          name?: string
+        }
+        Relationships: []
+      }
+      LastQuestionIndex: {
+        Row: {
+          id: number
+          last_index: number
+        }
+        Insert: {
+          id?: number
+          last_index?: number
+        }
+        Update: {
+          id?: number
+          last_index?: number
+        }
+        Relationships: []
+      }
       Sentiment: {
         Row: {
           id: string
@@ -285,9 +315,11 @@ export type Database = {
       User: {
         Row: {
           affiliation: string[] | null
+          avatar_url: string | null
           birth_year: string | null
-          created_at: string | null
-          email: string | null
+          created_at: string
+          display_name: string | null
+          email: string
           gender: string | null
           id: string
           interest: string[] | null
@@ -295,16 +327,18 @@ export type Database = {
           notification_id: string | null
           phone_number: string | null
           picture: string | null
-          updated_at: string | null
+          updated_at: string
           user_location_id: string | null
           user_type_id: string | null
           username: string | null
         }
         Insert: {
           affiliation?: string[] | null
+          avatar_url?: string | null
           birth_year?: string | null
-          created_at?: string | null
-          email?: string | null
+          created_at?: string
+          display_name?: string | null
+          email: string
           gender?: string | null
           id?: string
           interest?: string[] | null
@@ -312,16 +346,18 @@ export type Database = {
           notification_id?: string | null
           phone_number?: string | null
           picture?: string | null
-          updated_at?: string | null
+          updated_at?: string
           user_location_id?: string | null
           user_type_id?: string | null
           username?: string | null
         }
         Update: {
           affiliation?: string[] | null
+          avatar_url?: string | null
           birth_year?: string | null
-          created_at?: string | null
-          email?: string | null
+          created_at?: string
+          display_name?: string | null
+          email?: string
           gender?: string | null
           id?: string
           interest?: string[] | null
@@ -329,7 +365,7 @@ export type Database = {
           notification_id?: string | null
           phone_number?: string | null
           picture?: string | null
-          updated_at?: string | null
+          updated_at?: string
           user_location_id?: string | null
           user_type_id?: string | null
           username?: string | null
@@ -378,7 +414,23 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_filtered_user_in_map: {
+        Args: {
+          ne_latitude: number
+          ne_longitude: number
+          sw_latitude: number
+          sw_longitude: number
+        }
+        Returns: {
+          type: string
+          properties: Json
+          geometry: Json
+        }[]
+      }
+      get_server_time: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never
