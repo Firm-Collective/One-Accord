@@ -93,7 +93,7 @@ const useLiveFeed = ({ refetch }: Props) => {
       mutationFn: async (postData: { text: string }) => {
         const response = await axios.post<{
           label: string;
-        }>('https://api.one-accord.xyz/api/predict_toxicity', { text: postData.text });
+        }>('https://one-accord.xyz/api/predict_toxicity', { text: postData.text });
         return response.data;
       },
       onError: (error) => {
@@ -105,7 +105,7 @@ const useLiveFeed = ({ refetch }: Props) => {
       mutationFn: async (postData: { text: string }) => {
         const response = await axios.post<{
           predictions: [{label: string}];
-        }>('https://api.one-accord.xyz/api/predict_offensiveness', { text: postData.text });
+        }>('https://one-accord.xyz/api/predict_offensiveness', { text: postData.text });
         return response.data;
       },
       onError: (error) => {
@@ -117,7 +117,7 @@ const useLiveFeed = ({ refetch }: Props) => {
       mutationFn: async (postData: { text: string }) => {
         const response = await axios.post<{
           label: string
-        }>('https://api.one-accord.xyz/api/predict_topic', { text: postData.text });
+        }>('https://one-accord.xyz/api/predict_topic', { text: postData.text });
         return response.data;
       },
       onError: (error) => {
@@ -133,10 +133,9 @@ const useLiveFeed = ({ refetch }: Props) => {
 
       const { label: postToxicity } = await handlePostToxicity.mutateAsync({ text: data.content });
       const isToxic = postToxicity === 'toxic';
-      console.log("🚀 ~ onValid ~ isToxic:", isToxic)
       
-      // const { label: postTopic } = await handlePostTopicClassification.mutateAsync({ text: data.content });
-      // console.log("🚀 ~ onValid ~ postTopic:", postTopic)
+      const { label: postTopic } = await handlePostTopicClassification.mutateAsync({ text: data.content });
+      console.log("🚀 ~ onValid ~ postTopic:", postTopic)
 
       // const { predictions: postOffensiveness } = await handlePostOffensiveness.mutateAsync({ text: data.content });
       // const isOffensive = postOffensiveness[0].label === 'offensive';
@@ -155,7 +154,6 @@ const useLiveFeed = ({ refetch }: Props) => {
       sentiment_id: '9f0d7f13-25d9-48cb-afcd-b1134a1a7f3a',
       created_at: new Date().toISOString(),
     };
-    console.log("🚀 ~ onValid ~ postData:", postData)
     
       // Validation of required fields
       if (!postData.user_id || !postData.activity_id || !postData.category_id || !postData.sentiment_id || !postData.keywords_id || !postData.event_id || !postData.media_type_id) {
@@ -165,7 +163,6 @@ const useLiveFeed = ({ refetch }: Props) => {
     
       // Schema validation with zod
       const parsedValues = ParseCretePostSchema.safeParse(postData);
-      console.log("🚀 ~ onValid ~ parsedValues:", parsedValues)
     
       if (!parsedValues.success) {
         type K = keyof CreteContentPostSchemaType;
