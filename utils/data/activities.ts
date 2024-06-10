@@ -14,21 +14,21 @@ export const activities: Activity[] = [
     name: 'Worship',
     icon: '/worship-icon.png',
     timeLeft: 0,
-    videoUrl: 'https://www.youtube.com/embed/CMVZ9Vat_w8?si=ncY_sIswjabMm9rb'
+    videoUrl: 'https://www.youtube.com/embed/CMVZ9Vat_w8?si=ncY_sIswjabMm9rb&autoplay=1'
   },
   {
     id: 2,
     name: 'Prayer',
     icon: '/praying-icon.png',
     timeLeft: 0,
-    videoUrl: 'https://www.youtube.com/embed/N6RkBTJXGE4?si=k98yMFWCH9tPMGCT'
+    videoUrl: 'https://www.youtube.com/embed/N6RkBTJXGE4?si=k98yMFWCH9tPMGCT&autoplay=1'
   },
   {
     id: 3,
     name: 'Communion',
-    icon: '/Communion-icon.png',
+    icon: '/communion-icon.png',
     timeLeft: 0,
-     videoUrl: 'https://www.youtube.com/embed/ifXtTSdVxrU?si=P0uwEfxmbcffVc9X'
+     videoUrl: 'https://www.youtube.com/embed/ifXtTSdVxrU?si=P0uwEfxmbcffVc9X&autoplay=1'
   },
   {
       id: 4,

@@ -26,7 +26,7 @@ const useSignUpForm = () => {
           
         },
         onSuccess: () => {
-          router.push('/live');
+          router.push('/profile');
         },
         onError: (error) => {
           console.log('error', error);

@@ -130,14 +130,14 @@ def main():
 
     # Insert 50 users
     user_ids = []
-    for _ in range(5):
+    for _ in range(3000):
         user_data = generate_user_data(location_ids)
         cursor.execute("INSERT INTO \"public\".\"User\" (id, username, email, phone_number, picture, languages, gender, interest, affiliation, birth_year, user_type_id, user_location_id, notification_id, created_at, updated_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                user_data)
         user_ids.append(user_data[0])  
 
     # Insert 50 posts
-    for _ in range(5):
+    for _ in range(3000):
         post_data = generate_post_data(user_ids)
         cursor.execute("INSERT INTO \"public\".\"Post\" (id, content, is_visible, is_offensive, user_id, activity_id, category_id, tag_id, sentiment_id, keywords_id, event_id, media_type_id, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
                        post_data)

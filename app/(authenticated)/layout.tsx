@@ -1,3 +1,4 @@
+import { Header } from '@/components/landing/ui/header';
 import { getUser } from '@/utils/supabase/auth';
 import { redirect } from 'next/navigation';
 
@@ -9,7 +10,8 @@ export default async function DefaultLayout({ children }: { children: React.Reac
   }
 
   return <><div>
-    {/* <Header /> */}
+          <Header />
+
     {children}
     </div></>;
 }

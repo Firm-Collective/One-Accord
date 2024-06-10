@@ -42,8 +42,13 @@ const useMessageSection = ({ pinnedPosts, registeredPosts, userId }: Props) => {
       date.getMonth() === yesterday.getMonth() &&
       date.getFullYear() === yesterday.getFullYear();
 
-    const options: Intl.DateTimeFormatOptions = { hour: 'numeric', minute: 'numeric', hour12: true };
-
+      const options: Intl.DateTimeFormatOptions = {
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true,
+        timeZone: 'America/Los_Angeles', // Use PST timezone
+      };
+      
     if (isToday) {
       return `Today at ${date.toLocaleTimeString(undefined, options)}`;
     } else if (isYesterday) {

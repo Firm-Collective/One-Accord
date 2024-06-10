@@ -10,10 +10,12 @@ import FeedPosts from '@/components/liveFeed/FeedPosts';
 import { Loading } from '@/components/loading';
 import { AppContextProvider, useAppContext } from '@/context/AppContextProvider';
 import DetailActivityTimer from '@/components/DetailActivity';
+import { Header } from '@/components/liveFeed/ui/header';
 
 export default function Home() {
   return (
     <>
+     <Header />
       <AppContextProvider>
         <main className='w-full h-screen flex flex-col sm:flex-row'>
           <section className='relative w-full h-1/2 sm:h-[98vh]'>
@@ -48,14 +50,15 @@ const MapOrDetailActivity = () => {
   return (
     <div className='relative w-full h-full'>
       <div
-        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-100' : 'opacity-0'}`}
-        style={{ pointerEvents: isMapVisible ? 'auto' : 'none' }}
+        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100' }`}
+        style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
       >
         <MapGL />
       </div>
       <div
-        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100'}`}
-        style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
+        className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-100' : 'opacity-0' }`}
+       
+        style={{ pointerEvents: isMapVisible ? 'auto' : 'none' }}
       >
         <DetailActivityTimer currentActivityIndex={currentActivityIndex} />
       </div>
