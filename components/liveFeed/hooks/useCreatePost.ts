@@ -9,6 +9,7 @@ import { CretePostSchema, CreteContentPostSchema, ParseCretePostSchema, type Cre
 
 type Props = {
   refetch: () => void;
+  userPicture: string | null;
 };
 
 type CreatePostSchemaTypePick = Pick<CretePostSchemaType, 
@@ -22,11 +23,12 @@ type CreatePostSchemaTypePick = Pick<CretePostSchemaType,
   'is_visible' | 
   'keywords_id' | 
   'media_type_id' | 
-  'sentiment_id'
+  'sentiment_id'  |
+  'picture_post' 
 >;
 
 
-const useLiveFeed = ({ refetch }: Props) => {
+const useLiveFeed = ({ refetch, userPicture }: Props) => {
     
   const supaClient = createClient()
   const router = useRouter();
@@ -152,6 +154,7 @@ const useLiveFeed = ({ refetch }: Props) => {
       keywords_id: 'b5901b2c-b39b-4b20-8465-0b7898b159e9',
       media_type_id: 'b43e4c0b-21e3-4f3f-9cf2-62c3f5e97935',
       sentiment_id: '9f0d7f13-25d9-48cb-afcd-b1134a1a7f3a',
+      picture_post: userPicture,
       created_at: new Date().toISOString(),
     };
     

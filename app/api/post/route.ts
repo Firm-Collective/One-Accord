@@ -28,7 +28,9 @@ export async function POST(request: Request) {
             event_id: data.event_id,
             media_type_id: data.media_type_id,
             created_at: new Date(),
+            picture_post: data.picture_post,
           });
+        console.log("🚀 ~ const{data:post,error}=awaitsupabase.from ~ data:", data)
       
           if (error) {
             return NextResponse.json({ error: error });

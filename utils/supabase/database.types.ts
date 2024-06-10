@@ -156,6 +156,7 @@ export type Database = {
           sentiment_id: string
           tag_id: string | null
           user_id: string
+          picture_post: string | null
         }
         Insert: {
           activity_id: string
@@ -170,7 +171,8 @@ export type Database = {
           media_type_id: string
           sentiment_id: string
           tag_id?: string | null
-          user_id: string
+          user_id: string 
+          picture_post: string | null
         }
         Update: {
           activity_id?: string
@@ -186,6 +188,7 @@ export type Database = {
           sentiment_id?: string
           tag_id?: string | null
           user_id?: string
+          picture_post: string | null
         }
         Relationships: [
           {

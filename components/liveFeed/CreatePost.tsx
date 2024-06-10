@@ -1,13 +1,37 @@
 import TextField from '@/components/textField';
 import useCreatePost from './hooks/useCreatePost';
 import SendVector from './ui/SendVector';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 type Props = {
   refetch: () => void;
 };
 
 export const CreatePost = ({ refetch }: Props) => {
-  const { onValid, onInvalid, form } = useCreatePost({ refetch });
+  const [userPicture, setUserPicture] = useState(null);
+
+
+  const fetchUserId = async () => {
+    try {
+      const response = await axios.get('/api/user/getUserInfo');
+      return response.data.user.user_metadata.picture;
+    } catch (error) {
+      console.error('Failed to fetch user ID:', error);
+      return null;
+    }
+  };
+
+  useEffect(() => {
+    const getUserId = async () => {
+      const user = await fetchUserId();
+      setUserPicture(user);
+    };
+
+    getUserId();
+  }, []);
+
+  const { onValid, onInvalid, form } = useCreatePost({ refetch, userPicture });
 
   return (
     <form
