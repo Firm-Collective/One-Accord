@@ -2,12 +2,33 @@
 import Link from 'next/link';
 import { Logo } from '@/components/logo';
 import { useState } from 'react';
+import { useMutation } from 'react-query';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 export const Header: React.FC = () => {
+  const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const signOutMutation = useMutation({
+    mutationFn: () => {
+      return axios.post('/api/auth/signout');
+    },
+    onSuccess: () => {
+      router.push('/');
+    },
+    onError: (error) => {
+      console.error('Sign-out error:', error);
+    },
+  });
+
+  const handleSignOut = () => {
+    // Trigger the sign-out mutation
+    signOutMutation.mutate();
   };
 
   return (
@@ -24,9 +45,12 @@ export const Header: React.FC = () => {
                 <Link className='text-sm font-medium text-gray-700 hover:text-white hover:bg-[#ED9385] rounded p-2 duration-300' href='/profile'>
                   Profile
                 </Link>
-                <Link className='text-sm font-medium text-gray-700 hover:text-white hover:bg-[#ED9385] rounded p-2 mt-2 duration-300' href='/signout'>
+                <button 
+                  onClick={handleSignOut} 
+                  className='text-sm font-medium text-gray-700 hover:text-white hover:bg-[#ED9385] rounded p-2 mt-2 duration-300'
+                >
                   Sign out
-                </Link>
+                </button>
               </div>
             )}
           </div>
