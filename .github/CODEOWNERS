@@ -1,5 +1,5 @@
 # This line sets the owner for the CODEOWNERS file itself
-/CODEOWNERS @stein-key Carlosaj18 lewis-mclan
+/CODEOWNERS @stein-key @Carlosaj18 @lewis-mclan
 
 
 # This line sets @Carlosaj18 and @stein-key and lewis-mclan as the owner for everything in the repository
