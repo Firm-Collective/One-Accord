@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import Button from '../button';
 import useSocialAuth from './hooks/useSocialAuth';
 
@@ -39,9 +40,17 @@ export default function SocialAuth({isRegistration}: Props) {
         /> */}
       </div>
       <div className='mt-4 text-xs text-black flex gap-[6px] items-center justify-center'>
-        <span className='cursor-pointer text-blue-500 hover:text-blue-600 '>Terms of Use</span>
+        <Link href='https://onevoiceoneday.org/terms/' legacyBehavior>
+          <a className='cursor-pointer text-blue-500 hover:text-blue-600'>
+            Terms of Use
+          </a>
+        </Link>
         <span>|</span>
-        <span className='cursor-pointer text-blue-500 hover:text-blue-600 '>Privacy Policy</span>
+        <Link href='https://onevoiceoneday.org/privacy/' legacyBehavior>
+          <a className='cursor-pointer text-blue-500 hover:text-blue-600'>
+            Privacy Policy
+          </a>
+        </Link>
       </div>
     </div>
   );
