@@ -53,7 +53,6 @@ const insertUserLocation = async (supabase: any, userData: ProfileSchemaType, la
 };
 
 const updateUser = async (supabase: any, userData: ProfileSchemaType, userId: string, locationId: string) => {
-  console.log("🚀 ~ updateUser ~ locationId:", locationId)
   const { data, error } = await supabase
     .from('User')
     .update({
@@ -114,9 +113,7 @@ export async function POST(request: Request) {
   const location = await getCoordinates(userData.country || 'unknown', userData.city || 'unknown');
 
   const latitude = location.latitude;
-  console.log("🚀 ~ POST ~ latitude:", latitude)
   const longitude = location.longitude;
-  console.log("🚀 ~ POST ~ longitude:", longitude)
 
   try {
     const user = await getUser();
@@ -127,15 +124,14 @@ export async function POST(request: Request) {
 
     // Check if the latitude & longitude exist before
     let locationRecord = await fetchLocation(supabase, latitude, longitude);
-    console.log("🚀 ~ POST ~ locationRecord:", locationRecord)
 
     if (!locationRecord) {
-      console.log('Location not found, inserting new location...');
+      // console.log('Location not found, inserting new location...');
       locationRecord = await insertUserLocation(supabase, userData, latitude, longitude);
-      console.log("🚀 ~ POST ~ locationRecord:", locationRecord)
+      // console.log("🚀 ~ POST ~ locationRecord:", locationRecord)
     }
 
-    console.log('Location found, updating user...');
+    // console.log('Location found, updating user...');
     const data = await updateUser(supabase, userData, user.id, locationRecord.id);
 
     return NextResponse.json({ success: true, data });
