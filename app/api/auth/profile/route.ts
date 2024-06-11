@@ -8,12 +8,14 @@ type BoundingBox = {
   northeast: { lat: number; lng: number };
   southwest: { lat: number; lng: number };
 };
+
 type Memo = {
   [key: string]: BoundingBox;
 };
+
 type Location = { id: string; city: string; country: string; latitude: string; longitude: string };
 
-// memoization for api calls
+// memoization for API calls
 const memo: Memo = {};
 
 const fetchLocation = async (supabase: any, latitude: string, longitude: string) => {
@@ -71,20 +73,15 @@ const updateUser = async (supabase: any, userData: ProfileSchemaType, userId: st
   return data;
 };
 
-const getRandomCoordinates = async (country: string, city: string) => {
-  let boundingBox: BoundingBox = {
-    // place holder bounding box
-    northeast: { lat: -96.66886389924726, lng: 53.487091209273714 },
-    southwest: { lat: -96.66886389924726, lng: 53.487091209273714 },
-  };
-
+const getCoordinates = async (country: string, city: string) => {
   const key = `${country}-${city}`;
+  let boundingBox: BoundingBox;
 
-  // if we have the country / city cached, then use it instead of calling api
+  // if we have the country / city cached, then use it instead of calling API
   if (key in memo) {
     boundingBox = memo[key];
   } else {
-    // otherwise, call the api and get data
+    // otherwise, call the API and get data
     try {
       const response = await axios.get(
         `${process.env.GEOCODE_URL}?q=${city}+${country}&key=${process.env.GEOCODE_API_KEY}`,
@@ -92,27 +89,28 @@ const getRandomCoordinates = async (country: string, city: string) => {
       const data = response.data;
       if (data.results.length !== 0) {
         boundingBox = data.results[0].bounds;
+        // input into memo
+        memo[key] = boundingBox;
+      } else {
+        throw new Error('No results found from geocoding API.');
       }
     } catch (error) {
-      console.error('Error grabbing coordinates from user city and country.');
+      console.error('Error grabbing coordinates from user city and country.', error);
+      throw new Error('An error occurred while fetching coordinates.');
     }
   }
 
-  const randomLat = Math.random() * (boundingBox.northeast.lat - boundingBox.southwest.lat) + boundingBox.southwest.lat;
-  const randomLong =
-    Math.random() * (boundingBox.northeast.lng - boundingBox.southwest.lng) + boundingBox.southwest.lng;
+  const latitude = ((boundingBox.northeast.lat + boundingBox.southwest.lat) / 2).toString();
+  const longitude = ((boundingBox.northeast.lng + boundingBox.southwest.lng) / 2).toString();
 
-  // input into memo
-  memo[key] = boundingBox;
-
-  return { latitude: randomLat.toString(), longitude: randomLong.toString() };
+  return { latitude, longitude };
 };
 
 export async function POST(request: Request) {
   const supabase = createClient();
   const userData: ProfileSchemaType = await request.json();
 
-  const location = await getRandomCoordinates(userData.country || 'unknown', userData.city || 'unknown');
+  const location = await getCoordinates(userData.country || 'unknown', userData.city || 'unknown');
 
   const latitude = location.latitude;
   const longitude = location.longitude;
@@ -128,11 +126,12 @@ export async function POST(request: Request) {
     let locationRecord = await fetchLocation(supabase, latitude, longitude);
 
     if (!locationRecord) {
-      console.log('Location not found, inserting new location...');
+      // console.log('Location not found, inserting new location...');
       locationRecord = await insertUserLocation(supabase, userData, latitude, longitude);
+      // console.log("🚀 ~ POST ~ locationRecord:", locationRecord)
     }
 
-    console.log('Location found, updating user...');
+    // console.log('Location found, updating user...');
     const data = await updateUser(supabase, userData, user.id, locationRecord.id);
 
     return NextResponse.json({ success: true, data });

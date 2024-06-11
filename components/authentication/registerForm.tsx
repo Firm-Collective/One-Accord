@@ -59,9 +59,25 @@ export default function RegisterForm() {
       {signInMutation.isError && <p className='text-red-500 text-sm'>An error occurred during signup.</p>}
       <p className='text-gray-700 text-sm md:text-xs mt-10'>
         By tapping Sign Up & Accept, you acknowledge that you have read the{' '}
-        <span className='cursor-pointer text-blue-500 hover:text-blue-600  font-semibold'>Privacy Policy</span> and
-        agree to the{' '}
-        <span className='cursor-pointer text-blue-500 hover:text-blue-600  font-semibold'>Terms of Service</span>.
+        <Link href='https://onevoiceoneday.org/privacy/' legacyBehavior>
+          <a 
+            target='_blank' 
+            rel='noopener noreferrer' 
+            className='cursor-pointer text-blue-500 hover:text-blue-600 font-semibold'
+          >
+            Privacy Policy
+          </a>
+        </Link> 
+        and agree to the{' '}
+        <Link href='https://onevoiceoneday.org/terms/' legacyBehavior>
+          <a 
+            target='_blank' 
+            rel='noopener noreferrer' 
+            className='cursor-pointer text-blue-500 hover:text-blue-600 font-semibold'
+          >
+            Terms of Service
+          </a>
+        </Link>.
       </p>
       <div className='mt-6'>
         <Button
