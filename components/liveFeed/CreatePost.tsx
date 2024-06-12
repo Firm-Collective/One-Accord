@@ -1,8 +1,9 @@
+"use client";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import TextField from '@/components/textField';
 import useCreatePost from './hooks/useCreatePost';
 import SendVector from './ui/SendVector';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
 type Props = {
   refetch: () => void;
@@ -10,7 +11,7 @@ type Props = {
 
 export const CreatePost = ({ refetch }: Props) => {
   const [userPicture, setUserPicture] = useState(null);
-
+  const [isTyping, setIsTyping] = useState(false);
 
   const fetchUserId = async () => {
     try {
@@ -33,23 +34,40 @@ export const CreatePost = ({ refetch }: Props) => {
 
   const { onValid, onInvalid, form } = useCreatePost({ refetch, userPicture });
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsTyping(true);
+    form.setValue('content', e.target.value);
+  };
+
+  const handleBlur = () => {
+    setIsTyping(false);
+  };
+
   return (
     <form
-      className='w-[100%] h-100%] rounded-[8px] bg-[#f1f1f1] flex items-center mr-3'
+      className="w-[100%] h-[100%] rounded-[8px] bg-[#f1f1f1] flex items-center mr-3"
       onSubmit={form.handleSubmit(onValid, onInvalid)}
     >
       <TextField
         control={form.control}
-        name='content'
-        type='text'
+        name="content"
+        type="text"
+        onChange={handleInputChange}
+        onBlur={handleBlur}
         sx={{
-          '& .MuiInputBase-root': {
-            border: 'none !important',
+          '& .MuiOutlinedInput-notchedOutline': {
+            border: 'transparent !important',
           },
         }}
       />
-      <button type='submit' disabled={form.formState.isSubmitSuccessful}>
-        <SendVector className={`relative right-8`} color='#898A8D' />
+      <button
+        type="submit"
+        disabled={form.formState.isSubmitSuccessful}
+        className={`relative right-2 rounded-full p-2 transition-colors duration-300 ${
+          isTyping ? 'bg-[#ED9385]' : 'bg-transparent'
+        }`}
+      >
+        <SendVector color={isTyping ? 'white' : '#898A8D'} />
       </button>
     </form>
   );

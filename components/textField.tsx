@@ -11,6 +11,8 @@ import {
 type ControllerType<TFieldValues extends FieldValues, TNames> = {
   control: Control<TFieldValues>;
   name: TNames;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  onBlur?: React.FocusEventHandler<HTMLInputElement>;
 };
 
 type Props<TFieldValues extends FieldValues, TNames> = ControllerType<TFieldValues, TNames> & TextFieldProps & {
@@ -32,6 +34,8 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
   className,
   isMultiline,
   isLoading,
+  onChange, 
+  onBlur,
   ...textFieldProps
 }: Props<TFieldValues, TNames>) {
   const baseStyles =
@@ -59,6 +63,11 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
               value = value + '';
             }
             field.onChange(value);
+            onChange && onChange?.(e);
+          }}
+          onBlur={(e) => {
+            field.onBlur();
+            onBlur?.(e);
           }}
           error={!!fieldState.error}
           helperText={
@@ -100,7 +109,6 @@ function TextField<TFieldValues extends FieldValues, TNames extends Path<TFieldV
             ),
           }}
           {...restTextFieldProps}
-
         />
       )}
     />
