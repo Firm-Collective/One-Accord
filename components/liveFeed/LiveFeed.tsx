@@ -72,7 +72,7 @@ export const LiveFeed: React.FC<Props> = ({
   }, []);
 
   const handleRedirect = () => {
-    router.push('/login');
+    router.push('/');
   };
 
   if (loading) {

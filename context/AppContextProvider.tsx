@@ -59,6 +59,18 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [currentActivityIndex, setCurrentActivityIndex] = useState(0);
   const [timerIsLoading, setTimerIsLoading] = useState(true);
 
+  const activities: Activity[] = [
+    { id: 1, name: 'Worship', icon: '/worship-icon.png', timeLeft: 0 },
+    {
+      id: 2,
+      name: 'Prayer',
+      icon: '/praying-icon.png',
+      timeLeft: 0
+    },
+    { id: 3, name: 'Communion', icon: '/Communion-icon.png', timeLeft: 0 },
+    { id: 4, name: 'Shofar', icon: '/shofar-icon.png', timeLeft: 0 },
+  ];
+
   useEffect(() => {
     const { currentTimeLeft, currentActivityIndex } = calculateTimeLeftAndActivity();
     setTimeLeft(currentTimeLeft);
@@ -66,11 +78,16 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
     setTimerIsLoading(false);
 
     const timer = setInterval(() => {
-      setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+      setTimeLeft((prevTimeLeft) => {
+        const newTimeLeft = prevTimeLeft - 1;
+        const { currentActivityIndex: newActivityIndex } = calculateTimeLeftAndActivity();
+        setCurrentActivityIndex(newActivityIndex);
+        return newTimeLeft;
+      });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [timeLeft]);
 
   return (
     <AppContext.Provider

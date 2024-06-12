@@ -11,6 +11,10 @@ type Props = {
 export default function CurrentActivity({ timeLeft, currentActivityIndex }: Props) {
   const { circumference, offset, activities } = useCurrentActivity({ timeLeft });
 
+  useEffect(() => {
+}, [currentActivityIndex]);
+
+
   return (
     <div className=' items-center gap-[4px]  pb-6 px-0 inline-flex flex-col  flex-[0_0_auto]'>
       <div className='inline-flex items-start gap-[10px] bg-white rounded-[99px] border-1 border-solid border-transparent p-1'>
