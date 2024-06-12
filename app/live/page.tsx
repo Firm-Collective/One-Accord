@@ -51,14 +51,14 @@ const MapOrDetailActivity = () => {
     <div className='relative w-full h-full'>
       <div
         className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-100' : 'opacity-0' } `}
-        style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
+        style={{ pointerEvents: isMapVisible ? 'auto' : 'none' }}
       >
         <MapGL />
       </div>
       <div
         className={`absolute inset-0 transition-opacity duration-500 ${isMapVisible ? 'opacity-0' : 'opacity-100'}   `}
-
-        style={{ pointerEvents: isMapVisible ? 'auto' : 'none' }}
+        style={{ pointerEvents: isMapVisible ? 'none' : 'auto' }}
+      
     
       >
         <DetailActivityTimer currentActivityIndex={currentActivityIndex} />
