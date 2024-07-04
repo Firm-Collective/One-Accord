@@ -8,7 +8,7 @@ export async function GET(request: Request) {
         if (isMobile) {
             return NextResponse.redirect(new URL(`com.firmcollective.onevoiceecho://login?verified=true`));
         } else {
-            return NextResponse.redirect(new URL('/verification-success', request.url));
+            return NextResponse.redirect(new URL('/', request.url));
         }
 
     } catch (error) {
