@@ -1,14 +1,22 @@
 import { NextResponse } from 'next/server';
-import axios from 'axios';
+import { UAParser } from 'ua-parser-js';
 
 export async function GET(request: Request) {
-    const url = `https://api.mapbox.com/styles/v1/firmcollective/clwz4ftkv01bf01pp06wl1wl9?sdk=js-3.3.0&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`;
-
     try {
-        const response = await axios.get(url);
-        return NextResponse.json(response.data);
+        const userAgent = request.headers.get('user-agent') || '';
+        const parser = new UAParser(userAgent);
+        const deviceType = parser.getDevice().type;
+
+        if (deviceType === 'mobile') {
+            // Redirect to mobile app
+            return NextResponse.redirect('com.firmcollective.onevoiceecho://');
+        } else {
+            // Redirect to web page
+            return NextResponse.redirect('https://one-accord.vercel.app/');
+        }
     } catch (error) {
-        console.error('There was an error grabbing your mapbox styles: ' + error);
-        return NextResponse.json({ error: 'Could not get styles from mapbox', status: '401' });
+        console.error('Error in device detection:', error);
+        // Fallback to web redirect in case of any errors
+        return NextResponse.redirect('https://one-accord.vercel.app/');
     }
 }
