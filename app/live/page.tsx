@@ -8,6 +8,7 @@ import logo from '../../public/one-accord.webp';
 import CountDownTimer from '@/components/countDownTimer';
 import FeedPosts from '@/components/liveFeed/FeedPosts';
 import { Loading } from '@/components/loading';
+import NavLinks from '@/components/navigation';
 
 export default function Home() {
   return (
@@ -36,6 +37,20 @@ export default function Home() {
             </Suspense>
           </section>
         </main>
+        // absolute bottom aligned navbar on mobile and right aligned on desktop
+        <nav className='fixed bottom-0 right-0 bg-white shadow-md z-50'>
+          <div className='container mx-auto px-4'>
+            <div className='flex flex-row justify-between items-center py-4'>
+              <a className='text-lg font-semibold text-gray-900'>One Accord</a>
+              <div className='hidden sm:flex flex-row justify-between items-center'>
+                <NavLinks />
+              </div>
+              <div className='sm:hidden relative flex flex-row my-4'>
+                <NavLinks />
+              </div>
+            </div>
+          </div>
+        </nav>
       </div>
     </>
   );
